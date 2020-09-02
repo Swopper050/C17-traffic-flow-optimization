@@ -9,7 +9,7 @@ Clone repository. Install virtualenv, make virtual environment and install depen
 ```
 git clone https://github.com/Swopper050/dmas2020.git
 cd dmas2020
-pip install virtual env
+pip install virtualenv
 python -m venv .env
 pip install -r requirements.txt
 ```
