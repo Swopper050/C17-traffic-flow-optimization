@@ -2,7 +2,7 @@
 	"interval": 1.0,
 	"seed": 0,
 	"dir": "test_sim/",
-	"roadnetFile": "manhattan.json",
+	"roadnetFile": "manhattan_test.json",
 	"flowFile": "manhattan_flow.json",
 	"rlTrafficLight": false,
 	"laneChange": false,
