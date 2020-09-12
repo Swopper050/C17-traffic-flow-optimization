@@ -2,7 +2,7 @@
 	"interval": 1.0,
 	"seed": 0,
 	"dir": "test_sim/",
-	"roadnetFile": "statecollege_test.json",
+	"roadnetFile": "state_college_test.json",
 	"flowFile": "flow.json",
 	"rlTrafficLight": false,
 	"laneChange": false,

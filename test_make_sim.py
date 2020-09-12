@@ -1,5 +1,4 @@
 import cityflow
-import pdb; pdb.set_trace()
 eng = cityflow.Engine("test_sim/config.json", thread_num=1)
 
 eng.next_step()
