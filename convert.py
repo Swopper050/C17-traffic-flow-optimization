@@ -403,7 +403,7 @@ def extract(osmFile):
             if tag.getAttribute('k') == 'highway' and tag.getAttribute('v') == 'primary':
                 unused_flag = False
                 break
-        if unused_flag:
+        if unused_flag and False:
             continue
         for tag in taglist:
             if tag.getAttribute('k') == 'highway':
@@ -417,7 +417,7 @@ def extract(osmFile):
                 node_lon = node_dic[nd_id].getAttribute('lon')
                 way_inside[nd_id] = (node_lat, node_lon, belong)
             node_dic2[belong] = way_inside
-
+    import pdb; pdb.set_trace()
     # print(len(node_dic2))
     return node_dic2
 
