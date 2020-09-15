@@ -400,7 +400,7 @@ def extract(osmFile):
         belong = way.getAttribute('id')
         way_dic[belong] = way
         for tag in taglist:
-            if tag.getAttribute('k') == 'highway':  # and tag.getAttribute('v') == 'primary':
+            if tag.getAttribute('k') == 'highway' and tag.getAttribute('v') == 'primary':
                 unused_flag = False
                 break
         if unused_flag:

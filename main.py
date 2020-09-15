@@ -10,5 +10,5 @@ utn = list(set(utn + oxna + oxnt))
 utw = list(set(utw + oxwa + oxwt))
 ox.config(all_oneway=True, useful_tags_node=utn, useful_tags_way=utw)
 
-G = ox.graph_from_place("Manhattan, New York", network_type="drive")
+G = ox.graph_from_place("Los Angeles, California", network_type="drive")
 import pdb; pdb.set_trace()
