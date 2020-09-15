@@ -399,12 +399,12 @@ def extract(osmFile):
         unused_flag = True
         belong = way.getAttribute('id')
         way_dic[belong] = way
-        for tag in taglist:
+        """for tag in taglist:
             if tag.getAttribute('k') == 'highway' and tag.getAttribute('v') == 'primary':
                 unused_flag = False
                 break
         if unused_flag:
-            continue
+            continue"""
         for tag in taglist:
             if tag.getAttribute('k') == 'highway':
                 road_flag = True
