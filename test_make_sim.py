@@ -1,5 +1,10 @@
+import argparse
 import cityflow
-eng = cityflow.Engine("test_sim/config.json", thread_num=1)
 
-eng.next_step()
-import pdb; pdb.set_trace()
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--dir", type=str, default='low_manhattan_sim')
+    args = parser.parse_args()
+    eng = cityflow.Engine(f"{args.dir}/config.json", thread_num=1)
+    for _ in range(1000):
+        eng.next_step()
