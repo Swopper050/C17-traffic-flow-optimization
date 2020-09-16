@@ -3,6 +3,7 @@ Group C17
  - Rik
  - Adithya
  - Bram
+ - Daniel
 
 # Setup
 Clone repository. Install virtualenv, make virtual environment and install dependencies:
