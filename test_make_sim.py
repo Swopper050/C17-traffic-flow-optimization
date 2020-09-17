@@ -18,9 +18,9 @@ if __name__ == "__main__":
         #If there are no cars on the map, this loop will be skipped
         for vehicle in vehicleIDs:
             vehicleInfo = eng.get_vehicle_info(vehicle)
-            #if vehicleInfo['running'] != '0':
-            route = vehicleInfo['route']
-            print(route)
+            if vehicleInfo['running'] != '0':
+                route = vehicleInfo['route']
+                print(route)
 
 
 
