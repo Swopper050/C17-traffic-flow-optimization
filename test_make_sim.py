@@ -15,7 +15,7 @@ if __name__ == "__main__":
         vehicleIDs = eng.get_vehicles(include_waiting = True)
 
         if vehicleCount > 0:
-            vehicle0 = vehicleIDs[0]
+            vehicle0 = eng.get_vehicle_info(vehicleIDs[0])
             if vehicle0['running'] != '0':
                 print(vehicle0['route'])
 
