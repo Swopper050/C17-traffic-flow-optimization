@@ -9,11 +9,12 @@ if __name__ == "__main__":
     for step in range(100):
         print("\nStep", step, "\n")
 
+
         vehicleCount = eng.get_vehicle_count()
         waitingVehiclesPerLane = eng.get_lane_waiting_vehicle_count()
         averageTravelTime = eng.get_average_travel_time()
         vehicleIDs = eng.get_vehicles(include_waiting = True)
-
+        print("There are ", vehicleCount, " on the road now")
 
         #If there are no cars on the map, this loop will be skipped
         for vehicle in vehicleIDs:
