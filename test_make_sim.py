@@ -15,7 +15,8 @@ if __name__ == "__main__":
         vehicleIDs = eng.get_vehicles(include_waiting = True)
 
         if vehicleCount > 0:
-            print(vehicleIDs[0]['route'])
+            vehicle0 = vehicleIDs[0]
+            print(vehicle['route'])
 
 
 
