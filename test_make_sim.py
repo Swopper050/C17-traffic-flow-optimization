@@ -3,10 +3,14 @@ import cityflow
 
 MAX_STEPS = 1000
 
+def filterDicForZero(dic):
+    newDic = dic()
+    for key, value in dic.items():
+        if value > 0:
+            newDic[key] = value
 
 
-
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--dir", type=str, default='low_manhattan_sim')
     args = parser.parse_args()
@@ -14,15 +18,10 @@ if __name__ == "__main__":
     for step in range(MAX_STEPS):
         print("\nStep", step, "\n")
 
-
+        #Statistics
         vehicleCount = eng.get_vehicle_count()
         waitingVehiclesPerLane = eng.get_lane_waiting_vehicle_count()
-        waitingVehiclesPerLaneFiltered = dict()
-
-        #Filter the dictionary by lanes where there are cars waiting
-        for key, value in waitingVehiclesPerLane.items():
-            if value > 0:
-                waitingVehiclesPerLaneFiltered[key] = value
+        busyRoads = filterDicForZero(waitingVehiclesPerLane) 
 
         print(waitingVehiclesPerLaneFiltered)
 
@@ -45,3 +44,6 @@ if __name__ == "__main__":
 
 
         eng.next_step()
+
+if __name__ == "__main__":
+    main()
