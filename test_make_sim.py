@@ -8,6 +8,7 @@ def filterDicForZero(dic):
     for key, value in dic.items():
         if value > 0:
             newDic[key] = value
+    return newDic
 
 
 def main():
@@ -21,7 +22,7 @@ def main():
         #Statistics
         vehicleCount = eng.get_vehicle_count()
         waitingVehiclesPerLane = eng.get_lane_waiting_vehicle_count()
-        busyRoads = filterDicForZero(waitingVehiclesPerLane) 
+        busyRoads = filterDicForZero(waitingVehiclesPerLane)
 
         print(waitingVehiclesPerLaneFiltered)
 
