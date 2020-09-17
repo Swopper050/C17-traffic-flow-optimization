@@ -10,9 +10,8 @@ if __name__ == "__main__":
         vehicleCount = eng.get_vehicle_count()
         waitingTimePerLane = eng.get_lane_waiting_vehicle_count()
         averageTravelTime = eng.get_average_travel_time()
-        print('-----------------------------------------')
-        print('total vehicles in manhattan = ', vehicleCount)
-        print('Waiting time per lane = ', waitingTimePerLane)
-        print('Average travel time = ', averageTravelTime)
+        vehicleIDs = eng.get_vehicles(include_waiting = True)
+        vehicleInfo = vehicleIDs[0]
+        print('vehicle info = ', vehicleInfo)
 
         eng.next_step()
