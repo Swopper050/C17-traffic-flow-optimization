@@ -6,7 +6,7 @@ if __name__ == "__main__":
     parser.add_argument("--dir", type=str, default='low_manhattan_sim')
     args = parser.parse_args()
     eng = cityflow.Engine(f"{args.dir}/config.json", thread_num=1)
-    for step in range(100):
+    for step in range(1000):
         print("\nStep", step, "\n")
 
 
@@ -14,7 +14,7 @@ if __name__ == "__main__":
         waitingVehiclesPerLane = eng.get_lane_waiting_vehicle_count()
         averageTravelTime = eng.get_average_travel_time()
         vehicleIDs = eng.get_vehicles(include_waiting = True)
-        print("There are ", vehicleCount, " on the road now")
+        print("There are ", vehicleCount, " vehicles on the road now")
 
         #If there are no cars on the map, this loop will be skipped
         for vehicle in vehicleIDs:
