@@ -18,6 +18,8 @@ if __name__ == "__main__":
         vehicleCount = eng.get_vehicle_count()
         waitingVehiclesPerLane = eng.get_lane_waiting_vehicle_count()
         waitingVehiclesPerLaneFiltered = dict()
+
+        #Filter the dictionary by lanes where there are cars waiting
         for key, value in waitingVehiclesPerLane.items():
             if value > 0:
                 waitingVehiclesPerLaneFiltered[key] = value
@@ -38,7 +40,7 @@ if __name__ == "__main__":
                 #print('\nroute = ', route, '\n')
                 #print('vehicles per lane = ', waitingVehiclesPerLane, '\n')
                 for lane in route:
-                    if lane in waitingVehiclesPerLane.keys():
+                    if lane in waitingVehiclesPerLaneFiltered.keys():
                         print("Traffic jam at ", lane)
 
 
