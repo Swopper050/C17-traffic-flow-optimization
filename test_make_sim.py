@@ -17,6 +17,6 @@ if __name__ == "__main__":
                 vehicleInfo = eng.get_vehicle_info(vehicle)
                 if vehicleInfo['running'] != '0':
                     if float(vehicleInfo['speed']) < 0.4:
-                        print('Car', vehicleID, 'is standing still at intersection', vehicleInfo['intersection'])
+                        print('Car', vehicle, 'is standing still at intersection', vehicleInfo['intersection'])
 
         eng.next_step()
