@@ -12,7 +12,7 @@ if __name__ == "__main__":
         averageTravelTime = eng.get_average_travel_time()
         vehicleIDs = eng.get_vehicles(include_waiting = True)
         if vehicleCount > 0:
-            vehicleInfo = vehicleIDs[0]
-            print('vehicle info = ', eng.get_vehicle_info([vehicleInfo]))
+            vehicleID = vehicleIDs[0]
+            print('vehicle info = ', eng.get_vehicle_info(vehicleID))
 
         eng.next_step()
