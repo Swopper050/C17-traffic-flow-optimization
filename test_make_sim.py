@@ -13,7 +13,7 @@ if __name__ == "__main__":
         vehicleIDs = eng.get_vehicles(include_waiting = True)
         if vehicleCount > 0:
 
-            for vehicles in vehicleIDs:
+            for vehicle in vehicleIDs:
                 vehicleInfo = eng.get_vehicle_info(vehicle)
                 if vehicleInfo['speed'] < 0.4:
                     print('Car', vehicleID, 'is standing still at intersection', vehicleInfo['intersection'])
