@@ -20,8 +20,9 @@ if __name__ == "__main__":
             print("car", vehicle, "\n")
             vehicleInfo = eng.get_vehicle_info(vehicle)
             if vehicleInfo['running'] != '0':
-                route = vehicleInfo['route']
-                print(type(route))
+                route = vehicleInfo['route'].split(vehicleInfo['route'])
+
+                print(route)
 
 
 
