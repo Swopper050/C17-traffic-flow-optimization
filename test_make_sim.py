@@ -23,9 +23,10 @@ def main():
         vehicleIDs = eng.get_vehicles(include_waiting = True)
 
 
-        #If there are no cars on the map, this loop will be skipped
+        #If there are no cars yet, this loop will be skipped
         for vehicle in vehicleIDs:
             vehicleInfo = eng.get_vehicle_info(vehicle)
+            #vehicleInfo['running'] = '1' means that a car is on the map
             if vehicleInfo['running'] == '1':
                 route = vehicleInfo['route']
                 #Create an array where every element is a lane_ID of the route of a car
@@ -41,7 +42,7 @@ def main():
 
         eng.next_step()
 
-        
+
     print("------------------------Metrics:-------------------------")
     print("Average travel time = ", avg_travel_time / MAX_STEPS)
 
