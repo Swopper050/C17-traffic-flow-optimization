@@ -14,10 +14,20 @@ if __name__ == "__main__":
         averageTravelTime = eng.get_average_travel_time()
         vehicleIDs = eng.get_vehicles(include_waiting = True)
 
-        if vehicleCount > 0:
-            vehicle0 = eng.get_vehicle_info(vehicleIDs[0])
-            if vehicle0['running'] != '0':
-                print(vehicle0['route'])
+
+        #If there are no cars on the map, this loop will be skipped
+        for vehicle in vehicleIDs:
+            vehicleInfo = eng.get_vehicle_info(vehicle)
+            #if vehicleInfo['running'] != '0':
+            route = vehicleInfo['route']
+            print(route)
+
+
+
+
+
+
+
 
 
 
