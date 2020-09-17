@@ -3,12 +3,7 @@ import cityflow
 
 MAX_STEPS = 1000
 
-newDict = dict()
-# Iterate over all (k,v) pairs in names
-for key, value in names.items():
-    # Is condition satisfied?
-    if key%2 == 1:
-        newDict[key] = value
+
 
 
 if __name__ == "__main__":
