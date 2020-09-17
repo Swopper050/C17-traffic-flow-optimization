@@ -21,7 +21,7 @@ if __name__ == "__main__":
             vehicleInfo = eng.get_vehicle_info(vehicle)
             if vehicleInfo['running'] != '0':
                 route = vehicleInfo['route']
-                print(route)
+                print(type(route))
 
 
 
