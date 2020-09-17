@@ -25,8 +25,8 @@ if __name__ == "__main__":
                 route = route.split(' ')
                 for lane in route:
                     print("lane = ", lane)
-                    
-                    if lane in waitingVehiclesPerLane:
+
+                    #if lane in waitingVehiclesPerLane:
 
 
         eng.next_step()
