@@ -7,4 +7,5 @@ if __name__ == "__main__":
     args = parser.parse_args()
     eng = cityflow.Engine(f"{args.dir}/config.json", thread_num=1)
     for _ in range(1000):
+        get_vehicle_count()
         eng.next_step()
