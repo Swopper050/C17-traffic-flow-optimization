@@ -12,7 +12,10 @@ if __name__ == "__main__":
         averageTravelTime = eng.get_average_travel_time()
         vehicleIDs = eng.get_vehicles(include_waiting = True)
         if vehicleCount > 0:
-            vehicleID = vehicleIDs[0]
-            print('vehicle info = ', eng.get_vehicle_info(vehicleID))
+
+            for vehicles in vehicleIDs:
+                vehicleInfo = eng.get_vehicle_info(vehicle)
+                if vehicleInfo['speed'] < 0.4:
+                    print('Car', vehicleID, 'is standing still at intersection', vehicleInfo['intersection'])
 
         eng.next_step()
