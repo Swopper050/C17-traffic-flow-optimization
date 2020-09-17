@@ -1,15 +1,8 @@
 import argparse
 import cityflow
+from utils import *
 
 MAX_STEPS = 1000
-
-def filterDicForZero(dic):
-    newDic = dict()
-    for key, value in dic.items():
-        if value > 0:
-            newDic[key] = value
-    return newDic
-
 
 def main():
     parser = argparse.ArgumentParser()
