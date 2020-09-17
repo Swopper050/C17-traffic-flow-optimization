@@ -16,6 +16,7 @@ if __name__ == "__main__":
 
         if vehicleCount > 0:
             vehicle0 = vehicleIDs[0]
+            if vehicle0['running'] != '0'
             print(vehicle0['route'])
 
 
