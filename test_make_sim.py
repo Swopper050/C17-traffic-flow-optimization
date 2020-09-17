@@ -14,7 +14,7 @@ if __name__ == "__main__":
 
         vehicleCount = eng.get_vehicle_count()
         waitingVehiclesPerLane = eng.get_lane_waiting_vehicle_count()
-        waitingVehiclesPerLane = dict(filter(lambda elem: elem > 0, dictOfNames.items()))
+        waitingVehiclesPerLane = dict(filter(lambda elem: elem > 0, waitingVehiclesPerLane.items()))
         print(waitingVehiclesPerLane)
 
         averageTravelTime = eng.get_average_travel_time()
