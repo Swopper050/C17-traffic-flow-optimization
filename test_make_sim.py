@@ -24,7 +24,7 @@ def main():
         waitingVehiclesPerLane = eng.get_lane_waiting_vehicle_count()
         busyRoads = filterDicForZero(waitingVehiclesPerLane)
 
-        print(waitingVehiclesPerLaneFiltered)
+        print(busyRoads)
 
         averageTravelTime = eng.get_average_travel_time()
         vehicleIDs = eng.get_vehicles(include_waiting = True)
@@ -40,7 +40,7 @@ def main():
                 #print('\nroute = ', route, '\n')
                 #print('vehicles per lane = ', waitingVehiclesPerLane, '\n')
                 for lane in route:
-                    if lane in waitingVehiclesPerLaneFiltered.keys():
+                    if lane in busyRoads.keys():
                         print("Traffic jam at ", lane)
 
 
