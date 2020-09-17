@@ -40,6 +40,8 @@ def main():
         avg_travel_time = avg_travel_time +eng.get_average_travel_time()
 
         eng.next_step()
+
+        
     print("------------------------Metrics:-------------------------")
     print("Average travel time = ", avg_travel_time / MAX_STEPS)
 
