@@ -2,15 +2,18 @@ import argparse
 import cityflow
 from utils import *
 
-MAX_STEPS = 1000
+MAX_STEPS = 100
+
+
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--dir", type=str, default='low_manhattan_sim')
     args = parser.parse_args()
     eng = cityflow.Engine(f"{args.dir}/config.json", thread_num=1)
+
+    avg_travel_time = 0
     for step in range(MAX_STEPS):
-        print("\nStep", step, "\n")
 
         #Metrics
         vehicleCount = eng.get_vehicle_count()
@@ -18,8 +21,7 @@ def main():
         busyRoads = filterDicForZero(waitingVehiclesPerLane)
         averageTravelTime = eng.get_average_travel_time()
         vehicleIDs = eng.get_vehicles(include_waiting = True)
-        
-        print("There are ", vehicleCount, " vehicles on the road now")
+
 
         #If there are no cars on the map, this loop will be skipped
         for vehicle in vehicleIDs:
@@ -32,8 +34,16 @@ def main():
                     if lane in busyRoads.keys():
                         print("Traffic jam at ", lane)
 
+        print("\nStep", step, "\n")
+        print("There are ", vehicleCount, " vehicles on the road now")
+
+        avg_travel_time = avg_travel_time +eng.get_average_travel_time()
 
         eng.next_step()
+    print("------------------------Metrics:-------------------------")
+    print("Average travel time = ", avg_travel_time / MAX_STEPS)
+
+
 
 if __name__ == "__main__":
     main()
