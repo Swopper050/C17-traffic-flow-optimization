@@ -12,15 +12,13 @@ def main():
     for step in range(MAX_STEPS):
         print("\nStep", step, "\n")
 
-        #Statistics
+        #Metrics
         vehicleCount = eng.get_vehicle_count()
         waitingVehiclesPerLane = eng.get_lane_waiting_vehicle_count()
         busyRoads = filterDicForZero(waitingVehiclesPerLane)
-
-        print(busyRoads)
-
         averageTravelTime = eng.get_average_travel_time()
         vehicleIDs = eng.get_vehicles(include_waiting = True)
+        
         print("There are ", vehicleCount, " vehicles on the road now")
 
         #If there are no cars on the map, this loop will be skipped
@@ -30,8 +28,6 @@ def main():
                 route = vehicleInfo['route']
                 #Create an array where every element is a lane_ID of the route of a car
                 route = route.split(' ')
-                #print('\nroute = ', route, '\n')
-                #print('vehicles per lane = ', waitingVehiclesPerLane, '\n')
                 for lane in route:
                     if lane in busyRoads.keys():
                         print("Traffic jam at ", lane)
