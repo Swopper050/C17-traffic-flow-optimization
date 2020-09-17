@@ -24,7 +24,7 @@ if __name__ == "__main__":
                 #Create an array where every element is a lane_ID of the route of a car
                 route = route.split(' ')
                 for lane in route:
-                    if lane is in waitingVehiclesPerLane:
+                    if lane in waitingVehiclesPerLane:
                         print("I might have an conjegtion")
 
         eng.next_step()
