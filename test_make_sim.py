@@ -19,8 +19,8 @@ if __name__ == "__main__":
         #If there are no cars on the map, this loop will be skipped
         for vehicle in vehicleIDs:
             vehicleInfo = eng.get_vehicle_info(vehicle)
-            if vehicleInfo['running'] == 0 or vehicleInfo['running'] == 1:
-                route = vehicleInfo['route']
+            #if vehicleInfo['running'] == 0 or vehicleInfo['running'] == 1:
+                route = vehicleInfo['running']['route']
                 #Create an array where every element is a lane_ID of the route of a car
                 route = route.split(' ')
                 print('\nroute = ', route, '\n')
