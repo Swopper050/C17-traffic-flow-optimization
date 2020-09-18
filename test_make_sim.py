@@ -4,8 +4,6 @@ from utils import *
 
 MAX_STEPS = 100
 
-
-
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--dir", type=str, default='low_manhattan_sim')
@@ -38,7 +36,7 @@ def main():
         print("\nStep", step, "\n")
         print("There are ", vehicleCount, " vehicles on the road now")
 
-        avg_travel_time = avg_travel_time +eng.get_average_travel_time()
+        avg_travel_time = avg_travel_time + eng.get_average_travel_time()
 
         eng.next_step()
 
