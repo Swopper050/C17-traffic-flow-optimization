@@ -22,7 +22,7 @@ pip install .
 ```
 # Configuration
 Default Simulation:  
-map: low_monhattan (convert from osmnx)  
+map: low_monhattan (converted from osmnx)  
 max_steps : 10  
 busy_road_thereshold : 4  
 ```
