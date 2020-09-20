@@ -11,15 +11,15 @@ from copy import copy
 #flow_file_path                 -Sample flow file for reference
 #agent_flow_file_path           -Flow file created based on simulation config
 
-flow_file_path =  ".\\test_sim\\flow.json"
+flow_file_path =  ".\\test_sim\\agents_flow.json"
 agent_flow_file_path =  ".\\test_sim\\agents_flow.json"
 
 #Class attributes are all derived from flow.json. Refer citiflow docs for description
 class vehicle:
 	vehicle_id = []
-    
+
 	def __init__(self, vehicle_prop):
-		self.length = vehicle_prop.length  
+		self.length = vehicle_prop.length
 		self.width = vehicle_prop.length / 2.5       # Maintaining aspect ratio as 2.5
 		self.maxPosAcc = vehicle_prop.maxPosAcc
 		self.maxNegAcc = vehicle_prop.maxNegAcc
@@ -42,7 +42,7 @@ class vehicle:
 			flow_json = []
 
 		#Create a dict with class attributes and write to agents_flow.json
-		
+
 		new_entry = dict()
 		new_entry['vehicle'] = dict()
 		new_entry['vehicle']['length'] = self.length
@@ -58,15 +58,13 @@ class vehicle:
 		new_entry['interval'] = self.interval
 		new_entry['startTime'] = self.startTime
 		new_entry['endTime'] = self.endTime
-		
+
 		if new_entry not in flow_json:
 			flow_json.append(new_entry)
 		else:
 			print("Similar entry already present")
-		
+
 		with open(agent_flow_file_path, 'w+') as f:
 			json.dump(flow_json,f)
 
 		return
-	
-	

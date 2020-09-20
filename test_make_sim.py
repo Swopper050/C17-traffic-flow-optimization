@@ -8,7 +8,15 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--dir", type=str, default='low_manhattan_sim')
     args = parser.parse_args()
-    eng = cityflow.Engine(f"{args.dir}/config.json", thread_num=1)
+    temp_config = types.SimpleNamespace(
+        num_of_agents = 2,
+        anchor_points = 1)
+
+    vehicle_config = create_random_vehicle(temp_config)
+	vehicles = [ vehicle(vehicle_config[i]) for i in range(0,config.num_of_agents)]
+
+    #eng = cityflow.Engine(f"{args.dir}/config.json", thread_num=1)
+    eng = cityflow.Engine("test_sim/agents_flow.json", thread_num=1)
 
     avg_travel_time = 0
     for step in range(MAX_STEPS):
