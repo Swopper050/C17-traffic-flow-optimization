@@ -41,10 +41,10 @@ def main():
                 route = route.split(' ')
                 for lane in route:
                     pdb.set_trace()
-                    print("lane = ", lane)
-                    print(busyRoads.keys())
+                    #print("lane = ", lane)
+                    #print(waiting.keys())
 
-                    if lane in busyRoads.keys():
+                    if lane in waitingVehiclesPerLane.keys() and waitingVehiclesPerLane[lane] > 2:
                         print("Traffic jam at ", lane)
 
         print("\nStep", step, "\n")
