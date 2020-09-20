@@ -43,8 +43,8 @@ def main():
                     pdb.set_trace()
                     #print("lane = ", lane)
                     #print(waiting.keys())
-
-                    if lane in waitingVehiclesPerLane.keys():
+                    checkLane = lane + '_0'
+                    if checkLane in waitingVehiclesPerLane.keys():
                         print("Traffic jam at ", lane)
 
         print("\nStep", step, "\n")
