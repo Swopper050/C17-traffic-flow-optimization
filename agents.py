@@ -11,8 +11,8 @@ from copy import copy
 #flow_file_path                 -Sample flow file for reference
 #agent_flow_file_path           -Flow file created based on simulation config
 
-flow_file_path =  ".\\test_sim\\agents_flow.json"
-agent_flow_file_path =  ".\\test_sim\\agents_flow.json"
+flow_file_path =  ".\\low_manhattan\\agents_flow.json"
+agent_flow_file_path =  ".\\low_manhattan\\low_manhattan_flow.json"
 
 #Class attributes are all derived from flow.json. Refer citiflow docs for description
 class vehicle:
