@@ -40,7 +40,6 @@ class vehicle:
 				flow_json = json.load(f)
 		else:
 			flow_json = []
-		flow_json = flow_json[0]
 		#Create a dict with class attributes and write to agents_flow.json
 
 		new_entry = dict()
@@ -60,7 +59,8 @@ class vehicle:
 		new_entry['endTime'] = self.endTime
 
 		if new_entry not in flow_json:
-			flow_json.append(new_entry)
+			#flow_json.append(new_entry)
+			flow_json = flow_json + new_entry
 		else:
 			print("Similar entry already present")
 
