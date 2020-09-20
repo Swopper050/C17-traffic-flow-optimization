@@ -40,7 +40,6 @@ def main():
                 #Create an array where every element is a lane_ID of the route of a car
                 route = route.split(' ')
                 for lane in route:
-                    pdb.set_trace()
                     #print("lane = ", lane)
                     #print(waiting.keys())
                     checkLane = lane + '_0'
