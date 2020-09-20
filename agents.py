@@ -40,7 +40,7 @@ class vehicle:
 				flow_json = json.load(f)
 		else:
 			flow_json = []
-		print(flow_json)
+		print(type(flow_json))
 		#Create a dict with class attributes and write to agents_flow.json
 
 		new_entry = dict()
