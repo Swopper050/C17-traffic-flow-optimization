@@ -60,7 +60,9 @@ class vehicle:
 		new_entry['endTime'] = self.endTime
 
 		if new_entry not in flow_json:
+			print("flow_json before = ", flow_json)
 			flow_json.append(new_entry)
+			print("flow_json after = ", flow_json)
 		else:
 			print("Similar entry already present")
 
