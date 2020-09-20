@@ -37,7 +37,7 @@ class vehicle:
 	def update_flow_json(self):
 		if os.path.exists(agent_flow_file_path):
 			with open(agent_flow_file_path) as f:
-				flow_json = [json.load(f)]
+				flow_json = json.load(f)
 		else:
 			flow_json = []
 		print(flow_json)
@@ -64,7 +64,7 @@ class vehicle:
 		else:
 			print("Similar entry already present")
 
-		with open(agent_flow_file_path, 'w+') as f:
+		with open(agent_flow_file_path, 'w') as f:
 			json.dump(flow_json,f)
 
 		return
