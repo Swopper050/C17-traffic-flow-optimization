@@ -60,7 +60,8 @@ class vehicle:
 
 		if new_entry not in flow_json:
 			#flow_json.append(new_entry)
-			flow_json = flow_json + new_entry
+			newList = list(new_entry)
+			flow_json = flow_json + newList
 		else:
 			print("Similar entry already present")
 
