@@ -31,8 +31,8 @@ def main():
 
 
         #If there are no cars yet, this loop will be skipped
-        for vehicle in vehicleIDs:
-            vehicleInfo = eng.get_vehicle_info(vehicle)
+        for vvehicle in vehicleIDs:
+            vehicleInfo = eng.get_vehicle_info(vvehicle)
             #vehicleInfo['running'] = '1' means that a car is on the map
             if vehicleInfo['running'] == '1':
                 route = vehicleInfo['route']
