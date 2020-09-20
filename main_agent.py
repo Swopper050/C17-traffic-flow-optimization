@@ -12,21 +12,20 @@ import json
 #Thisfunction generates random values for vehicle properties
 def create_random_vehicle(config):
 	sim_config = list()
-	with open("./low_manhattan_sim/low_manhattan_flow.json") as f:
+	with open("./low_manhattan_sim/low_manhattan.json") as f:
 		roadnet_json = json.load(f)
 
 	#Check if road ids are present in roadnet json
-	if ('static' not in roadnet_json) or  \
-		 ( 'edges' not in roadnet_json['static']) or \
-		 (len(roadnet_json['static']['edges']) < 2):
-		raise Exception("Roadnet.json does not sufficient data to initialise vehicles")
+#	if ('static' not in roadnet_json) or  \
+#		 ( 'edges' not in roadnet_json['static']) or \
+##		raise Exception("Roadnet.json does not sufficient data to initialise vehicles")
 
 	#Add road ids from roadnet json to route attribute of class
 	# Based on input, 2 or 3 road indices from roadnet json	are stored and added to self.route
 	for i in range(0,config.num_of_agents):
 		road_index = []
 		while(len(road_index) < config.anchor_points + 1):
-			random_index = random.randint(0,len(roadnet_json['static']['edges']) - 1)
+			random_index = random.randint(0,len(roadnet_json['roads']) - 1)
 			if random_index in road_index:
 				pass
 			else:
@@ -45,7 +44,7 @@ def create_random_vehicle(config):
 			minGap = round(random.uniform(0.5,3),1),
 			maxSpeed = round(random.uniform(10,50),2),
 			headwayTime = round(random.uniform(1,3),1),
-			route = [ roadnet_json['static']['edges'][index]['id'] for index in road_index],
+			route = [ roadnet_json['roads'][index]['id'] for index in road_index],
 			interval = 2.0,
 			startTime = 0,
 			endTime = -1
