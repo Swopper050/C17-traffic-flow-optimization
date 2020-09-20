@@ -8,6 +8,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--dir", type=str, default='low_manhattan_sim')
     args = parser.parse_args()
+    
     eng = cityflow.Engine(f"{args.dir}/config.json", thread_num=1)
 
     avg_travel_time = 0
