@@ -21,10 +21,10 @@ git clone https://github.com/cityflow-project/CityFlow.git
 pip install .
 ```
 # Configuration
-Default Simulation:
-map: low_monhattan (convert from osmnx)
-max_steps : 10
-busy_road_thereshold : 4
+Default Simulation:  
+map: low_monhattan (convert from osmnx)  
+max_steps : 10  
+busy_road_thereshold : 4  
 ```
 python test_make_sim.py
 ```
@@ -36,6 +36,6 @@ low_manhattan_sim/low_manhattan.json
 low_manhattan_sim/low_manhattan_flow.json
 ```
 # Results
-Open frontend/index.html
-Upload replay_roadnet.json and replay.txt
-Start simulation
+Open frontend/index.html  
+Upload replay_roadnet.json and replay.txt  
+Start simulation  
