@@ -13,7 +13,7 @@ def main():
     temp_config = types.SimpleNamespace(num_of_agents = 2, anchor_points = 1)
 
     vehicle_config = create_random_vehicle(temp_config)
-    vehicles = [ vehicle(vehicle_config[i]) for i in range(0,config.num_of_agents)]
+    vehicles = [ vehicle(vehicle_config[i]) for i in range(0,temp_config.num_of_agents)]
 
     #eng = cityflow.Engine(f"{args.dir}/config.json", thread_num=1)
     eng = cityflow.Engine("test_sim/agents_flow.json", thread_num=1)
