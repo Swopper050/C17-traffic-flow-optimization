@@ -43,7 +43,7 @@ def main():
                     #print("lane = ", lane)
                     #print(waiting.keys())
                     checkLane = lane + '_0'
-                    if checkLane in waitingVehiclesPerLane.keys() and waitingVehiclesPerLane[checkLane] > BUSY_ROAD_THRESHOLD:
+                    if checkLane in waitingVehiclesPerLane.keys() and waitingVehiclesPerLane[checkLane] >= BUSY_ROAD_THRESHOLD:
                         print("Traffic jam at ", lane)
 
         print("\nStep", step, "\n")
