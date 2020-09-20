@@ -1,0 +1,19 @@
+<table>
+  <tr>
+       <th> Iteration Number </th>
+       <td>Vehicles Count </td>
+  </tr>
+{% for key, value in result.items() %}
+   <tr>
+        <th> {{ key }} </th>
+        <td> {{ value }} </td>
+   </tr>
+{% endfor %}
+</table>
+<h3>1.Download the replay files.<br>
+  <a href="/downloadreplayjson" download="replay_roadnet.json">Download Replay Json File</a>
+  <br><a href="/downloadreplaytxt" download="replay.txt">Download Replay txt File</a>
+</h3>
+<h3>2. Click on <a href="/show" >visual simulation</a> sponsored by cityflow. ;)</h3>
+<h3>3.Upload replay_roadnet.json to the first column and replay.txt to the second.</h3>
+<h3>4.Start the simulation(adjust the speed).</h3>
