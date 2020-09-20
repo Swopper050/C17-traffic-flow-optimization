@@ -44,7 +44,7 @@ def main():
                     #print("lane = ", lane)
                     #print(waiting.keys())
 
-                    if lane in waitingVehiclesPerLane.keys() and waitingVehiclesPerLane[lane] > 2:
+                    if lane in waitingVehiclesPerLane.keys():
                         print("Traffic jam at ", lane)
 
         print("\nStep", step, "\n")
