@@ -2,7 +2,7 @@ import argparse
 import cityflow
 from utils import *
 import types
-from main_agent import *
+from main_agent import create_random_vehicle
 from agents import vehicle
 
 MAX_STEPS = 100
