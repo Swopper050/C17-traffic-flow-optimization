@@ -12,7 +12,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--dir", type=str, default='low_manhattan_sim')
     args = parser.parse_args()
-    temp_config = types.SimpleNamespace(num_of_agents = 15, anchor_points = 1)
+    temp_config = types.SimpleNamespace(num_of_agents = 2, anchor_points = 1)
 
     vehicle_config = create_random_vehicle(temp_config)
     vehicles = [ vehicle(vehicle_config[i]) for i in range(0,temp_config.num_of_agents)]
