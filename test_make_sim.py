@@ -2,6 +2,7 @@ import argparse
 import cityflow
 from utils import *
 import types
+from main_agent import *
 
 MAX_STEPS = 100
 
