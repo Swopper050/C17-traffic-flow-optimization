@@ -37,10 +37,10 @@ class vehicle:
 	def update_flow_json(self):
 		if os.path.exists(agent_flow_file_path):
 			with open(agent_flow_file_path) as f:
-				flow_json = json.load(f)
+				flow_json = [json.load(f)]
 		else:
 			flow_json = []
-
+		print(flow_json)
 		#Create a dict with class attributes and write to agents_flow.json
 
 		new_entry = dict()
@@ -61,7 +61,6 @@ class vehicle:
 
 		if new_entry not in flow_json:
 			flow_json.append(new_entry)
-			print(new_entry)
 		else:
 			print("Similar entry already present")
 
