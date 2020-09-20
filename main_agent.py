@@ -12,7 +12,7 @@ import json
 #Thisfunction generates random values for vehicle properties
 def create_random_vehicle(config):
 	sim_config = list()
-	with open("./low_manhattan_sim/low_manhattan.json") as f:
+	with open("./low_manhattan_sim/low_manhattan_flow.json") as f:
 		roadnet_json = json.load(f)
 
 	#Check if road ids are present in roadnet json
