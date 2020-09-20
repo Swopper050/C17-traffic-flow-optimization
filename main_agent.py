@@ -12,7 +12,7 @@ import json
 #Thisfunction generates random values for vehicle properties
 def create_random_vehicle(config):
 	sim_config = list()
-	with open("./test_sim/replay_roadnet.json") as f:
+	with open("./test_sim/low_manhattan.json") as f:
 		roadnet_json = json.load(f)
 
 	#Check if road ids are present in roadnet json
@@ -50,15 +50,15 @@ def create_random_vehicle(config):
 			startTime = 0,
 			endTime = -1
 			)
-		sim_config.append(temp_config) 
+		sim_config.append(temp_config)
 	return sim_config
-	
+
 def main():
 
 	parser = argparse.ArgumentParser(
 		description="Create vehicle class objects"
 		)
-	
+
 	'''
 	This section can be used if input is given manually and not randomly
 	parser.add_argument('-l', '--length',
@@ -125,6 +125,6 @@ def main():
 	config = parser.parse_args()
 	vehicle_config = create_random_vehicle(config)
 	vehicles = [ vehicle(vehicle_config[i]) for i in range(0,config.num_of_agents)]
-	
+
 if __name__ == '__main__':
 	main()
