@@ -5,9 +5,8 @@
 	"roadnetFile": "low_manhattan.json",
 	"flowFile": "low_manhattan_flow.json",
 	"rlTrafficLight": false,
-	"laneChange": false,
 	"saveReplay": true,
 	"roadnetLogFile": "replay_roadnet.json",
 	"replayLogFile": "replay.txt"
-	
+
 }

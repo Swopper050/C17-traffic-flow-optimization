@@ -17,7 +17,7 @@ def main():
     vehicles = [ vehicle(vehicle_config[i]) for i in range(0,temp_config.num_of_agents)]
 
     #eng = cityflow.Engine(f"{args.dir}/config.json", thread_num=1)
-    eng = cityflow.Engine("low_manhattan_sim/low_manhattan_flow.json", thread_num=1)
+    eng = cityflow.Engine("low_manhattan_sim/config.json", thread_num=1)
 
     avg_travel_time = 0
     for step in range(MAX_STEPS):
