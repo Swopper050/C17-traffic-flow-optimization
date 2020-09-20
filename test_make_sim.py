@@ -7,7 +7,7 @@ from main_agent import create_random_vehicle
 from agents import vehicle
 
 MAX_STEPS = 10
-BUSY_ROAD_THRESHOLD = 5
+BUSY_ROAD_THRESHOLD = 4
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--dir", type=str, default='low_manhattan_sim')
