@@ -35,7 +35,7 @@ class vehicle:
 		self.update_flow_json()
 
 	def update_flow_json(self):
-		pdb.set_trace()
+		
 		if os.path.exists(agent_flow_file_path):
 			with open(agent_flow_file_path) as f:
 				flow_json = json.load(f)
@@ -65,7 +65,6 @@ class vehicle:
 		else:
 			print("Similar entry already present")
 
-		pdb.set_trace()
 		with open(agent_flow_file_path, 'w') as f:
 			json.dump(flow_json,f)
 
