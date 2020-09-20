@@ -39,6 +39,7 @@ def main():
                 #Create an array where every element is a lane_ID of the route of a car
                 route = route.split(' ')
                 for lane in route:
+                    print(lane)
                     if lane in busyRoads.keys():
                         print("Traffic jam at ", lane)
 
