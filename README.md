@@ -14,8 +14,11 @@ Clone repository, build Docker:
 ```
 git clone https://github.com/Swopper050/C17-traffic-flow-optimization.git
 cd C17-traffic-flow-optimization
-sudo docker build -t tarfficopt .
-sudo docker run -dit --name traffic trafficopt
+docker build -t tarffic_opt .
+docker create --name traffic_on traffic_opt
+docker cp traffic_on:/home/C17-traffic-flow-optimization/low_manhattan_sim/replay.txt .
+docker cp traffic_on:/home/C17-traffic-flow-optimization/low_manhattan_sim/replay_roadnet.json .
+sudo docker run -dit --name traffic traffic_opt
 sudo docker exec -i -t traffic
 ```
 Inside the docker:
@@ -24,7 +27,7 @@ cd /home/C17-traffic-flow-optimization/
 ```
 # Configuration
 Default Simulation:  
-map: low_monhattan (converted from osmnx)  
+map: low_monhattan  
 max_steps : 500  
 ```
 python run_static_routing_simulation.py
