@@ -13,27 +13,30 @@ Clone repository, build Docker:
 ```
 git clone https://github.com/Swopper050/C17-traffic-flow-optimization.git
 cd C17-traffic-flow-optimization
-docker build -t tarffic_opt .
+docker build -t traffic_opt .
 ```
-Copy the replay files for visualisation from the docker:
+**Copy the replay files and plot from the docker :**
 ```
 docker create --name traffic_on traffic_opt
 docker cp traffic_on:/home/C17-traffic-flow-optimization/low_manhattan_sim/replay.txt .
 docker cp traffic_on:/home/C17-traffic-flow-optimization/low_manhattan_sim/replay_roadnet.json .
+docker cp traffic_on:/home/C17-traffic-flow-optimization/low_manhattan_sim/waiting_vechile.png .
 ```
-Upload replay files here:
+**Upload replay files here:**
 http://108.61.178.181:6969/show
-Or /fronted/index.html
+
+*Or open /fronted/index.html in your local machine.*
+
+**Go inside the docker:**
 ```
 sudo docker run -dit --name traffic traffic_opt
 sudo docker exec -i -t traffic bin/bash
 cd /home/C17-traffic-flow-optimization/
 ```
-# Configuration
 Default Simulation:  
 map: low_monhattan  
 max_steps : 500 
-Run simulation 
+Run simulation from teh docker:
 ```
 python run_static_routing_simulation.py
 ```
