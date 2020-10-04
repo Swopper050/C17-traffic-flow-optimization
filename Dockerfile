@@ -26,6 +26,7 @@ RUN pip install -Iv matplotlib==3.3.1
 RUN pip install -Iv mesa==0.8.7
 RUN pip install rtree
 RUN pip install -Iv osmnx==0.15.1
+RUN pip install -Iv seaborn==0.11.0
 RUN pip install -Iv black==20.8b1
 RUN pip install -Iv flake8==3.8.3
 RUN pip install -Iv isort==5.5.0
