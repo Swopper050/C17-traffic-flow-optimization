@@ -45,7 +45,7 @@ def create_random_vehicle(config):
 			maxSpeed = round(random.uniform(10,50),2),
 			headwayTime = round(random.uniform(1,3),1),
 			route = [ roadnet_json['roads'][index]['id'] for index in road_index],
-			interval = 2.0,
+			interval = 5.0,
 			startTime = 0,
 			endTime = -1
 			)

@@ -11,8 +11,8 @@ from copy import copy
 #flow_file_path                 -Sample flow file for reference
 #agent_flow_file_path           -Flow file created based on simulation config
 
-flow_file_path =  "./low_manhattan_sim/agents_flow.json"
-agent_flow_file_path =  "./low_manhattan_sim/low_manhattan_flow.json"
+agent_flow_file_path =  "./low_manhattan_sim/agents_flow.json"
+flow_file_path =  "./low_manhattan_sim/low_manhattan_flow.json"
 
 #Class attributes are all derived from flow.json. Refer citiflow docs for description
 class vehicle:
@@ -21,7 +21,7 @@ class vehicle:
 	def __init__(self, vehicle_prop):
 		self.length = vehicle_prop.length
 		self.width = vehicle_prop.length / 2.5       # Maintaining aspect ratio as 2.5
-		self.maxPosAcc = vehicle_prop.maxPosAcc
+		self.maxPosAcc = 200#vehicle_prop.maxPosAcc
 		self.maxNegAcc = vehicle_prop.maxNegAcc
 		self.usualPosAcc = vehicle_prop.maxPosAcc / 2.0  # Assuming usual acceleration is half of maximum acceleration
 		self.usualNegAcc = vehicle_prop.maxNegAcc / 2.0
@@ -35,9 +35,9 @@ class vehicle:
 		self.update_flow_json()
 
 	def update_flow_json(self):
-		
-		if os.path.exists(agent_flow_file_path):
-			with open(agent_flow_file_path) as f:
+
+		if os.path.exists(flow_file_path):
+			with open(flow_file_path) as f:
 				flow_json = json.load(f)
 		else:
 			flow_json = []
@@ -60,12 +60,11 @@ class vehicle:
 		new_entry['endTime'] = self.endTime
 
 		if new_entry not in flow_json:
-			#flow_json.append(new_entry)
 			flow_json = flow_json + [new_entry]
 		else:
 			print("Similar entry already present")
 
-		with open(agent_flow_file_path, 'w') as f:
+		with open(flow_file_path, 'w') as f:
 			json.dump(flow_json,f)
 
 		return
