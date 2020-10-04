@@ -7,23 +7,21 @@ Group C17
  - Daniel
 # Simulate traffic on virtual machine 
 http://108.61.178.181:6969/traffic_sim
-
-# Setup on local computer
-Clone repository. Install virtualenv, make virtual environment and install dependencies:
+# Docker Installation
+https://docs.docker.com/engine/install/
+# Setup on local computer by Docker
+Clone repository, build Docker:
 ```
 git clone https://github.com/Swopper050/C17-traffic-flow-optimization.git
 cd C17-traffic-flow-optimization
-pip install virtualenv
-python -m venv .env
-pip install -r requirements.txt
-sudo apt update && sudo apt install -y build-essential cmake
-git clone https://github.com/cityflow-project/CityFlow.git 
-pip install .
+sudo docker build -t tarfficopt .
+sudo docker run -dit --name traffic trafficopt
+sudo docker exec -i -t traffic
 ```
 # Configuration
 Default Simulation:  
 map: low_monhattan (converted from osmnx)  
-max_steps : 10  
+max_steps : 20  
 busy_road_thereshold : 4  
 ```
 python test_make_sim.py
