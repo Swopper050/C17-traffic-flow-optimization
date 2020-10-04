@@ -16,17 +16,17 @@ def generate_random_flow_file(*, n_steps, cars_per_step=1, n_init_cars=100):
         roadnet_json = json.load(f)
     road_indices = []
 
-    agent_configs = [generate_car_config(roadnet_json, 0) for _ in range(n_init_cars)]
+    agent_configs = [generate_random_car_config(roadnet_json, 0) for _ in range(n_init_cars)]
     for step in range(n_steps):
         for i in range(cars_per_step):
-            agent_configs.append(generate_car_config(roadnet_json, step))
+            agent_configs.append(generate_random_car_config(roadnet_json, step))
 
     with open("./low_manhattan_sim/low_manhattan_flow.json", "w") as f:
         json.dump(agent_configs, f)
 
 
-def generate_car_config(roadnet_json, spawn_time):
-    """ Generates the configuration for spwaning a single car.
+def generate_random_car_config(roadnet_json, spawn_time):
+    """ Generates a random configuration for spawning a single car.
 
     :param roadnet_json: json file describing the roadnet
     :param spawn_time: step/time at which to spawn the car
@@ -37,9 +37,9 @@ def generate_car_config(roadnet_json, spawn_time):
     return {
         "vehicle": {
             "length": 5,
-            "width": 2,
-            "maxPosAcc": 1.0,
-            "maxNegAcc": 2.5,
+            "width": 2,  # Maintaining aspect ratio as 2.5
+            "maxPosAcc": random.uniform(1, 4),
+            "maxNegAcc": random.uniform(3, 6),
             "usualPosAcc": 1.0,
             "usualNegAcc": 2.5,
             "minGap": 2.5,
