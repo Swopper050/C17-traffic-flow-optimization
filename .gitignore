@@ -7,5 +7,6 @@ env
 __pycache__
 
 CityFlow/
-
 .DS_Store
+
+*/replay.txt
