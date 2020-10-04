@@ -1,5 +1,6 @@
 import json
 import random
+
 random.seed(69)
 
 
@@ -17,7 +18,9 @@ def generate_random_flow_file(*, n_steps, cars_per_step=1, n_init_cars=100):
         roadnet_json = json.load(f)
     road_indices = []
 
-    agent_configs = [generate_random_car_config(roadnet_json, 0) for _ in range(n_init_cars)]
+    agent_configs = [
+        generate_random_car_config(roadnet_json, 0) for _ in range(n_init_cars)
+    ]
     for step in range(n_steps):
         for i in range(cars_per_step):
             agent_configs.append(generate_random_car_config(roadnet_json, step))
@@ -27,7 +30,7 @@ def generate_random_flow_file(*, n_steps, cars_per_step=1, n_init_cars=100):
 
 
 def generate_random_car_config(roadnet_json, spawn_time):
-    """ Generates a random configuration for spawning a single car.
+    """Generates a random configuration for spawning a single car.
 
     :param roadnet_json: json file describing the roadnet
     :param spawn_time: step/time at which to spawn the car
@@ -47,9 +50,7 @@ def generate_random_car_config(roadnet_json, spawn_time):
             "maxSpeed": 10,
             "headwayTime": round(random.uniform(1, 3), 1),
         },
-        "route": [
-            roadnet_json["roads"][index]["id"] for index in random_indices
-        ],
+        "route": [roadnet_json["roads"][index]["id"] for index in random_indices],
         "interval": 100,
         "startTime": spawn_time,
         "endTime": spawn_time + 10,

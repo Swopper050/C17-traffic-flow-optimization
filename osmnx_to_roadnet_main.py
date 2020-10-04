@@ -4,7 +4,6 @@ Skeleton script used to convert OSM maps to a format usable by CityFlow
 
 import osmnx as ox
 
-
 53.217293, 6.566559  # Groningen
 40.743382, -73.988689  # low manhattan
 40.701318, -73.927438  # brooklyn

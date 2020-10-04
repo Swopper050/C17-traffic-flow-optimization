@@ -1,23 +1,31 @@
 import argparse
-import cityflow
-from utils import create_road_length_dict
 import json
 import os
-import numpy as np
+
+import cityflow
 import matplotlib.pyplot as plt
+import numpy as np
 import seaborn as sns
+
+from utils import create_road_length_dict
+
 sns.set_theme()
 
 from generate_random_cars_flow_file import generate_random_flow_file
 
+
 def run_dynamic_routing_simulation(config):
-    """ Runs a simulation using dynamic routing.
+    """Runs a simulation using dynamic routing.
     NOTE: This function is under construction! It does not work yet
 
     :param config: namespace with the configuration for the run
     """
 
-    generate_random_flow_file(n_steps=config.max_steps, cars_per_step=config.cars_per_step, n_init_cars=config.init_cars)
+    generate_random_flow_file(
+        n_steps=config.max_steps,
+        cars_per_step=config.cars_per_step,
+        n_init_cars=config.init_cars,
+    )
     eng = cityflow.Engine(f"{config.dir}/config.json", thread_num=1)
 
     central_system = CentralSystem()  # TODO
@@ -29,19 +37,22 @@ def run_dynamic_routing_simulation(config):
         eng.next_step()
 
         waiting_vehicles_percents.append(
-            sum(eng.get_lane_waiting_vehicle_count().values()) / eng.get_vehicle_count() * 100
+            sum(eng.get_lane_waiting_vehicle_count().values())
+            / eng.get_vehicle_count()
+            * 100
         )
 
-        for car_id in eng.get_vehicles(include_waiting = True):
+        for car_id in eng.get_vehicles(include_waiting=True):
             if car_id not in car_distances:
                 vehicle_info = eng.get_vehicle_info(car_id)
                 if vehicle_info["running"] == "1":
                     route = vehicle_info["route"]
                     route = route.split(" ")
-                    car_distances[car_id] = sum(road_lengths[road] for road in route[:-1])
+                    car_distances[car_id] = sum(
+                        road_lengths[road] for road in route[:-1]
+                    )
 
-
-        for car_id in eng.get_vehicles(include_waiting = True):
+        for car_id in eng.get_vehicles(include_waiting=True):
             update_car_route(car_id, central_system)  # TODO
 
         print(f"At step {step+1}/{MAX_STEPS}", end="\r")
@@ -58,7 +69,9 @@ def run_dynamic_routing_simulation(config):
     print("Average % waiting vehicles = ", np.mean(waiting_vehicles_percents[100:]))
     print("Travel Time Index = ", travel_time_index)
 
-    sns.lineplot(x=list(range(len(waiting_vehicles_percents))), y=waiting_vehicles_percents)
+    sns.lineplot(
+        x=list(range(len(waiting_vehicles_percents))), y=waiting_vehicles_percents
+    )
     plt.ylabel("% waiting vehicles")
     plt.xlabel("t")
     plt.savefig(f"{config.dir}/waiting_vehicles.png")
@@ -66,9 +79,9 @@ def run_dynamic_routing_simulation(config):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dir", type=str, default='low_manhattan_sim')
+    parser.add_argument("--dir", type=str, default="low_manhattan_sim")
     parser.add_argument("--max_steps", type=int, default=500)
-    parser.add_argument("--cars_per_step", type=int, default= 1)
+    parser.add_argument("--cars_per_step", type=int, default=1)
     parser.add_argument("--init_cars", type=int, default=500)
     config = parser.parse_args()
     run_dynamic_routing_simulation(config)

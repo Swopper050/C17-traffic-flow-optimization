@@ -27,6 +27,8 @@ def create_road_length_dict(config):
         roadID = road["id"]
         x_start, x_end = road["points"][0]["x"], road["points"][1]["x"]
         y_start, y_end = road["points"][0]["y"], road["points"][1]["y"]
-        road_lengths[roadID] = math.sqrt((x_start - x_end) ** 2 + (y_start - y_end) ** 2)
+        road_lengths[roadID] = math.sqrt(
+            (x_start - x_end) ** 2 + (y_start - y_end) ** 2
+        )
 
     return road_lengths
