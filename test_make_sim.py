@@ -9,23 +9,26 @@ import json
 import os
 from os import path
 
+from generate_random_cars_flow_file import generate_random_flow_file
 
-MAX_STEPS = 1000
+
+MAX_STEPS = 200
 BUSY_ROAD_THRESHOLD = 4
 
 
 def main():
-    #Test
     #Delete the low_manhattan_flow.json file
     if path.exists("low_manhattan_sim/low_manhattan_flow.json"):
         os.remove("low_manhattan_sim/low_manhattan_flow.json")
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--dir", type=str, default='low_manhattan_sim')
     args = parser.parse_args()
-    temp_config = types.SimpleNamespace(num_of_agents = 10, anchor_points = 1)
-    vehicle_config = create_random_vehicle(temp_config)
-    vehicles = [ vehicle(vehicle_config[i]) for i in range(0,temp_config.num_of_agents)]
 
+    generate_random_flow_file(n_steps=MAX_STEPS, cars_per_step=1)
+    # temp_config = types.SimpleNamespace(num_of_agents = 20, anchor_points = 1)
+    # vehicle_config = create_random_vehicle(temp_config)
+    # vehicles = [ vehicle(vehicle_config[i]) for i in range(0,temp_config.num_of_agents)]
 
     eng = cityflow.Engine("low_manhattan_sim/config.json", thread_num=1)
     avg_travel_time = 0

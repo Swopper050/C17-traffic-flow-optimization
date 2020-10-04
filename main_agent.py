@@ -22,7 +22,7 @@ def create_random_vehicle(config):
 
 	#Add road ids from roadnet json to route attribute of class
 	# Based on input, 2 or 3 road indices from roadnet json	are stored and added to self.route
-	for i in range(0,config.num_of_agents):
+	for i in range(0, config.num_of_agents):
 		road_index = []
 		while(len(road_index) < config.anchor_points + 1):
 			random_index = random.randint(0,len(roadnet_json['roads']) - 1)
