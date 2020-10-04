@@ -24,15 +24,17 @@ def generate_random_flow_file(*, n_steps, cars_per_step=1):
                 "vehicle": {
                     "length": 5,
                     "width": 2,
-                    "maxPosAcc": 2.,
+                    "maxPosAcc": 2.0,
                     "maxNegAcc": 4.5,
                     "usualPosAcc": 2.0,
                     "usualNegAcc": 4.5,
                     "minGap": 2.5,
                     "maxSpeed": 200,
-                    "headwayTime": round(random.uniform(1,3),1),
+                    "headwayTime": round(random.uniform(1, 3), 1),
                 },
-                "route": [roadnet_json["roads"][index]["id"] for index in random_indices],
+                "route": [
+                    roadnet_json["roads"][index]["id"] for index in random_indices
+                ],
                 "interval": 100,
                 "startTime": step,
                 "endTime": step + 10,

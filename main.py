@@ -13,7 +13,9 @@ ox.config(all_oneway=True, useful_tags_node=utn, useful_tags_way=utw)
 G = ox.graph_from_point((53.217293, 6.566559), dist=1200, network_type="drive")
 # G = ox.graph_from_place("New York City, New York", network_type="drive")
 ox.plot_graph(G)
-import pdb; pdb.set_trace()
+import pdb
+
+pdb.set_trace()
 
 53.217293, 6.566559  # Groningen
 40.743382, -73.988689  # low manhattan
