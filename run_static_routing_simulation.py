@@ -10,7 +10,7 @@ sns.set_theme()
 
 from generate_random_cars_flow_file import generate_random_flow_file
 
-MAX_STEPS = 500
+MAX_STEPS = 1000
 
 def main(config):
     """ Runs a simulation using simple static routing.
