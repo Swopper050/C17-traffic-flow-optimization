@@ -7,10 +7,7 @@ import numpy as np
 
 from generate_random_cars_flow_file import generate_random_flow_file
 
-
 MAX_STEPS = 500
-BUSY_ROAD_THRESHOLD = 4
-
 
 def main(config):
     """ Runs a simulation using simple static routing.
