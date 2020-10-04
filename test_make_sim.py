@@ -25,7 +25,7 @@ def main():
     parser.add_argument("--dir", type=str, default="low_manhattan_sim")
     args = parser.parse_args()
 
-    generate_random_flow_file(n_steps=MAX_STEPS, cars_per_step=10)
+    generate_random_flow_file(n_steps=MAX_STEPS, cars_per_step=5)
 
     eng = cityflow.Engine("low_manhattan_sim/config.json", thread_num=1)
     avg_travel_time = 0

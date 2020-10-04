@@ -2,7 +2,7 @@ import json
 import random
 
 
-def generate_random_flow_file(*, n_steps, cars_per_step=1):
+def generate_random_flow_file(*, n_steps, cars_per_step=1, n_init_cars=100):
     """
     This function generates a flow file to be used by CityFlow. It generates a specified
     number of cars every step. Every individual car is considered an Agent, and all agents
@@ -16,30 +16,40 @@ def generate_random_flow_file(*, n_steps, cars_per_step=1):
         roadnet_json = json.load(f)
     road_indices = []
 
-    agent_configs = []
+    agent_configs = [generate_car_config(roadnet_json, 0) for _ in range(n_init_cars)]
     for step in range(n_steps):
         for i in range(cars_per_step):
-            random_indices = random.sample(range(0, len(roadnet_json["roads"]) - 1), 2)
-            car_config = {
-                "vehicle": {
-                    "length": 5,
-                    "width": 2,
-                    "maxPosAcc": 2.0,
-                    "maxNegAcc": 4.5,
-                    "usualPosAcc": 2.0,
-                    "usualNegAcc": 4.5,
-                    "minGap": 2.5,
-                    "maxSpeed": 200,
-                    "headwayTime": round(random.uniform(1, 3), 1),
-                },
-                "route": [
-                    roadnet_json["roads"][index]["id"] for index in random_indices
-                ],
-                "interval": 100,
-                "startTime": step,
-                "endTime": step + 10,
-            }
-            agent_configs.append(car_config)
+            agent_configs.append(generate_car_config(roadnet_json, step))
 
     with open("./low_manhattan_sim/low_manhattan_flow.json", "w") as f:
         json.dump(agent_configs, f)
+
+
+def generate_car_config(roadnet_json, spawn_time):
+    """ Generates the configuration for spwaning a single car.
+
+    :param roadnet_json: json file describing the roadnet
+    :param spawn_time: step/time at which to spawn the car
+    :returns: dictionary in json format with car characteristics
+    """
+
+    random_indices = random.sample(range(0, len(roadnet_json["roads"]) - 1), 2)
+    return {
+        "vehicle": {
+            "length": 5,
+            "width": 2,
+            "maxPosAcc": 1.0,
+            "maxNegAcc": 2.5,
+            "usualPosAcc": 1.0,
+            "usualNegAcc": 2.5,
+            "minGap": 2.5,
+            "maxSpeed": 10,
+            "headwayTime": round(random.uniform(1, 3), 1),
+        },
+        "route": [
+            roadnet_json["roads"][index]["id"] for index in random_indices
+        ],
+        "interval": 100,
+        "startTime": spawn_time,
+        "endTime": spawn_time + 10,
+    }
