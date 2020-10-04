@@ -18,13 +18,16 @@ sudo docker build -t tarfficopt .
 sudo docker run -dit --name traffic trafficopt
 sudo docker exec -i -t traffic
 ```
+Inside the docker:
+```
+cd /home/C17-traffic-flow-optimization/
+```
 # Configuration
 Default Simulation:  
 map: low_monhattan (converted from osmnx)  
-max_steps : 20  
-busy_road_thereshold : 4  
+max_steps : 500  
 ```
-python test_make_sim.py
+python run_static_routing_simulation.py
 ```
 Config files
 ```
