@@ -12,7 +12,7 @@ http://108.61.178.181:6969/traffic_sim
 Clone repository. Install virtualenv, make virtual environment and install dependencies:
 ```
 git clone https://github.com/Swopper050/C17-traffic-flow-optimization.git
-cd dmas2020
+cd C17-traffic-flow-optimization
 pip install virtualenv
 python -m venv .env
 pip install -r requirements.txt
