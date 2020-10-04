@@ -26,7 +26,7 @@ def main(config):
     for step in range(1, MAX_STEPS + 1):
 
         #Calculate Metrics
-        vehicleCount = eng.get_vehicle_count()
+        vehicle_count = eng.get_vehicle_count()
         waitingVehiclesPerLane = eng.get_lane_waiting_vehicle_count()
 
         for car_id in eng.get_vehicles(include_waiting = True):
@@ -42,9 +42,13 @@ def main(config):
 
     # The max speed in manhattan is 40.2336
     average_freeflow_travel_time = np.mean([distance / 40.2336 for distance in car_distances.values()])
-    print("------------------------Metrics:-------------------------")
+    travelTimeIndex = average_freeflow_travel_time / eng.get_average_travel_time()
+    print("------------------------Metrics:-------------------")
     print("Average travel time = ", eng.get_average_travel_time())
     print("Free flow avg travel time", average_freeflow_travel_time)
+    print("Travel Time Index = ", travelTimeIndex)
+
+
 
 
 if __name__ == "__main__":
