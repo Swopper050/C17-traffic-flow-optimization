@@ -1,5 +1,6 @@
 import json
 import random
+random.seed(69)
 
 
 def generate_random_flow_file(*, n_steps, cars_per_step=1, n_init_cars=100):

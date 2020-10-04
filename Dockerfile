@@ -31,4 +31,6 @@ RUN pip install -Iv flake8==3.8.3
 RUN pip install -Iv isort==5.5.0
 COPY . /home/C17-traffic-flow-optimization
 RUN cd /home/C17-traffic-flow-optimization/ && \
-    python3 test_make_sim.py
+    python3 run_static_routing_simulation.py
+COPY /home/C17-traffic-flow-optimization/low_manhattan_sim/replay.txt .
+COPY /home/C17-traffic-flow-optimization/low_manhattan_sim/replay_roadnet.json .

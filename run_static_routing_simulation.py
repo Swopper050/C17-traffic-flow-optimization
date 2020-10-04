@@ -10,9 +10,7 @@ sns.set_theme()
 
 from generate_random_cars_flow_file import generate_random_flow_file
 
-
-MAX_STEPS = 1000
-
+MAX_STEPS = 500
 
 def main(config):
     """ Runs a simulation using simple static routing.
@@ -48,10 +46,12 @@ def main(config):
     average_freeflow_travel_time = np.mean(
         [distance / 40.2336 for distance in car_distances.values()]
     )
+    travel_time_index = eng.get_average_travel_time() / average_freeflow_travel_time
     print("------------------------Metrics:-------------------------")
     print("Average travel time = ", eng.get_average_travel_time())
-    print("Free flow avg travel time", average_freeflow_travel_time)
-    print("Average % waiting vehicles", np.mean(waiting_vehicles_percents[100:]))
+    print("Free flow avg travel time = ", average_freeflow_travel_time)
+    print("Average % waiting vehicles = ", np.mean(waiting_vehicles_percents[100:]))
+    print("Travel Time Index = ", travel_time_index)
 
     sns.lineplot(x=list(range(len(waiting_vehicles_percents))), y=waiting_vehicles_percents)
     plt.ylabel("% waiting vehicles")
