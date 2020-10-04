@@ -20,7 +20,7 @@ docker build -t traffic_opt .
 docker create --name traffic_on traffic_opt
 docker cp traffic_on:/home/C17-traffic-flow-optimization/low_manhattan_sim/replay.txt .
 docker cp traffic_on:/home/C17-traffic-flow-optimization/low_manhattan_sim/replay_roadnet.json .
-docker cp traffic_on:/home/C17-traffic-flow-optimization/low_manhattan_sim/waiting_vechile.png .
+docker cp traffic_on:/home/C17-traffic-flow-optimization/low_manhattan_sim/waiting_vehicles.png .
 ```
 **Upload replay files here:**
 http://108.61.178.181:6969/show
