@@ -22,7 +22,7 @@ def generate_random_flow_file(*, n_steps, cars_per_step=1, n_init_cars=100):
             agent_configs.append(generate_random_car_config(roadnet_json, step))
 
     with open("./low_manhattan_sim/low_manhattan_flow.json", "w") as f:
-        json.dump(agent_configs, f)
+        json.dump(agent_configs, f, indent=4)
 
 
 def generate_random_car_config(roadnet_json, spawn_time):

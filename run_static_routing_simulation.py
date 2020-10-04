@@ -4,12 +4,14 @@ from utils import create_road_length_dict
 import json
 import os
 import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+sns.set_theme()
 
 from generate_random_cars_flow_file import generate_random_flow_file
 
 
-MAX_STEPS = 500
-BUSY_ROAD_THRESHOLD = 4
+MAX_STEPS = 1000
 
 
 def main(config):
@@ -21,13 +23,15 @@ def main(config):
     generate_random_flow_file(n_steps=MAX_STEPS, cars_per_step=1, n_init_cars=300)
     eng = cityflow.Engine(f"{config.dir}/config.json", thread_num=1)
 
+    waiting_vehicles_percents = []
     road_lengths = create_road_length_dict(config)
     car_distances = {}
-    for step in range(1, MAX_STEPS + 1):
+    for step in range(MAX_STEPS):
+        eng.next_step()
 
-        #Calculate Metrics
-        vehicleCount = eng.get_vehicle_count()
-        waitingVehiclesPerLane = eng.get_lane_waiting_vehicle_count()
+        waiting_vehicles_percents.append(
+            sum(eng.get_lane_waiting_vehicle_count().values()) / eng.get_vehicle_count() * 100
+        )
 
         for car_id in eng.get_vehicles(include_waiting = True):
             if car_id not in car_distances:
@@ -37,14 +41,22 @@ def main(config):
                     route = route.split(" ")
                     car_distances[car_id] = sum(road_lengths[road] for road in route[:-1])
 
-        print("\nStep", step, "/", MAX_STEPS, "\n", eng.get_average_travel_time())
-        eng.next_step()
+        print(f"At step {step+1}/{MAX_STEPS}", end="\r")
+    print("\n")
 
     # The max speed in manhattan is 40.2336
-    average_freeflow_travel_time = np.mean([distance / 40.2336 for distance in car_distances.values()])
+    average_freeflow_travel_time = np.mean(
+        [distance / 40.2336 for distance in car_distances.values()]
+    )
     print("------------------------Metrics:-------------------------")
     print("Average travel time = ", eng.get_average_travel_time())
     print("Free flow avg travel time", average_freeflow_travel_time)
+    print("Average % waiting vehicles", np.mean(waiting_vehicles_percents[100:]))
+
+    sns.lineplot(x=list(range(len(waiting_vehicles_percents))), y=waiting_vehicles_percents)
+    plt.ylabel("% waiting vehicles")
+    plt.xlabel("t")
+    plt.savefig(f"{config.dir}/waiting_vehicles.png")
 
 
 if __name__ == "__main__":

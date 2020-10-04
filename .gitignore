@@ -9,4 +9,6 @@ __pycache__
 CityFlow/
 .DS_Store
 
+*/low_manhattan_flow.json
 */replay.txt
+*/*.png
