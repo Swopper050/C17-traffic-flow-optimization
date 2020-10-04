@@ -6,4 +6,6 @@ env
 
 __pycache__
 
+CityFlow/
+
 .DS_Store
