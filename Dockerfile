@@ -32,5 +32,3 @@ RUN pip install -Iv isort==5.5.0
 COPY . /home/C17-traffic-flow-optimization
 RUN cd /home/C17-traffic-flow-optimization/ && \
     python3 run_static_routing_simulation.py
-COPY /home/C17-traffic-flow-optimization/low_manhattan_sim/replay.txt .
-COPY /home/C17-traffic-flow-optimization/low_manhattan_sim/replay_roadnet.json .
