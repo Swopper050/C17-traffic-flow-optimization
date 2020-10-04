@@ -6,13 +6,13 @@ import pdb
 from main_agent import create_random_vehicle
 from agents import vehicle
 
-MAX_STEPS = 10
+MAX_STEPS = 200
 BUSY_ROAD_THRESHOLD = 4
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--dir", type=str, default='low_manhattan_sim')
     args = parser.parse_args()
-    temp_config = types.SimpleNamespace(num_of_agents = 10, anchor_points = 1)
+    temp_config = types.SimpleNamespace(num_of_agents = 5, anchor_points = 1)
 
     vehicle_config = create_random_vehicle(temp_config)
     vehicles = [ vehicle(vehicle_config[i]) for i in range(0,temp_config.num_of_agents)]
@@ -43,7 +43,7 @@ def main():
                     #print("lane = ", lane)
                     #print(waiting.keys())
                     checkLane = lane + '_0'
-                    if checkLane in waitingVehiclesPerLane.keys() and waitingVehiclesPerLane[checkLane] >= BUSY_ROAD_THRESHOLD:
+                    if False and checkLane in waitingVehiclesPerLane.keys() and waitingVehiclesPerLane[checkLane] >= BUSY_ROAD_THRESHOLD:
                         print("Traffic jam at ", lane)
 
         print("\nStep", step, "\n")
