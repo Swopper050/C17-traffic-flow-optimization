@@ -34,6 +34,10 @@ def run_dynamic_routing_simulation(config):
     central_system = None  #  TODO
     dynamic_router = DynamicRoutePlanner(central_system, config)
 
+    neighbors = dynamic_router.neighbors("42427369")
+    print(dynamic_router.distance_between("42427369", neighbors[0]))
+    print(dynamic_router.distance_between("42427369", neighbors[1]))
+
     car_distances = {}
     waiting_vehicles_percents = []
     for step in range(config.max_steps):
