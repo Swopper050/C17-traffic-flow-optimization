@@ -19,7 +19,7 @@ def create_road_length_dict(config):
     :returns: dictionary with road_ids as keys and lengths as values
     """
 
-    with open("low_manhattan_sim/low_manhattan.json") as f:
+    with open(f"{config.dir}/{config.dir}.json") as f:
         data = json.load(f)
 
     road_lengths = dict()
@@ -32,3 +32,25 @@ def create_road_length_dict(config):
         )
 
     return road_lengths
+
+
+def create_roadnet_graph(config):
+    """
+    Given a configuration namespace as needed for a simulation, builds the roadnet in graph form,
+    considering intersections as nodes and roads as edges.
+
+    :param config: namespace, consisting of the configuration for the simulation
+    :returns: graph representing the roadnet
+    """
+
+    with open(f"{config.dir}/{config.dir}.json") as f:
+        roadnet_json = json.load(f)
+
+    graph = {}
+    for intersection in roadnet_json["intersections"]:
+        graph[intersection["id"]] = {
+            "id": intersection["id"],
+            "roads": intersection["roads"],
+        }
+        # TODO: add other intersections
+    return graph

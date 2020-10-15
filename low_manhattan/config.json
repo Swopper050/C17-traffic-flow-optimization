@@ -1,7 +1,7 @@
 {
 	"interval": 1.0,
 	"seed": 0,
-	"dir": "low_manhattan_sim/",
+	"dir": "low_manhattan/",
 	"roadnetFile": "low_manhattan.json",
 	"flowFile": "low_manhattan_flow.json",
 	"max_steps": 500,
@@ -11,5 +11,4 @@
 	"saveReplay": true,
 	"roadnetLogFile": "replay_roadnet.json",
 	"replayLogFile": "replay.txt"
-
 }

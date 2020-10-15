@@ -4,17 +4,19 @@ import random
 random.seed(69)
 
 
-def generate_random_flow_file(*, n_steps, cars_per_step=1, n_init_cars=100):
+def generate_random_flow_file(config, *, n_steps, cars_per_step=1, n_init_cars=100):
     """
     This function generates a flow file to be used by CityFlow. It generates a specified
     number of cars every step. Every individual car is considered an Agent, and all agents
-    are eventually written to the flow file: low_manhattan_flow.json
+    are eventually written to the flow file: {config.dir}.json
 
+    :param config: namespace with the configuration for the run
     :param n_steps: number of steps in the simulation
     :param cars_per_step: number of cars to spawn every simulation step
+    :param n_init_cars: number of initial cars to start with
     """
 
-    with open("./low_manhattan_sim/low_manhattan.json") as f:
+    with open(f"./{config.dir}/{config.dir}.json") as f:
         roadnet_json = json.load(f)
     road_indices = []
 
@@ -25,7 +27,7 @@ def generate_random_flow_file(*, n_steps, cars_per_step=1, n_init_cars=100):
         for i in range(cars_per_step):
             agent_configs.append(generate_random_car_config(roadnet_json, step))
 
-    with open("./low_manhattan_sim/low_manhattan_flow.json", "w") as f:
+    with open(f"./{config.dir}/{config.dir}_flow.json", "w") as f:
         json.dump(agent_configs, f, indent=4)
 
 
