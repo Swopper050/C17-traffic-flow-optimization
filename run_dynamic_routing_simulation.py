@@ -20,7 +20,7 @@ def run_dynamic_routing_simulation(config):
     generate_random_flow_file(n_steps=config.max_steps, cars_per_step=config.cars_per_step, n_init_cars=config.init_cars)
     eng = cityflow.Engine(f"{config.dir}/config.json", thread_num=1)
 
-    central_system = CentralSystem()  # TODO
+    #central_system = CentralSystem()  # TODO
 
     waiting_vehicles_percents = []
     road_lengths = create_road_length_dict(config)
@@ -41,10 +41,10 @@ def run_dynamic_routing_simulation(config):
                     car_distances[car_id] = sum(road_lengths[road] for road in route[:-1])
 
 
-        for car_id in eng.get_vehicles(include_waiting = True):
-            update_car_route(car_id, central_system)  # TODO
+        #for car_id in eng.get_vehicles(include_waiting = True):
+        #    update_car_route(car_id, central_system)  # TODO
 
-        print(f"At step {step+1}/{MAX_STEPS}", end="\r")
+        print(f"At step {step+1}/{config.max_steps}", end="\r")
     print("\n")
 
     # The max speed in manhattan is 40.2336
