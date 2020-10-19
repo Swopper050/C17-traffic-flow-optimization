@@ -14,6 +14,7 @@ from vehicle_agent import VehicleAgent
 sns.set_theme()
 
 from astar_routing import DynamicRoutePlanner, get_new_car_route
+from central_system import CentralSystem
 from generate_random_cars_flow_file import generate_random_flow_file
 
 
@@ -33,7 +34,7 @@ def run_dynamic_routing_simulation(config):
     eng = cityflow.Engine(f"{config.dir}/config.json", thread_num=1)
 
     road_lengths = create_road_length_dict(config)
-    central_system = None  # TODO
+    central_system = CentralSystem(config)
     dynamic_router = DynamicRoutePlanner(central_system, config)
 
     neighbors = dynamic_router.neighbors("42427369")
@@ -73,11 +74,14 @@ def run_dynamic_routing_simulation(config):
                     agents[car_id] = VehicleAgent(car_id, route=vehicle_info["route"])
 
                 agent = agents[car_id]
-                route_timing = agent.estimate_route_timing(step, vehicle_info, road_lengths)
-                central_system.add_route(car_id, route_timing)
-                import pdb; pdb.set_trace()
-                agent.update_route(vehicle_info, dynamic_router, central_system)
-                eng.set_vehicle_route(car_id, agent.current_route)
+                if car_id == "flow_0_0":
+                    print(step, vehicle_info)
+                if step == 0:
+                    route_timing = agent.estimate_route_timing(step, config.max_steps, vehicle_info, road_lengths)
+                    for road_id in agent.current_route:
+                        print(road_id, route_timing[road_id])
+                # agent.update_route(vehicle_info, dynamic_router, central_system)
+                # eng.set_vehicle_route(car_id, agent.current_route)
 
 
         print(f"At step {step+1}/{config.max_steps}", end="\r")

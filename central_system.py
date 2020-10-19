@@ -14,7 +14,7 @@ class CentralSystem:
         self.config = config
         self.map_density_over_time = {}
 
-        with open(f"{config.dir}.json") as data_file:
+        with open(f"{config.dir}/{config.dir}.json") as data_file:
             data = json.load(data_file)
             for road in data["roads"]:
                 self.map_density_over_time[road["id"]] = [[] for _ in range(config.max_steps)]
