@@ -13,7 +13,7 @@ from vehicle_agent import VehicleAgent
 
 sns.set_theme()
 
-from astar_routing import DynamicRoutePlanner, get_new_car_route
+from dynamic_planning.astar_routing import DynamicRoutePlanner, get_new_car_route
 from central_system import CentralSystem
 from generate_random_cars_flow_file import generate_random_flow_file
 

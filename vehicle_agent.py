@@ -1,6 +1,9 @@
 import numpy as np
 
-from astar_routing import get_new_car_route
+from dynamic_planning.astar_routing import get_new_car_route
+
+INTERSECTION_CHANGE_TIME_COST = 3
+""" The average time/seconds/simulation steps it costs to traverse an intersection. """
 
 
 class VehicleAgent:
@@ -15,7 +18,7 @@ class VehicleAgent:
         """ Returns the average travel speed of this vehicle. """
         if len(self.speed_over_time) > 120:
             return np.mean(self.speed_over_time[:-120])
-        return 7  # If a car just started driving, assume around 7 m/s
+        return 5  # If a car just started its route, assume around 7 m/s
 
     def update_route(self, vehicle_info, dynamic_router):
         """ Updates the route at this timestep for the current agent and the current state
@@ -49,6 +52,7 @@ class VehicleAgent:
 
             road_length = road_lengths[road_id]
             if road_id == vehicle_info["road"]:
+                # Subtract distance on this road already traveled
                 road_length -= float(vehicle_info["distance"])
 
             timesteps_on_road = int(road_length // av_speed)
@@ -56,5 +60,6 @@ class VehicleAgent:
                 timesteps_on_road = max_steps - (current_t + offset)
 
             route_timing[road_id] = [current_t + offset + t for t in range(timesteps_on_road)]
-            offset += timesteps_on_road
+            offset += timesteps_on_road + INTERSECTION_CHANGE_TIME_COST
+        self.current_route_timing = route_timing
         return route_timing

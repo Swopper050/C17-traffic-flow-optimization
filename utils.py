@@ -42,13 +42,19 @@ def create_roadnet_graph(config):
     dictionary constructed as follows:
         graph = {
             'intersection_id1': {
-                'connected_intersection_id2': 'connecting_road_id1',
-                'connected_intersection_id3': 'connecting_road_id2',
-                ....
+                'coordinates': {'x': 123, 'y': 456},
+                'connected_intersections': {
+                    'connected_intersection_id2': 'connecting_road_id1',
+                    'connected_intersection_id3': 'connecting_road_id2',
+                    ....
+                }
             }
             'intersection_id2': {
-                'connected_intersection_id4': 'connecting_road_id3',
-                ....
+                'coordinates': {'x': 234, 'y': 567},
+                'connected_intersections': {
+                    'connected_intersection_id4': 'connecting_road_id3',
+                    ....
+                }
             }
             ....
         }
@@ -60,7 +66,8 @@ def create_roadnet_graph(config):
     with open(f"{config.dir}/{config.dir}.json") as f:
         roadnet_json = json.load(f)
 
-    graph = defaultdict(dict)
+    graph = defaultdict(lambda: defaultdict(dict))
     for road in roadnet_json["roads"]:
-        graph[road["startIntersection"]][road["endIntersection"]] = road["id"]
+        graph[road["startIntersection"]]["coordinates"] = road["points"][0]
+        graph[road["startIntersection"]]["connected_intersections"][road["endIntersection"]] = road["id"]
     return graph
