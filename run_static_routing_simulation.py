@@ -25,7 +25,6 @@ def main(config):
         n_steps=config.max_steps,
         cars_per_step=config.cars_per_step,
         n_init_cars=config.init_cars,
-
     )
     eng = cityflow.Engine(f"{config.dir}/config.json", thread_num=1)
 

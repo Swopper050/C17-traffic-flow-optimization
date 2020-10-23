@@ -13,12 +13,8 @@ from vehicle_agent import VehicleAgent
 
 sns.set_theme()
 
-from dynamic_route_planner import (
-    DynamicRoutePlanner,
-    get_new_car_route,
-)
-
 from central_system import CentralSystem
+from dynamic_route_planner import DynamicRoutePlanner, get_new_car_route
 from generate_random_cars_flow_file import generate_random_flow_file
 
 
@@ -85,7 +81,9 @@ def run_dynamic_routing_simulation(config):
                         max_steps=config.max_steps,
                         road_lengths=road_lengths,
                     )
-                    central_system.add_route(car_id, agents[car_id].current_route_timing)
+                    central_system.add_route(
+                        car_id, agents[car_id].current_route_timing
+                    )
 
                 if car_id == "flow_250_0" and False:
                     print(vehicle_info)

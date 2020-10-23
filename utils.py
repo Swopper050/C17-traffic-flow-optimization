@@ -84,7 +84,10 @@ def get_intersection_locations(config):
         roadnet_json = json.load(f)
 
     return {
-        intersection["id"]: {"x": intersection["point"]["x"], "y": intersection["point"]["y"]}
+        intersection["id"]: {
+            "x": intersection["point"]["x"],
+            "y": intersection["point"]["y"],
+        }
         for intersection in roadnet_json["intersections"]
     }
 
@@ -100,6 +103,9 @@ def get_road_intersections(config):
         roadnet_json = json.load(f)
 
     return {
-        road["id"]: {"start_intersection": road["startIntersection"], "end_intersection": road["endIntersection"]}
+        road["id"]: {
+            "start_intersection": road["startIntersection"],
+            "end_intersection": road["endIntersection"],
+        }
         for road in roadnet_json["roads"]
     }

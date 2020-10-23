@@ -4,7 +4,12 @@ import math
 import numpy as np
 from astar import AStar
 
-from utils import create_road_length_dict, create_roadnet_graph, get_intersection_locations, get_road_intersections
+from utils import (
+    create_road_length_dict,
+    create_roadnet_graph,
+    get_intersection_locations,
+    get_road_intersections,
+)
 
 AV_MPS_SPEED = 2.3
 
@@ -26,7 +31,6 @@ class DynamicRoutePlanner(AStar):
         self.map_graph = create_roadnet_graph(config)
         self.intersection_locs = get_intersection_locations(config)
         self.road_intersections = get_road_intersections(config)
-
 
         self.current_t = None
         self.road_densities_next_hour = None
@@ -123,7 +127,9 @@ class DynamicRoutePlanner(AStar):
         intersections = list(intersections)
         return [
             self.map_graph[intersection1]["connected_intersections"][intersection2]
-            for intersection1, intersection2 in zip(intersections[:-1], intersections[1:])
+            for intersection1, intersection2 in zip(
+                intersections[:-1], intersections[1:]
+            )
         ]
 
 
@@ -142,10 +148,16 @@ def get_new_car_route(vehicle_agent, vehicle_info, dynamic_router):
     if len(vehicle_agent.current_route) == 1:
         return vehicle_agent.current_route
 
-    start, end = dynamic_router.get_start_end_intersection(vehicle_info["road"], vehicle_agent.current_route[-1])
-    solution_route = dynamic_router.get_route_from_solution(dynamic_router.astar(start, end))
+    start, end = dynamic_router.get_start_end_intersection(
+        vehicle_info["road"], vehicle_agent.current_route[-1]
+    )
+    solution_route = dynamic_router.get_route_from_solution(
+        dynamic_router.astar(start, end)
+    )
     try:
         current_idx_in_route = vehicle_agent.current_route.index(vehicle_info["road"])
     except Exception as e:
-        import pdb; pdb.set_trace()
+        import pdb
+
+        pdb.set_trace()
     return [vehicle_agent.current_route[current_idx_in_route]] + solution_route

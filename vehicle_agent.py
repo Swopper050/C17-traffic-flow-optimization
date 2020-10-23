@@ -1,6 +1,8 @@
 import math
+
 import numpy as np
-from dynamic_route_planner import get_new_car_route, AV_MPS_SPEED
+
+from dynamic_route_planner import AV_MPS_SPEED, get_new_car_route
 
 INTERSECTION_CHANGE_TIME_COST = 8
 """ The average time/seconds/simulation steps it costs to traverse an intersection. """
@@ -15,13 +17,15 @@ class VehicleAgent:
 
         self.speed_over_time = []
         self.current_route = vehicle_info["route"].split(" ")[:-1]
-        self.current_route_timing = self.estimate_route_timing(t, vehicle_info, road_lengths)
+        self.current_route_timing = self.estimate_route_timing(
+            t, vehicle_info, road_lengths
+        )
 
     def get_average_speed(self):
         """ Returns the average travel speed of this vehicle. """
         if len(self.speed_over_time) > 120:
             av_speed = np.mean(self.speed_over_time[:-120])
-            return AV_MPS_SPEED if av_speed == 0. else av_speed
+            return AV_MPS_SPEED if av_speed == 0.0 else av_speed
         return AV_MPS_SPEED  # If a car just started its route, assume average MPS speed
 
     def update_route(
@@ -40,7 +44,9 @@ class VehicleAgent:
         self.speed_over_time.append(float(vehicle_info["speed"]))
         new_route = get_new_car_route(self, vehicle_info, dynamic_router)
         if new_route != self.current_route:
-            dynamic_router.central_system.remove_route(self.car_id, self.current_route_timing)
+            dynamic_router.central_system.remove_route(
+                self.car_id, self.current_route_timing
+            )
             self.current_route = new_route
             new_route_timing = self.estimate_route_timing(
                 current_t, vehicle_info, dynamic_router.road_lengths
@@ -74,7 +80,9 @@ class VehicleAgent:
             try:
                 timesteps_on_road = int(road_length // av_speed)
             except Exception as e:
-                import pdb; pdb.set_trace()
+                import pdb
+
+                pdb.set_trace()
             if (current_t + offset + timesteps_on_road) >= self.max_steps:
                 timesteps_on_road = self.max_steps - (current_t + offset)
 

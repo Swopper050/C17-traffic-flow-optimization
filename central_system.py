@@ -58,7 +58,9 @@ class CentralSystem:
                 for t in timesteps:
                     self.map_density_over_time[road_id][t].remove(car_id)
         except Exception as e:
-            import pdb; pdb.set_trace()
+            import pdb
+
+            pdb.set_trace()
             print("Route to be removed was not found in the central system..")
 
     def get_density_at_interval(self, road_id, min_t, max_t):
