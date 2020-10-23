@@ -13,8 +13,12 @@ from vehicle_agent import VehicleAgent
 
 sns.set_theme()
 
+from dynamic_route_planner import (
+    DynamicRoutePlanner,
+    get_new_car_route,
+)
+
 from central_system import CentralSystem
-from dynamic_route_planner import DynamicRoutePlanner, get_new_car_route
 from generate_random_cars_flow_file import generate_random_flow_file
 
 
@@ -81,13 +85,7 @@ def run_dynamic_routing_simulation(config):
                         max_steps=config.max_steps,
                         road_lengths=road_lengths,
                     )
-                    central_system.add_route(
-                        car_id, agents[car_id].current_route_timing
-                    )
-
-                if car_id == "flow_250_0" and False:
-                    print(vehicle_info)
-                    print(agents[car_id].current_route, "\n\n")
+                    central_system.add_route(car_id, agents[car_id].current_route_timing)
 
                 # Update road if the car is not on an intersection
                 if "road" in vehicle_info:
@@ -95,7 +93,7 @@ def run_dynamic_routing_simulation(config):
                         eng, step, central_system, vehicle_info, dynamic_router
                     )
 
-        print(f"At step {step+1}/{config.max_steps}", end="\n")
+        print(f"At step {step+1}/{config.max_steps}", end="\r")
     print("\n")
 
     # The max speed in manhattan is 40.2336
