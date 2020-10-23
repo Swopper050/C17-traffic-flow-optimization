@@ -87,3 +87,19 @@ def get_intersection_locations(config):
         intersection["id"]: {"x": intersection["point"]["x"], "y": intersection["point"]["y"]}
         for intersection in roadnet_json["intersections"]
     }
+
+
+def get_road_intersections(config):
+    """Given a configuration, returns a dictionary with for every road id its start and end
+    intersection.
+
+    :param config: namespace, consisting of the configuration for the simulation
+    :returns: dict with intersection ids as keys the roadnet
+    """
+    with open(f"{config.dir}/{config.dir}.json") as f:
+        roadnet_json = json.load(f)
+
+    return {
+        road["id"]: {"start_intersection": road["startIntersection"], "end_intersection": road["endIntersection"]}
+        for road in roadnet_json["roads"]
+    }

@@ -51,6 +51,7 @@ def run_dynamic_routing_simulation(config):
     waiting_vehicles_percents = []
     for step in range(config.max_steps):
         eng.next_step()
+        dynamic_router.prepare_astar(step)
 
         n_vehicles = eng.get_vehicle_count()
         if n_vehicles > 0:
@@ -75,22 +76,28 @@ def run_dynamic_routing_simulation(config):
         for car_id in eng.get_vehicles(include_waiting=True):
             vehicle_info = eng.get_vehicle_info(car_id)
             if vehicle_info["running"] == "1":
+                # If the car just spawned
                 if car_id not in agents:
-                    agents[car_id] = VehicleAgent(car_id, route=vehicle_info["route"])
-
-                agent = agents[car_id]
-                if car_id == "flow_0_0":
-                    print(step, vehicle_info)
-                if step == 0:
-                    route_timing = agent.estimate_route_timing(
-                        step, config.max_steps, vehicle_info, road_lengths
+                    agents[car_id] = VehicleAgent(
+                        car_id,
+                        vehicle_info,
+                        t=step,
+                        max_steps=config.max_steps,
+                        road_lengths=road_lengths,
                     )
-                    """for road_id in agent.current_route:
-                        print(road_id, route_timing[road_id])"""
-                agent.update_route(vehicle_info, dynamic_router)
-                # eng.set_vehicle_route(car_id, agent.current_route)
+                    central_system.add_route(car_id, agents[car_id].current_route_timing)
 
-        print(f"At step {step+1}/{config.max_steps}", end="\r")
+                if car_id == "flow_250_0" and False:
+                    print(vehicle_info)
+                    print(agents[car_id].current_route, "\n\n")
+
+                # Update road if the car is not on an intersection
+                if "road" in vehicle_info:
+                    agents[car_id].update_route(
+                        eng, step, central_system, vehicle_info, dynamic_router
+                    )
+
+        print(f"At step {step+1}/{config.max_steps}", end="\n")
     print("\n")
 
     # The max speed in manhattan is 40.2336

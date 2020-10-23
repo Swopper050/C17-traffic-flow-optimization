@@ -33,7 +33,6 @@ def main(config):
     road_lengths = create_road_length_dict(config)
     car_distances = {}
 
-    all = []
     for step in range(config.max_steps):
         eng.next_step()
 
@@ -43,7 +42,6 @@ def main(config):
             * 100
         )
 
-        vehicle_speeds = []
         for car_id in eng.get_vehicles(include_waiting=True):
             if car_id not in car_distances:
                 vehicle_info = eng.get_vehicle_info(car_id)
@@ -54,14 +52,8 @@ def main(config):
                         road_lengths[road] for road in route[:-1]
                     )
 
-                    vehicle_speeds.append(float(vehicle_info["speed"]))
-        all.append(vehicle_speeds)
-
         print(f"At step {step+1}/{config.max_steps}", end="\r")
     print("\n")
-
-    print("AV SPEED", np.mean([np.mean(step) for step in all if len(step) > 0]))
-    import pdb; pdb.set_trace()
 
     # The max speed in manhattan is 40.2336
     average_freeflow_travel_time = np.mean(

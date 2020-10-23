@@ -4,7 +4,7 @@ import math
 import numpy as np
 from astar import AStar
 
-from utils import create_road_length_dict, create_roadnet_graph, get_intersection_locations
+from utils import create_road_length_dict, create_roadnet_graph, get_intersection_locations, get_road_intersections
 
 AV_MPS_SPEED = 2.3
 
@@ -25,6 +25,8 @@ class DynamicRoutePlanner(AStar):
         self.road_lengths = create_road_length_dict(config)
         self.map_graph = create_roadnet_graph(config)
         self.intersection_locs = get_intersection_locations(config)
+        self.road_intersections = get_road_intersections(config)
+
 
         self.current_t = None
         self.road_densities_next_hour = None
@@ -51,10 +53,8 @@ class DynamicRoutePlanner(AStar):
         :param goal_intersection_id: id string of the goal intersection
         :returns: float, heuristic cost estimate between the current and the goal
         """
-        import pdb; pdb.set_trace()
-        current_coordinates = self.map_graph[current_intersection_id]["coordinates"]
-        goal_coordinates = self.map_graph[goal_intersection_id]["coordinates"]
-        import pdb; pdb.set_trace()
+        current_coordinates = self.intersection_locs[current_intersection_id]
+        goal_coordinates = self.intersection_locs[goal_intersection_id]
         curr_x, curr_y = current_coordinates["x"], current_coordinates["y"]
         goal_x, goal_y = goal_coordinates["x"], goal_coordinates["y"]
         return math.sqrt((curr_x - goal_x) ** 2 + (curr_y - goal_y) ** 2) / AV_MPS_SPEED
@@ -95,6 +95,38 @@ class DynamicRoutePlanner(AStar):
         av_density = np.mean(list(road_density.values()))
         return normal_traverse_time + av_density * 2
 
+    def get_start_end_intersection(self, current_road, last_road):
+        """
+        Given a list with roads, the route, and an index specifying the current road in the list
+        being traversed by the agent, returns the start and end intersection to use when running
+        the astar routing.
+
+        :param current_road: road id of the road currently traversed
+        :param last_road: last road in the route of the vehicle
+        :returns: start and end intersection id to use for astar routing.
+        """
+        return (
+            self.road_intersections[current_road]["end_intersection"],
+            self.road_intersections[last_road]["end_intersection"],
+        )
+
+    def get_route_from_solution(self, intersections):
+        """
+        Given a list of intersections, of which it is assumed it is the solution/fastest route
+        for the vehicle, transforms the list of intersections into a list of road ids to follow
+        for the vehicle.
+
+        :param intersections: list of intersection ids
+        :returns: list of road ids
+        """
+
+        intersections = list(intersections)
+        return [
+            self.map_graph[intersection1]["connected_intersections"][intersection2]
+            for intersection1, intersection2 in zip(intersections[:-1], intersections[1:])
+        ]
+
+
 def get_new_car_route(vehicle_agent, vehicle_info, dynamic_router):
     """
     Given a specific car, updates the route of the car using the DynamicRoutePlanner, which takes
@@ -106,8 +138,14 @@ def get_new_car_route(vehicle_agent, vehicle_info, dynamic_router):
     :returns: list with road_ids, the updated route for the car
     """
 
-    current_idx_in_route = vehicle_agent.current_route.index(vehicle_info["road"])
-    solution = dynamic_router.astar(vehicle_info["road"], vehicle_agent.current_route[-1])
-    new_route = vehicle_agent.current_route[:current_idx_in_route]
-    import pdb; pdb.set_trace()
-    return new_route
+    # If already on the last road, simply return this single road
+    if len(vehicle_agent.current_route) == 1:
+        return vehicle_agent.current_route
+
+    start, end = dynamic_router.get_start_end_intersection(vehicle_info["road"], vehicle_agent.current_route[-1])
+    solution_route = dynamic_router.get_route_from_solution(dynamic_router.astar(start, end))
+    try:
+        current_idx_in_route = vehicle_agent.current_route.index(vehicle_info["road"])
+    except Exception as e:
+        import pdb; pdb.set_trace()
+    return [vehicle_agent.current_route[current_idx_in_route]] + solution_route
