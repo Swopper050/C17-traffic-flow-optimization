@@ -7,7 +7,7 @@ class CentralSystem:
     """
 
     def __init__(self, config):
-        """ Intializes the central system using the given config.
+        """Intializes the central system using the given config.
 
         :param config: namespace with the configuration
         """
@@ -17,7 +17,9 @@ class CentralSystem:
         with open(f"{config.dir}/{config.dir}.json") as data_file:
             data = json.load(data_file)
             for road in data["roads"]:
-                self.map_density_over_time[road["id"]] = [[] for _ in range(config.max_steps)]
+                self.map_density_over_time[road["id"]] = [
+                    [] for _ in range(config.max_steps)
+                ]
 
     def add_route(self, car_id, route_dict):
         """
@@ -70,6 +72,5 @@ class CentralSystem:
         """
 
         return {
-            t: len(self.map_density_over_time[road_id][t])
-            for t in range(min_t, max_t)
+            t: len(self.map_density_over_time[road_id][t]) for t in range(min_t, max_t)
         }

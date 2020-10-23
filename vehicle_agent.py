@@ -1,6 +1,5 @@
 import numpy as np
-
-from dynamic_planning.astar_routing import get_new_car_route
+from dynamic_route_planner import get_new_car_route
 
 INTERSECTION_CHANGE_TIME_COST = 3
 """ The average time/seconds/simulation steps it costs to traverse an intersection. """
@@ -18,10 +17,10 @@ class VehicleAgent:
         """ Returns the average travel speed of this vehicle. """
         if len(self.speed_over_time) > 120:
             return np.mean(self.speed_over_time[:-120])
-        return 5  # If a car just started its route, assume around 7 m/s
+        return 2.3  # If a car just started its route, assume around 2.3 m/s (average travel speed)
 
     def update_route(self, vehicle_info, dynamic_router):
-        """ Updates the route at this timestep for the current agent and the current state
+        """Updates the route at this timestep for the current agent and the current state
         of the central system.
 
         :param vehicle_info: information about the vehicle at the current timestep
@@ -29,7 +28,9 @@ class VehicleAgent:
         """
 
         self.speed_over_time.append(vehicle_info["speed"])
-        get_new_car_route(self.car_id, vehicle_info, dynamic_router)
+        new_route = get_new_car_route(self, vehicle_info, dynamic_router)
+        import pdb; pdb.set_trace()
+        self.current_route = new_route
 
     def estimate_route_timing(self, current_t, max_steps, vehicle_info, road_lengths):
         """
@@ -51,7 +52,7 @@ class VehicleAgent:
         for road_id in self.current_route:
 
             road_length = road_lengths[road_id]
-            if road_id == vehicle_info["road"]:
+            if "road" in vehicle_info and road_id == vehicle_info["road"]:
                 # Subtract distance on this road already traveled
                 road_length -= float(vehicle_info["distance"])
 
@@ -59,7 +60,9 @@ class VehicleAgent:
             if (current_t + offset + timesteps_on_road) >= max_steps:
                 timesteps_on_road = max_steps - (current_t + offset)
 
-            route_timing[road_id] = [current_t + offset + t for t in range(timesteps_on_road)]
+            route_timing[road_id] = [
+                current_t + offset + t for t in range(timesteps_on_road)
+            ]
             offset += timesteps_on_road + INTERSECTION_CHANGE_TIME_COST
         self.current_route_timing = route_timing
         return route_timing

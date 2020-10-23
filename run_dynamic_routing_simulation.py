@@ -1,7 +1,7 @@
 import argparse
-from collections import defaultdict
 import json
 import os
+from collections import defaultdict
 
 import cityflow
 import matplotlib.pyplot as plt
@@ -13,7 +13,11 @@ from vehicle_agent import VehicleAgent
 
 sns.set_theme()
 
-from dynamic_planning.astar_routing import DynamicRoutePlanner, get_new_car_route
+from dynamic_route_planner import (
+    DynamicRoutePlanner,
+    get_new_car_route,
+)
+
 from central_system import CentralSystem
 from generate_random_cars_flow_file import generate_random_flow_file
 
@@ -37,6 +41,7 @@ def run_dynamic_routing_simulation(config):
     central_system = CentralSystem(config)
     dynamic_router = DynamicRoutePlanner(central_system, config)
 
+    dynamic_router.prepare_astar(0)
     neighbors = dynamic_router.neighbors("42427369")
     print(dynamic_router.distance_between("42427369", neighbors[0]))
     print(dynamic_router.distance_between("42427369", neighbors[1]))
@@ -77,12 +82,13 @@ def run_dynamic_routing_simulation(config):
                 if car_id == "flow_0_0":
                     print(step, vehicle_info)
                 if step == 0:
-                    route_timing = agent.estimate_route_timing(step, config.max_steps, vehicle_info, road_lengths)
-                    for road_id in agent.current_route:
-                        print(road_id, route_timing[road_id])
-                # agent.update_route(vehicle_info, dynamic_router, central_system)
+                    route_timing = agent.estimate_route_timing(
+                        step, config.max_steps, vehicle_info, road_lengths
+                    )
+                    """for road_id in agent.current_route:
+                        print(road_id, route_timing[road_id])"""
+                agent.update_route(vehicle_info, dynamic_router)
                 # eng.set_vehicle_route(car_id, agent.current_route)
-
 
         print(f"At step {step+1}/{config.max_steps}", end="\r")
     print("\n")

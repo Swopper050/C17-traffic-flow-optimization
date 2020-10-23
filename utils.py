@@ -1,6 +1,6 @@
-from collections import defaultdict
 import json
 import math
+from collections import defaultdict
 
 
 def filterDicForZero(dic):
@@ -69,5 +69,21 @@ def create_roadnet_graph(config):
     graph = defaultdict(lambda: defaultdict(dict))
     for road in roadnet_json["roads"]:
         graph[road["startIntersection"]]["coordinates"] = road["points"][0]
-        graph[road["startIntersection"]]["connected_intersections"][road["endIntersection"]] = road["id"]
+        graph[road["startIntersection"]]["connected_intersections"][
+            road["endIntersection"]
+        ] = road["id"]
     return graph
+
+
+def get_intersection_locations(config):
+    """
+    :param config: namespace, consisting of the configuration for the simulation
+    :returns: dict with intersection ids as keys the roadnet
+    """
+    with open(f"{config.dir}/{config.dir}.json") as f:
+        roadnet_json = json.load(f)
+
+    return {
+        intersection["id"]: {"x": intersection["point"]["x"], "y": intersection["point"]["y"]}
+        for intersection in roadnet_json["intersections"]
+    }
