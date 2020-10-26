@@ -1,5 +1,6 @@
 import json
 import math
+import pdb
 
 
 def filterDicForZero(dic):
@@ -18,8 +19,8 @@ def create_road_length_dict(config):
     :param config: namespace with configuration for the simulation folder
     :returns: dictionary with road_ids as keys and lengths as values
     """
-
-    with open("low_manhattan_sim/low_manhattan.json") as f:
+    file_path = config.dir + "/" + config.dir[0:len(config.dir)-4] + ".json"
+    with open(file_path) as f:
         data = json.load(f)
 
     road_lengths = dict()

@@ -2,7 +2,6 @@ import argparse
 import copy
 import json
 import xml.dom.minidom
-
 import folium
 import pyproj as proj
 from pyproj import Transformer
@@ -669,7 +668,7 @@ def draw(nodes, CityFlowNet, html):
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--osmFile", type=str, default="map.osm")
+    parser.add_argument("--osmFile", type=str, default="test_graph.osm")
     parser.add_argument("--CityFlowNet", type=str, default="roadnet.json")
     parser.add_argument("--html", type=bool, default=True)
     return parser.parse_args()
