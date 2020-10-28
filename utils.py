@@ -1,5 +1,6 @@
 import json
 import math
+from collections import defaultdict
 
 
 def filterDicForZero(dic):
@@ -19,7 +20,7 @@ def create_road_length_dict(config):
     :returns: dictionary with road_ids as keys and lengths as values
     """
 
-    with open("low_manhattan_sim/low_manhattan.json") as f:
+    with open(f"{config.dir}/{config.dir}.json") as f:
         data = json.load(f)
 
     road_lengths = dict()
@@ -32,3 +33,79 @@ def create_road_length_dict(config):
         )
 
     return road_lengths
+
+
+def create_roadnet_graph(config):
+    """
+    Given a configuration namespace as needed for a simulation, builds the roadnet in graph form,
+    considering intersections as nodes and roads as edges. The graph will be represented as a
+    dictionary constructed as follows:
+        graph = {
+            'intersection_id1': {
+                'coordinates': {'x': 123, 'y': 456},
+                'connected_intersections': {
+                    'connected_intersection_id2': 'connecting_road_id1',
+                    'connected_intersection_id3': 'connecting_road_id2',
+                    ....
+                }
+            }
+            'intersection_id2': {
+                'coordinates': {'x': 234, 'y': 567},
+                'connected_intersections': {
+                    'connected_intersection_id4': 'connecting_road_id3',
+                    ....
+                }
+            }
+            ....
+        }
+
+    :param config: namespace, consisting of the configuration for the simulation
+    :returns: graph representing the roadnet
+    """
+
+    with open(f"{config.dir}/{config.dir}.json") as f:
+        roadnet_json = json.load(f)
+
+    graph = defaultdict(lambda: defaultdict(dict))
+    for road in roadnet_json["roads"]:
+        graph[road["startIntersection"]]["coordinates"] = road["points"][0]
+        graph[road["startIntersection"]]["connected_intersections"][
+            road["endIntersection"]
+        ] = road["id"]
+    return graph
+
+
+def get_intersection_locations(config):
+    """
+    :param config: namespace, consisting of the configuration for the simulation
+    :returns: dict with intersection ids as keys the roadnet
+    """
+    with open(f"{config.dir}/{config.dir}.json") as f:
+        roadnet_json = json.load(f)
+
+    return {
+        intersection["id"]: {
+            "x": intersection["point"]["x"],
+            "y": intersection["point"]["y"],
+        }
+        for intersection in roadnet_json["intersections"]
+    }
+
+
+def get_road_intersections(config):
+    """Given a configuration, returns a dictionary with for every road id its start and end
+    intersection.
+
+    :param config: namespace, consisting of the configuration for the simulation
+    :returns: dict with intersection ids as keys the roadnet
+    """
+    with open(f"{config.dir}/{config.dir}.json") as f:
+        roadnet_json = json.load(f)
+
+    return {
+        road["id"]: {
+            "start_intersection": road["startIntersection"],
+            "end_intersection": road["endIntersection"],
+        }
+        for road in roadnet_json["roads"]
+    }

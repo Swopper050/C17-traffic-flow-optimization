@@ -1,6 +1,7 @@
 import argparse
 import json
 import os
+from collections import defaultdict
 
 import cityflow
 import matplotlib.pyplot as plt
@@ -8,9 +9,16 @@ import numpy as np
 import seaborn as sns
 
 from utils import create_road_length_dict
+from vehicle_agent import VehicleAgent
 
 sns.set_theme()
 
+from dynamic_route_planner import (
+    DynamicRoutePlanner,
+    get_new_car_route,
+)
+
+from central_system import CentralSystem
 from generate_random_cars_flow_file import generate_random_flow_file
 
 
@@ -22,25 +30,38 @@ def run_dynamic_routing_simulation(config):
     """
 
     generate_random_flow_file(
+        config,
         n_steps=config.max_steps,
         cars_per_step=config.cars_per_step,
         n_init_cars=config.init_cars,
     )
     eng = cityflow.Engine(f"{config.dir}/config.json", thread_num=1)
 
-    central_system = CentralSystem()  # TODO
-
-    waiting_vehicles_percents = []
     road_lengths = create_road_length_dict(config)
+    central_system = CentralSystem(config)
+    dynamic_router = DynamicRoutePlanner(central_system, config)
+
+    dynamic_router.prepare_astar(0)
+    neighbors = dynamic_router.neighbors("42427369")
+    print(dynamic_router.distance_between("42427369", neighbors[0]))
+    print(dynamic_router.distance_between("42427369", neighbors[1]))
+
+    agents = {}
     car_distances = {}
+    waiting_vehicles_percents = []
     for step in range(config.max_steps):
         eng.next_step()
+        dynamic_router.prepare_astar(step)
 
-        waiting_vehicles_percents.append(
-            sum(eng.get_lane_waiting_vehicle_count().values())
-            / eng.get_vehicle_count()
-            * 100
-        )
+        n_vehicles = eng.get_vehicle_count()
+        if n_vehicles > 0:
+            waiting_vehicles_percents.append(
+                sum(eng.get_lane_waiting_vehicle_count().values())
+                / eng.get_vehicle_count()
+                * 100
+            )
+        else:
+            waiting_vehicles_percents.append(0.0)
 
         for car_id in eng.get_vehicles(include_waiting=True):
             if car_id not in car_distances:
@@ -53,9 +74,26 @@ def run_dynamic_routing_simulation(config):
                     )
 
         for car_id in eng.get_vehicles(include_waiting=True):
-            update_car_route(car_id, central_system)  # TODO
+            vehicle_info = eng.get_vehicle_info(car_id)
+            if vehicle_info["running"] == "1":
+                # If the car just spawned
+                if car_id not in agents:
+                    agents[car_id] = VehicleAgent(
+                        car_id,
+                        vehicle_info,
+                        t=step,
+                        max_steps=config.max_steps,
+                        road_lengths=road_lengths,
+                    )
+                    central_system.add_route(car_id, agents[car_id].current_route_timing)
 
-        print(f"At step {step+1}/{MAX_STEPS}", end="\r")
+                # Update road if the car is not on an intersection
+                if "road" in vehicle_info:
+                    agents[car_id].update_route(
+                        eng, step, central_system, vehicle_info, dynamic_router
+                    )
+
+        print(f"At step {step+1}/{config.max_steps}", end="\r")
     print("\n")
 
     # The max speed in manhattan is 40.2336
@@ -79,7 +117,7 @@ def run_dynamic_routing_simulation(config):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dir", type=str, default="low_manhattan_sim")
+    parser.add_argument("--dir", type=str, default="low_manhattan")
     parser.add_argument("--max_steps", type=int, default=500)
     parser.add_argument("--cars_per_step", type=int, default=1)
     parser.add_argument("--init_cars", type=int, default=500)

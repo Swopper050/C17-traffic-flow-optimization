@@ -1,0 +1,14 @@
+{
+	"interval": 1.0,
+	"seed": 0,
+	"dir": "low_manhattan/",
+	"roadnetFile": "low_manhattan.json",
+	"flowFile": "low_manhattan_flow.json",
+	"max_steps": 500,
+	"cars_per_step": 1,
+	"init_cars": 300,
+	"rlTrafficLight": false,
+	"saveReplay": true,
+	"roadnetLogFile": "replay_roadnet.json",
+	"replayLogFile": "replay.txt"
+}

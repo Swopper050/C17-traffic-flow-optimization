@@ -21,6 +21,7 @@ def main(config):
     """
 
     generate_random_flow_file(
+        config,
         n_steps=config.max_steps,
         cars_per_step=config.cars_per_step,
         n_init_cars=config.init_cars,
@@ -74,7 +75,7 @@ def main(config):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dir", type=str, default="low_manhattan_sim")
+    parser.add_argument("--dir", type=str, default="low_manhattan")
     parser.add_argument("--max_steps", type=int, default=500)
     parser.add_argument("--cars_per_step", type=int, default=1)
     parser.add_argument("--init_cars", type=int, default=500)
