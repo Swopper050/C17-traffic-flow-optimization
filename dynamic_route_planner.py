@@ -154,10 +154,5 @@ def get_new_car_route(vehicle_agent, vehicle_info, dynamic_router):
     solution_route = dynamic_router.get_route_from_solution(
         dynamic_router.astar(start, end)
     )
-    try:
-        current_idx_in_route = vehicle_agent.current_route.index(vehicle_info["road"])
-    except Exception as e:
-        import pdb
-
-        pdb.set_trace()
+    current_idx_in_route = vehicle_agent.current_route.index(vehicle_info["road"])
     return [vehicle_agent.current_route[current_idx_in_route]] + solution_route

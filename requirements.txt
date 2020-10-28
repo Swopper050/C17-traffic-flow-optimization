@@ -3,6 +3,9 @@ mesa==0.8.7
 osmnx==0.15.1
 seaborn==0.11.0
 
+pytest==6.1.1
+pytest-cov==2.10.1
+
 
 black==20.8b1
 flake8==3.8.3

@@ -63,7 +63,7 @@ class VehicleAgent:
         :param vehicle_info: information about the vehicle at the current timestep
         :param road_lengths: dictionary with lengths of all roads in the map
         :returns: dictionary with for every road in the agents' current route a list of timesteps it
-                  it xpects to be on that road.
+                  it expects to be on that road.
         """
 
         av_speed = self.get_average_speed()

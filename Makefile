@@ -1,4 +1,7 @@
-LINT_FILES = *.py
+LINT_FILES = *.py tests
+TEST_PATH = tests
+PYTEST = py.test $(TEST_PATH) --pythonwarnings=once
+PYTEST_ARGS_COV = --cov-report=term-missing --cov-report=html --cov=.
 
 define echotask
 	@tput setaf 6
@@ -17,6 +20,8 @@ help:
 	$(call echotask,"flake8","lints code using flake8")
 	$(call echotask,"lint","lints all code using flake8 isort and black")
 	$(call echotask,"formatlint","formats and lnts code using flake8 isort and black")
+	$(call echotask,"test","runs all tests")
+	$(call echotask,"test_cov","runs pytest and creates htmlcov")
 	@echo
 
 deps:
@@ -37,3 +42,9 @@ flake8:
 lint: flake8 formatcheck
 
 formatlint: format flake8
+
+test:
+	$(PYTEST)
+
+test_cov:
+	$(PYTEST) $(PYTEST_ARGS_COV)
