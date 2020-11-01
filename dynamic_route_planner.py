@@ -47,27 +47,6 @@ class DynamicRoutePlanner(AStar):
             for road_id in self.road_lengths.keys()
         }
 
-    def get_density_delay(self, density):
-        # pdb.set_trace()
-        if density != 0.0:
-            X_poly = self.poly_regressor.transform(np.array(density).reshape(-1, 1))
-            density_delay = (
-                np.dot(
-                    [
-                        0.00000000e00,
-                        -7.49593091e03,
-                        3.55971715e05,
-                        -4.84651649e06,
-                        2.23374479e07,
-                    ],
-                    X_poly[0],
-                )
-                + 66.25342740266906
-            )
-        else:
-            density_delay = 0.0
-        return density_delay
-
     def heuristic_cost_estimate(self, current_intersection_id, goal_intersection_id):
         """
         The heuristic for the Astar algorithm. The heuristic uses simply the euclidean distance
@@ -119,6 +98,33 @@ class DynamicRoutePlanner(AStar):
         road_density = self.central_system.get_density_at_interval(road_id, t, t + 30)
         av_density = np.mean(list(road_density.values())) / length
         return normal_traverse_time + self.get_density_delay(av_density)
+
+    def get_density_delay(self, density):
+        """
+        Calculates the delay in density using the pretrained polynomial regressor.
+
+        :param density: the expected average density of the road
+        :returns: the delay in seconds resulting from the given density
+        """
+        if density != 0.0:
+            X_poly = self.poly_regressor.transform(np.array(density).reshape(-1, 1))
+            # These are simply the regressor coefficients
+            density_delay = (
+                np.dot(
+                    [
+                        0.0,
+                        -7.49593091e03,
+                        3.55971715e05,
+                        -4.84651649e06,
+                        2.23374479e07,
+                    ],
+                    X_poly[0],
+                )
+                + 66.25342740266906  # intercept
+            )
+        else:
+            density_delay = 0.0
+        return density_delay
 
     def get_start_end_intersection(self, current_road, last_road):
         """
