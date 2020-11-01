@@ -3,14 +3,6 @@ import math
 from collections import defaultdict
 
 
-def filterDicForZero(dic):
-    newDic = dict()
-    for key, value in dic.items():
-        if value > 0:
-            newDic[key] = value
-    return newDic
-
-
 def create_road_length_dict(config):
     """
     Given a certain configuration, creates a dictionary with for every road in the

@@ -29,7 +29,7 @@ class TestDynamicRoutePlanner:
             {"route": "road1 road2"},
             t=0,
             max_steps=100,
-            road_lengths={"road1": 10., "road2": 20},
+            road_lengths={"road1": 10.0, "road2": 20},
         )
 
     def test_init(self, dynamic_router):
@@ -98,7 +98,13 @@ class TestDynamicRoutePlanner:
     def test_expected_road_travel_time(self, dynamic_router):
         dynamic_router.road_lengths = {"road1": 20}
         central_system_mock = Mock()
-        central_system_mock.get_density_at_interval.return_value = {2: 5, 3: 5, 4: 6, 5: 6, 6: 3}
+        central_system_mock.get_density_at_interval.return_value = {
+            2: 5,
+            3: 5,
+            4: 6,
+            5: 6,
+            6: 3,
+        }
         dynamic_router.central_system = central_system_mock
 
         travel_time = dynamic_router.expected_road_travel_time("road1", 2)
@@ -106,29 +112,59 @@ class TestDynamicRoutePlanner:
 
     def test_get_start_end_intersection(self, dynamic_router):
         dynamic_router.road_intersections = {
-            "road1": {"start_intersection": "intersection1", "end_intersection": "intersection2"},
-            "road2": {"start_intersection": "intersection3", "end_intersection": "intersection4"},
-            "road3": {"start_intersection": "intersection4", "end_intersection": "intersection2"},
-            "road4": {"start_intersection": "intersection5", "end_intersection": "intersection6"},
+            "road1": {
+                "start_intersection": "intersection1",
+                "end_intersection": "intersection2",
+            },
+            "road2": {
+                "start_intersection": "intersection3",
+                "end_intersection": "intersection4",
+            },
+            "road3": {
+                "start_intersection": "intersection4",
+                "end_intersection": "intersection2",
+            },
+            "road4": {
+                "start_intersection": "intersection5",
+                "end_intersection": "intersection6",
+            },
         }
 
-        assert dynamic_router.get_start_end_intersection("road1", "road4") == ("intersection2", "intersection6")
+        assert dynamic_router.get_start_end_intersection("road1", "road4") == (
+            "intersection2",
+            "intersection6",
+        )
 
     def test_get_route_from_solution(self, dynamic_router):
         dynamic_router.map_graph = {
             "intersection1": {"connected_intersections": {"intersection2": "road1"}},
-            "intersection2": {"connected_intersections": {"intersection3": "road2", "intersection4": "road3"}},
-            "intersection3": {"connected_intersections": {"intersection4": "road4", "intersection5": "road5"}},
+            "intersection2": {
+                "connected_intersections": {
+                    "intersection3": "road2",
+                    "intersection4": "road3",
+                }
+            },
+            "intersection3": {
+                "connected_intersections": {
+                    "intersection4": "road4",
+                    "intersection5": "road5",
+                }
+            },
         }
 
-        roads = dynamic_router.get_route_from_solution(["intersection1", "intersection2", "intersection3", "intersection5"])
+        roads = dynamic_router.get_route_from_solution(
+            ["intersection1", "intersection2", "intersection3", "intersection5"]
+        )
         assert roads == ["road1", "road2", "road5"]
 
     def test_get_new_car_route(self, vehicle_agent):
         vehicle_agent.current_route = ["road1", "road2", "road3", "road4"]
 
         router_mock = Mock()
-        router_mock.get_start_end_intersection.return_value = ("intersection1", "intersection4")
+        router_mock.get_start_end_intersection.return_value = (
+            "intersection1",
+            "intersection4",
+        )
         router_mock.get_route_from_solution.return_value = ["road5", "road6", "road4"]
         new_route = get_new_car_route(vehicle_agent, {"road": "road1"}, router_mock)
 
