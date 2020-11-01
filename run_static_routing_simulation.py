@@ -27,15 +27,16 @@ def run_static_routing_simulation(config, seed=69, verbose=False):
         cars_per_step=config.cars_per_step,
         n_init_cars=config.init_cars,
     )
+
     eng = cityflow.Engine(f"{config.dir}/config.json", thread_num=1)
+    road_lengths = create_road_length_dict(config)
 
     waiting_vehicles_percents = []
-    road_lengths = create_road_length_dict(config)
     car_distances = {}
 
     for step in range(config.max_steps):
         eng.next_step()
-
+        # collect_data(eng, data_dict,reg_data,road_lengths)  # Used for the regression
         waiting_vehicles_percents.append(
             sum(eng.get_lane_waiting_vehicle_count().values())
             / eng.get_vehicle_count()

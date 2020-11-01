@@ -101,3 +101,57 @@ def get_road_intersections(config):
         }
         for road in roadnet_json["roads"]
     }
+
+
+def collect_data(eng, data_dict, reg_data, road_lengths):
+    all_vehicles_ids = eng.get_vehicles()
+    lane_density = eng.get_lane_vehicle_count()
+    for vehicle_id in all_vehicles_ids:
+        vehicle_info = eng.get_vehicle_info(vehicle_id)
+        if "road" in vehicle_info:
+            if vehicle_id in data_dict.keys():
+                if vehicle_info["running"] == "1":
+                    if vehicle_info["road"] == data_dict[vehicle_id]["road_id"]:
+                        data_dict[vehicle_id]["time_on_road"] += 1
+                        for roads in lane_density:
+                            if vehicle_info["road"] in roads:
+                                cars_on_road = lane_density[roads]
+                                break
+                        else:
+                            cars_on_road = 0
+                        data_dict[vehicle_id]["cars_on_lane"].append(cars_on_road)
+                    else:
+                        if (
+                            "211_0_1" in data_dict[vehicle_id]["road_id"]
+                            or "327_0_1" in data_dict[vehicle_id]["road_id"]
+                            or "177_0_1" in data_dict[vehicle_id]["road_id"]
+                        ):
+                            if data_dict[vehicle_id]["time_on_road"] > 0:
+                                temp_list = []
+
+                                road_len = road_lengths[
+                                    data_dict[vehicle_id]["road_id"]
+                                ]
+                                avg_density = sum(
+                                    data_dict[vehicle_id]["cars_on_lane"]
+                                ) / len(data_dict[vehicle_id]["cars_on_lane"])
+                                avg_density = avg_density / road_len
+
+                                temp_list.append(avg_density)
+                                temp_list.append(data_dict[vehicle_id]["time_on_road"])
+                                print(temp_list)
+                                reg_data.append(temp_list)
+
+                        data_dict[vehicle_id]["road_id"] = vehicle_info["road"]
+                        data_dict[vehicle_id]["time_on_road"] = 0
+                        data_dict[vehicle_id]["cars_on_lane"] = []
+                else:
+                    pass
+            else:
+                data_dict[vehicle_id] = dict()
+                data_dict[vehicle_id]["road_id"] = vehicle_info["road"]
+                data_dict[vehicle_id]["time_on_road"] = 0
+                data_dict[vehicle_id]["cars_on_lane"] = []
+        else:
+            pass
+    return reg_data
