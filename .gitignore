@@ -13,3 +13,5 @@ CityFlow/
 */*_flow.json
 */replay.txt
 */*.png
+
+results/*/*

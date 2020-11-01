@@ -1,10 +1,12 @@
 import json
 import random
 
-random.seed(69)
+random.seed()
 
 
-def generate_random_flow_file(config, *, n_steps, cars_per_step=1, n_init_cars=100):
+def generate_random_flow_file(
+    config, *, n_steps, seed, cars_per_step=1, n_init_cars=100
+):
     """
     This function generates a flow file to be used by CityFlow. It generates a specified
     number of cars every step. Every individual car is considered an Agent, and all agents
@@ -12,10 +14,12 @@ def generate_random_flow_file(config, *, n_steps, cars_per_step=1, n_init_cars=1
 
     :param config: namespace with the configuration for the run
     :param n_steps: number of steps in the simulation
+    :param seed: the seed to use
     :param cars_per_step: number of cars to spawn every simulation step
     :param n_init_cars: number of initial cars to start with
     """
 
+    random.seed(seed)
     with open(f"./{config.dir}/{config.dir}.json") as f:
         roadnet_json = json.load(f)
 
