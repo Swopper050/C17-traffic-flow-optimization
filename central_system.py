@@ -3,7 +3,11 @@ import json
 
 class CentralSystem:
     """
-    Docs about the central system: TODO
+    Class which acts as the central system. Can be used by agents to communicate about the state
+    of the environment, publish routes to with expected travel times and remove previously
+    published routes.
+
+    Can be thought of as a map over time which keeps track of traffic density for every road.
     """
 
     def __init__(self, config):
@@ -13,13 +17,6 @@ class CentralSystem:
         """
         self.config = config
         self.map_density_over_time = {}
-
-        with open(f"{config.dir}/{config.dir}.json") as data_file:
-            data = json.load(data_file)
-            for road in data["roads"]:
-                self.map_density_over_time[road["id"]] = [
-                    [] for _ in range(config.max_steps)
-                ]
 
     def add_route(self, car_id, route_dict):
         """
@@ -58,10 +55,7 @@ class CentralSystem:
                 for t in timesteps:
                     self.map_density_over_time[road_id][t].remove(car_id)
         except Exception as e:
-            import pdb
-
-            pdb.set_trace()
-            print("Route to be removed was not found in the central system..")
+            print(f"Route to be removed was not found in the central system.. {e}")
 
     def get_density_at_interval(self, road_id, min_t, max_t):
         """
@@ -76,5 +70,14 @@ class CentralSystem:
 
         return {
             t: len(self.map_density_over_time[road_id][t])
-            for t in range(min_t, min(self.config.max_steps - 1, max_t))
+            for t in range(min_t, min(self.config.max_steps, max_t))
         }
+
+    def init_map_density(self):
+        """ Initializes the map density over time. """
+        with open(f"{self.config.dir}/{self.config.dir}.json") as data_file:
+            data = json.load(data_file)
+            for road in data["roads"]:
+                self.map_density_over_time[road["id"]] = [
+                    [] for _ in range(self.config.max_steps)
+                ]

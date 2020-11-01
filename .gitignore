@@ -5,6 +5,7 @@ env
 .ipynb_checkpoints/*
 
 __pycache__
+htmlcov/
 
 CityFlow/
 .DS_Store

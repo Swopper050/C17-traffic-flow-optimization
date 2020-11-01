@@ -1,25 +1,17 @@
 import argparse
-import json
-import os
-from collections import defaultdict
 
 import cityflow
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 
+from central_system import CentralSystem
+from dynamic_route_planner import DynamicRoutePlanner
+from generate_random_cars_flow_file import generate_random_flow_file
 from utils import create_road_length_dict
 from vehicle_agent import VehicleAgent
 
 sns.set_theme()
-
-from dynamic_route_planner import (
-    DynamicRoutePlanner,
-    get_new_car_route,
-)
-
-from central_system import CentralSystem
-from generate_random_cars_flow_file import generate_random_flow_file
 
 
 def run_dynamic_routing_simulation(config):
@@ -38,13 +30,13 @@ def run_dynamic_routing_simulation(config):
     eng = cityflow.Engine(f"{config.dir}/config.json", thread_num=1)
 
     road_lengths = create_road_length_dict(config)
+
     central_system = CentralSystem(config)
+    central_system.init_map_density()
+
     dynamic_router = DynamicRoutePlanner(central_system, config)
 
     dynamic_router.prepare_astar(0)
-    neighbors = dynamic_router.neighbors("42427369")
-    print(dynamic_router.distance_between("42427369", neighbors[0]))
-    print(dynamic_router.distance_between("42427369", neighbors[1]))
 
     agents = {}
     car_distances = {}
@@ -85,13 +77,13 @@ def run_dynamic_routing_simulation(config):
                         max_steps=config.max_steps,
                         road_lengths=road_lengths,
                     )
-                    central_system.add_route(car_id, agents[car_id].current_route_timing)
+                    central_system.add_route(
+                        car_id, agents[car_id].current_route_timing
+                    )
 
                 # Update road if the car is not on an intersection
                 if "road" in vehicle_info:
-                    agents[car_id].update_route(
-                        eng, step, central_system, vehicle_info, dynamic_router
-                    )
+                    agents[car_id].update_route(eng, step, vehicle_info, dynamic_router)
 
         print(f"At step {step+1}/{config.max_steps}", end="\r")
     print("\n")

@@ -4,7 +4,6 @@ import json
 import xml.dom.minidom
 
 import folium
-import pyproj as proj
 from pyproj import Transformer
 
 intersections = []
@@ -304,7 +303,8 @@ def cross_to_roads(nodeID, wayID):
                 oneway,
                 maxSpeed,
             )
-    # middle, the road will be divide into two sub-roads, cross in the start of one road and the end in the other road.
+    # middle, the road will be divide into two sub-roads, cross in the start of one
+    # road and the end in the other road.
     else:
         endPos = len(ndlist) - 1
         endID = ndlist[endPos].getAttribute("id")
@@ -540,7 +540,7 @@ def extract(osmFile):
         way_inside = {}
         taglist = way.getElementsByTagName("tag")
         road_flag = False
-        unused_flag = True
+        # unused_flag = True
         belong = way.getAttribute("id")
         way_dic[belong] = way
         """for tag in taglist:

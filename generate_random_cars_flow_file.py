@@ -18,7 +18,6 @@ def generate_random_flow_file(config, *, n_steps, cars_per_step=1, n_init_cars=1
 
     with open(f"./{config.dir}/{config.dir}.json") as f:
         roadnet_json = json.load(f)
-    road_indices = []
 
     agent_configs = [
         generate_random_car_config(roadnet_json, 0) for _ in range(n_init_cars)

@@ -1,5 +1,3 @@
-import math
-
 import numpy as np
 
 from dynamic_route_planner import AV_MPS_SPEED, get_new_car_route
@@ -24,19 +22,16 @@ class VehicleAgent:
     def get_average_speed(self):
         """ Returns the average travel speed of this vehicle. """
         if len(self.speed_over_time) > 120:
-            av_speed = np.mean(self.speed_over_time[:-120])
+            av_speed = np.mean(self.speed_over_time[-120:])
             return AV_MPS_SPEED if av_speed == 0.0 else av_speed
         return AV_MPS_SPEED  # If a car just started its route, assume average MPS speed
 
-    def update_route(
-        self, engine, current_t, central_system, vehicle_info, dynamic_router
-    ):
+    def update_route(self, engine, current_t, vehicle_info, dynamic_router):
         """Updates the route at this timestep for the current agent. Also lets the engine know the
         vehicle route changed (and which new route is taken).
 
         :param engine: the CityFlow engine
         :param current_t: current timestep of the simulation
-        :param central_system: the Central System
         :param vehicle_info: information about the vehicle at the current timestep
         :param dynamic_router: DynamicRouter instance
         """
@@ -63,7 +58,7 @@ class VehicleAgent:
         :param vehicle_info: information about the vehicle at the current timestep
         :param road_lengths: dictionary with lengths of all roads in the map
         :returns: dictionary with for every road in the agents' current route a list of timesteps it
-                  it xpects to be on that road.
+                  it expects to be on that road.
         """
 
         av_speed = self.get_average_speed()
@@ -77,12 +72,7 @@ class VehicleAgent:
                 # Subtract distance on this road already traveled
                 road_length -= float(vehicle_info["distance"])
 
-            try:
-                timesteps_on_road = int(road_length // av_speed)
-            except Exception as e:
-                import pdb
-
-                pdb.set_trace()
+            timesteps_on_road = int(road_length // av_speed)
             if (current_t + offset + timesteps_on_road) >= self.max_steps:
                 timesteps_on_road = self.max_steps - (current_t + offset)
 

@@ -1,17 +1,14 @@
 import argparse
-import json
-import os
 
 import cityflow
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 
+from generate_random_cars_flow_file import generate_random_flow_file
 from utils import create_road_length_dict
 
 sns.set_theme()
-
-from generate_random_cars_flow_file import generate_random_flow_file
 
 
 def main(config):
