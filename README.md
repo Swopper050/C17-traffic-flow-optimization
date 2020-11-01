@@ -15,71 +15,102 @@ In this study, an approach using Multi-Agent Systems was used in order to optimi
 
 ## [Folium](https://python-visualization.github.io/folium/index.html) - Map parser
 
-Folium builds on the data wrangling strengths of the Python ecosystem and the mapping strengths of the leaflet.js library. Manipulate your data in Python, then visualize it in on a Leaflet map via folium.
+'Folium builds on the data wrangling strengths of the Python ecosystem and the mapping strengths of the leaflet.js library. Manipulate your data in Python, then visualize it in on a Leaflet map via folium.'
 
 ## [OSMNX](https://github.com/gboeing/osmnx) - Map libary
 
-Python for street networks
+'Python for street networks
 Retrieve, model, analyze, and visualize OpenStreetMap street networks and other spatial data.
-Citation info: Boeing, G. 2017. "OSMnx: New Methods for Acquiring, Constructing, Analyzing, and Visualizing Complex Street Networks." Computers, Environment and Urban Systems 65, 126-139. doi:10.1016/j.compenvurbsys.2017.05.004
+Citation info: Boeing, G. 2017. "OSMnx: New Methods for Acquiring, Constructing, Analyzing, and Visualizing Complex Street Networks." Computers, Environment and Urban Systems 65, 126-139. doi:10.1016/j.compenvurbsys.2017.05.004'
 
 ## [Citiflow](https://cityflow-project.github.io/) - Simulation base
 
-CityFlow is a new designed open-source traffic simulator, which is much faster than SUMO (Simulation of Urban Mobility).
+'CityFlow is a new designed open-source traffic simulator, which is much faster than SUMO (Simulation of Urban Mobility).
 
-CityFlow can support flexible definitions for road network and traffic flow based on synthetic and real-world data. It also provides user-friendly interface for reinforcement learning. Most importantly, CityFlow is more than twenty times faster than SUMO and is capable of supporting city-wide traffic simulation with an interactive render for monitoring. Besides traffic signal control, CityFlow could serve as the base for other transportation studies and can create new possibilities to test machine learning methods in the intelligent transportation domain.
+CityFlow can support flexible definitions for road network and traffic flow based on synthetic and real-world data. It also provides user-friendly interface for reinforcement learning. Most importantly, CityFlow is more than twenty times faster than SUMO and is capable of supporting city-wide traffic simulation with an interactive render for monitoring. Besides traffic signal control, CityFlow could serve as the base for other transportation studies and can create new possibilities to test machine learning methods in the intelligent transportation domain.'
 ## [Astar](https://github.com/jrialland/python-astar) - A-* algorithm implementation
 
-This is a simple implementation of the a-star path finding algorithm in python.
-
+'This is a simple implementation of the a-star path finding algorithm in python.'
 ## Other packages
 
-* [Numpy](https://numpy.org/doc/stable/) - multidimensional array
+* [Numpy](https://numpy.org/doc/stable/) - Multidimensional array
 * [Matplotlib](https://matplotlib.org/3.3.2/contents.html) - Plot
 * [Seaborn](https://seaborn.pydata.org/) - Statistical data visualization
 
 
 # Installation
-Recommended Docker
-# Docker Installation
+## 1.  Docker
+
+### Docker Installation
 https://docs.docker.com/engine/install/
-# Setup on local computer by Docker
+# Docker Build
 Clone repository, build Docker:
 ```
 git clone https://github.com/Swopper050/C17-traffic-flow-optimization.git
 cd C17-traffic-flow-optimization
 docker build -t traffic_opt .
 ```
-**Copy the replay files and plot from the docker :**
-```
-docker create --name traffic_on traffic_opt
-docker cp traffic_on:/home/C17-traffic-flow-optimization/low_manhattan_sim/replay.txt .
-docker cp traffic_on:/home/C17-traffic-flow-optimization/low_manhattan_sim/replay_roadnet.json .
-docker cp traffic_on:/home/C17-traffic-flow-optimization/low_manhattan_sim/waiting_vehicles.png .
-```
-# Simulations
-# Results
-# Tests
-# Debug
-
-**Upload replay files here:**
-http://108.61.178.181:6969/show
-
-*Or open /fronted/index.html in your local machine.*
-
-**Go inside the docker:**
+**Docker run:**
 ```
 sudo docker run -dit --name traffic traffic_opt
 sudo docker exec -i -t traffic bin/bash
 cd /home/C17-traffic-flow-optimization/
 ```
-Default Simulation:  
-map: low_monhattan  
-max_steps : 500 
-Run simulation from the docker:
+## 2. Virtual environment
+
+Clone repository. Install virtualenv, make virtual environment and install dependencies:
 ```
-python run_static_routing_simulation.py
+git clone https://github.com/Swopper050/dmas2020.git
+cd dmas2020
+pip install virtualenv
+python -m venv .env
+pip install -r requirements.txt
+sudo apt update && sudo apt install -y build-essential cmake
+git clone https://github.com/cityflow-project/CityFlow.git 
+cd citiflow
+pip install .
 ```
+
+# Running the simulation
+
+### Default parameters:  
+* map: low_monhattan  (Map Directory)
+* Max Steps : 500 (Integer)
+* Initial cars: 500 (Integer)
+* New car / step : 1 (Integer)
+
+### Printing the following statistics
+*Average travel time 
+*Free flow avg travel time 
+*Average % waiting vehicles 
+*Travel Time Index 
+## Static
+```
+python3 run_static_routing_simulation.py --dir low_manhattan_sim --max_steps 500 --cars_per_step 1 --init_cars 500
+```
+## Dynamic
+```
+python3 run_dynamic_routing_simulation.py --dir low_manhattan_sim --max_steps 500 --cars_per_step 1 --init_cars 500
+
+```
+
+# From VM (only default parameters)
+
+http://108.61.178.181:6970/traffic_sim
+
+# Results
+
+Generated Replay files and plot for visualsation:
+```
+low_manhattan_sim/replay.txt 
+low_manhattan_sim/replay_roadnet.json 
+low_manhattan_sim/waiting_vehicles.png .
+```
+**Upload replay files here:**
+http://108.61.178.181:6969/show
+
+*Or open /fronted/index.html in your local machine.*
+
 Config files
 ```
 low_manhattan_sim/config.json
@@ -87,3 +118,5 @@ low_manhattan_sim/agents_flow.json
 low_manhattan_sim/low_manhattan.json
 low_manhattan_sim/low_manhattan_flow.json
 ```
+
+
