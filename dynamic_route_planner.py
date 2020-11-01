@@ -2,7 +2,7 @@ import math
 
 import numpy as np
 from astar import AStar
-
+from joblib import load
 from utils import (
     create_road_length_dict,
     create_roadnet_graph,
@@ -30,7 +30,7 @@ class DynamicRoutePlanner(AStar):
         self.map_graph = create_roadnet_graph(config)
         self.intersection_locs = get_intersection_locations(config)
         self.road_intersections = get_road_intersections(config)
-
+        self.poly_regressor = load('poly_reg.joblib')
         self.current_t = None
         self.road_densities_next_hour = None
 
@@ -45,6 +45,15 @@ class DynamicRoutePlanner(AStar):
             road_id: self.expected_road_travel_time(road_id, current_t)
             for road_id in self.road_lengths.keys()
         }
+
+    def get_density_delay(self, density):
+        #pdb.set_trace()
+        if density != 0.0:
+            X_poly = self.poly_regressor.transform(np.array(density).reshape(-1,1))
+            density_delay = np.dot([ 0.00000000e+00, -7.49593091e+03,  3.55971715e+05, -4.84651649e+06, 2.23374479e+07], X_poly[0]) + 66.25342740266906
+        else:
+            density_delay = 0.0
+        return density_delay
 
     def heuristic_cost_estimate(self, current_intersection_id, goal_intersection_id):
         """
@@ -95,8 +104,8 @@ class DynamicRoutePlanner(AStar):
         length = self.road_lengths[road_id]
         normal_traverse_time = length / AV_MPS_SPEED
         road_density = self.central_system.get_density_at_interval(road_id, t, t + 30)
-        av_density = np.mean(list(road_density.values()))
-        return normal_traverse_time + av_density * 2
+        av_density = np.mean(list(road_density.values())) / length
+        return normal_traverse_time + self.get_density_delay(av_density)
 
     def get_start_end_intersection(self, current_road, last_road):
         """

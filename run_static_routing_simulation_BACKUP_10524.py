@@ -1,14 +1,24 @@
 import argparse
+<<<<<<< HEAD
 
+=======
+import json
+import os
+import csv
+>>>>>>> Adding regression code
 import cityflow
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
-import csv
+<<<<<<< HEAD
+
 from generate_random_cars_flow_file import generate_random_flow_file
+from utils import create_road_length_dict
+=======
+from regression import perform_poly_regression, perform_multiple_lin_regression
 from utils import create_road_length_dict, collect_data
-import pdb
-from regression import perform_poly_regression
+>>>>>>> Adding regression code
+
 sns.set_theme()
 
 
@@ -24,19 +34,18 @@ def main(config):
         cars_per_step=config.cars_per_step,
         n_init_cars=config.init_cars,
     )
+    #perform_multiple_lin_regression(config)
+    perform_poly_regression(config)
     eng = cityflow.Engine(f"{config.dir}/config.json", thread_num=1)
+
     waiting_vehicles_percents = []
     road_lengths = create_road_length_dict(config)
-    #pdb.set_trace()
-    #perform_poly_regression(config)
     car_distances = {}
-
-    #data_dict = dict()
-    #reg_data = []
-
+    reg_data = []
+    data_dict = dict()
     for step in range(config.max_steps):
         eng.next_step()
-        #collect_data(eng, data_dict,reg_data,road_lengths)
+        #reg_data = collect_data(eng, data_dict, reg_data, road_lengths)
         waiting_vehicles_percents.append(
             sum(eng.get_lane_waiting_vehicle_count().values())
             / eng.get_vehicle_count()
@@ -56,11 +65,6 @@ def main(config):
         print(f"At step {step+1}/{config.max_steps}", end="\r")
     print("\n")
 
-    '''
-    with open(f"{config.dir}/reg_data.csv", "a") as csv_file:
-        writer = csv.writer(csv_file)
-        writer.writerows(reg_data)
-    '''
     # The max speed in manhattan is 40.2336
     average_freeflow_travel_time = np.mean(
         [distance / 40.2336 for distance in car_distances.values()]
@@ -83,7 +87,7 @@ def main(config):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--dir", type=str, default="low_manhattan")
-    parser.add_argument("--max_steps", type=int, default=500)
+    parser.add_argument("--max_steps", type=int, default=5000)
     parser.add_argument("--cars_per_step", type=int, default=1)
     parser.add_argument("--init_cars", type=int, default=500)
     config = parser.parse_args()

@@ -65,6 +65,7 @@ class VehicleAgent:
 
         route_timing = {}
         offset = 0
+        #pdb.set_trace()
         for road_id in self.current_route:
 
             road_length = road_lengths[road_id]
