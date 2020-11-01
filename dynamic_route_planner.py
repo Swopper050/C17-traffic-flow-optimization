@@ -3,6 +3,7 @@ import math
 import numpy as np
 from astar import AStar
 from joblib import load
+
 from utils import (
     create_road_length_dict,
     create_roadnet_graph,
@@ -30,7 +31,7 @@ class DynamicRoutePlanner(AStar):
         self.map_graph = create_roadnet_graph(config)
         self.intersection_locs = get_intersection_locations(config)
         self.road_intersections = get_road_intersections(config)
-        self.poly_regressor = load('poly_reg.joblib')
+        self.poly_regressor = load("poly_reg.joblib")
         self.current_t = None
         self.road_densities_next_hour = None
 
@@ -47,10 +48,22 @@ class DynamicRoutePlanner(AStar):
         }
 
     def get_density_delay(self, density):
-        #pdb.set_trace()
+        # pdb.set_trace()
         if density != 0.0:
-            X_poly = self.poly_regressor.transform(np.array(density).reshape(-1,1))
-            density_delay = np.dot([ 0.00000000e+00, -7.49593091e+03,  3.55971715e+05, -4.84651649e+06, 2.23374479e+07], X_poly[0]) + 66.25342740266906
+            X_poly = self.poly_regressor.transform(np.array(density).reshape(-1, 1))
+            density_delay = (
+                np.dot(
+                    [
+                        0.00000000e00,
+                        -7.49593091e03,
+                        3.55971715e05,
+                        -4.84651649e06,
+                        2.23374479e07,
+                    ],
+                    X_poly[0],
+                )
+                + 66.25342740266906
+            )
         else:
             density_delay = 0.0
         return density_delay

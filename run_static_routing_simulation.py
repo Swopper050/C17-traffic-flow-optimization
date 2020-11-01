@@ -1,25 +1,28 @@
 import argparse
+from types import SimpleNamespace
 
 import cityflow
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
-import csv
+
 from generate_random_cars_flow_file import generate_random_flow_file
-from utils import create_road_length_dict, collect_data
-import pdb
-from regression import perform_poly_regression
+from utils import create_road_length_dict
+
 sns.set_theme()
 
 
-def main(config):
+def run_static_routing_simulation(config, seed=69, verbose=False):
     """Runs a simulation using simple static routing.
 
     :param config: namespace with the configuration for the run
+    :param seed: seed to use for the random cars
+    :param verbose: whether or not to show user output
     """
 
     generate_random_flow_file(
         config,
+        seed=seed,
         n_steps=config.max_steps,
         cars_per_step=config.cars_per_step,
         n_init_cars=config.init_cars,
@@ -27,16 +30,11 @@ def main(config):
     eng = cityflow.Engine(f"{config.dir}/config.json", thread_num=1)
     waiting_vehicles_percents = []
     road_lengths = create_road_length_dict(config)
-    #pdb.set_trace()
-    #perform_poly_regression(config)
     car_distances = {}
-
-    #data_dict = dict()
-    #reg_data = []
 
     for step in range(config.max_steps):
         eng.next_step()
-        #collect_data(eng, data_dict,reg_data,road_lengths)
+        # collect_data(eng, data_dict,reg_data,road_lengths)  # Used for the regression
         waiting_vehicles_percents.append(
             sum(eng.get_lane_waiting_vehicle_count().values())
             / eng.get_vehicle_count()
@@ -53,31 +51,36 @@ def main(config):
                         road_lengths[road] for road in route[:-1]
                     )
 
-        print(f"At step {step+1}/{config.max_steps}", end="\r")
-    print("\n")
+        if verbose:
+            print(f"At step {step+1}/{config.max_steps}", end="\r")
+    if verbose:
+        print("\n")
 
-    '''
-    with open(f"{config.dir}/reg_data.csv", "a") as csv_file:
-        writer = csv.writer(csv_file)
-        writer.writerows(reg_data)
-    '''
     # The max speed in manhattan is 40.2336
     average_freeflow_travel_time = np.mean(
         [distance / 40.2336 for distance in car_distances.values()]
     )
     travel_time_index = eng.get_average_travel_time() / average_freeflow_travel_time
-    print("------------------------Metrics:-------------------------")
-    print("Average travel time = ", eng.get_average_travel_time())
-    print("Free flow avg travel time = ", average_freeflow_travel_time)
-    print("Average % waiting vehicles = ", np.mean(waiting_vehicles_percents[100:]))
-    print("Travel Time Index = ", travel_time_index)
+    if verbose:
+        print("------------------------Metrics:-------------------------")
+        print("Average travel time = ", eng.get_average_travel_time())
+        print("Free flow avg travel time = ", average_freeflow_travel_time)
+        print("Average % waiting vehicles = ", np.mean(waiting_vehicles_percents[100:]))
+        print("Travel Time Index = ", travel_time_index)
 
-    sns.lineplot(
-        x=list(range(len(waiting_vehicles_percents))), y=waiting_vehicles_percents
+        sns.lineplot(
+            x=list(range(len(waiting_vehicles_percents))), y=waiting_vehicles_percents
+        )
+        plt.ylabel("% waiting vehicles")
+        plt.xlabel("time")
+        plt.savefig(f"{config.dir}/waiting_vehicles.png")
+
+    return SimpleNamespace(
+        av_travel_time=eng.get_average_travel_time(),
+        free_flow_travel_time=average_freeflow_travel_time,
+        av_waiting_agents=np.mean(waiting_vehicles_percents[100:]),
+        travel_time_index=travel_time_index,
     )
-    plt.ylabel("% waiting vehicles")
-    plt.xlabel("t")
-    plt.savefig(f"{config.dir}/waiting_vehicles.png")
 
 
 if __name__ == "__main__":
@@ -87,4 +90,4 @@ if __name__ == "__main__":
     parser.add_argument("--cars_per_step", type=int, default=1)
     parser.add_argument("--init_cars", type=int, default=500)
     config = parser.parse_args()
-    main(config)
+    run_static_routing_simulation(config, verbose=True)

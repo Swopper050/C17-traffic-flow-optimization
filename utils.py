@@ -103,7 +103,7 @@ def get_road_intersections(config):
     }
 
 
-def collect_data(eng, data_dict,reg_data,road_lengths):
+def collect_data(eng, data_dict, reg_data, road_lengths):
     all_vehicles_ids = eng.get_vehicles()
     lane_density = eng.get_lane_vehicle_count()
     for vehicle_id in all_vehicles_ids:
@@ -121,12 +121,20 @@ def collect_data(eng, data_dict,reg_data,road_lengths):
                             cars_on_road = 0
                         data_dict[vehicle_id]["cars_on_lane"].append(cars_on_road)
                     else:
-                        if '211_0_1' in data_dict[vehicle_id]["road_id"] or '327_0_1' in data_dict[vehicle_id]["road_id"] or '177_0_1' in data_dict[vehicle_id]["road_id"] :
+                        if (
+                            "211_0_1" in data_dict[vehicle_id]["road_id"]
+                            or "327_0_1" in data_dict[vehicle_id]["road_id"]
+                            or "177_0_1" in data_dict[vehicle_id]["road_id"]
+                        ):
                             if data_dict[vehicle_id]["time_on_road"] > 0:
                                 temp_list = []
 
-                                road_len = road_lengths[data_dict[vehicle_id]["road_id"]]
-                                avg_density = sum(data_dict[vehicle_id]["cars_on_lane"])/len(data_dict[vehicle_id]["cars_on_lane"])
+                                road_len = road_lengths[
+                                    data_dict[vehicle_id]["road_id"]
+                                ]
+                                avg_density = sum(
+                                    data_dict[vehicle_id]["cars_on_lane"]
+                                ) / len(data_dict[vehicle_id]["cars_on_lane"])
                                 avg_density = avg_density / road_len
 
                                 temp_list.append(avg_density)
