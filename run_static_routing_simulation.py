@@ -1,4 +1,5 @@
 import argparse
+from types import SimpleNamespace
 
 import cityflow
 import matplotlib.pyplot as plt
@@ -11,14 +12,17 @@ from utils import create_road_length_dict
 sns.set_theme()
 
 
-def main(config):
+def run_static_routing_simulation(config, seed=69, verbose=False):
     """Runs a simulation using simple static routing.
 
     :param config: namespace with the configuration for the run
+    :param seed: seed to use for the random cars
+    :param verbose: whether or not to show user output
     """
 
     generate_random_flow_file(
         config,
+        seed=seed,
         n_steps=config.max_steps,
         cars_per_step=config.cars_per_step,
         n_init_cars=config.init_cars,
@@ -48,26 +52,36 @@ def main(config):
                         road_lengths[road] for road in route[:-1]
                     )
 
-        print(f"At step {step+1}/{config.max_steps}", end="\r")
-    print("\n")
+        if verbose:
+            print(f"At step {step+1}/{config.max_steps}", end="\r")
+    if verbose:
+        print("\n")
 
     # The max speed in manhattan is 40.2336
     average_freeflow_travel_time = np.mean(
         [distance / 40.2336 for distance in car_distances.values()]
     )
     travel_time_index = eng.get_average_travel_time() / average_freeflow_travel_time
-    print("------------------------Metrics:-------------------------")
-    print("Average travel time = ", eng.get_average_travel_time())
-    print("Free flow avg travel time = ", average_freeflow_travel_time)
-    print("Average % waiting vehicles = ", np.mean(waiting_vehicles_percents[100:]))
-    print("Travel Time Index = ", travel_time_index)
+    if verbose:
+        print("------------------------Metrics:-------------------------")
+        print("Average travel time = ", eng.get_average_travel_time())
+        print("Free flow avg travel time = ", average_freeflow_travel_time)
+        print("Average % waiting vehicles = ", np.mean(waiting_vehicles_percents[100:]))
+        print("Travel Time Index = ", travel_time_index)
 
-    sns.lineplot(
-        x=list(range(len(waiting_vehicles_percents))), y=waiting_vehicles_percents
+        sns.lineplot(
+            x=list(range(len(waiting_vehicles_percents))), y=waiting_vehicles_percents
+        )
+        plt.ylabel("% waiting vehicles")
+        plt.xlabel("time")
+        plt.savefig(f"{config.dir}/waiting_vehicles.png")
+
+    return SimpleNamespace(
+        av_travel_time=eng.get_average_travel_time(),
+        free_flow_travel_time=average_freeflow_travel_time,
+        av_waiting_agents=np.mean(waiting_vehicles_percents[100:]),
+        travel_time_index=travel_time_index,
     )
-    plt.ylabel("% waiting vehicles")
-    plt.xlabel("t")
-    plt.savefig(f"{config.dir}/waiting_vehicles.png")
 
 
 if __name__ == "__main__":
@@ -77,4 +91,4 @@ if __name__ == "__main__":
     parser.add_argument("--cars_per_step", type=int, default=1)
     parser.add_argument("--init_cars", type=int, default=500)
     config = parser.parse_args()
-    main(config)
+    run_static_routing_simulation(config, verbose=True)
