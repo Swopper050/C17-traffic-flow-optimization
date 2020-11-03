@@ -101,11 +101,11 @@ http://108.61.178.181:6970/traffic_sim
 
 # Results
 
-![500 steps, 500 cars](http://trinetti.co/dmas/boxplot_waiting_500_500.png)
+![500 steps, 500 cars](http://trinetti.co/dmas/boxplot_waiting_500_500.png) ![500 steps, 500 cars](http://trinetti.co/dmas/boxplot_waiting_500_500.png) ![500 steps, 500 cars](http://trinetti.co/dmas/boxplot_waiting_500_500.png) 
 
-![500 steps, 750 cars](http://trinetti.co/dmas/boxplot_waiting_500_750.png)
+![500 steps, 750 cars](http://trinetti.co/dmas/boxplot_waiting_500_750.png) 
 
-![500 steps, 1000 cars](http://trinetti.co/dmas/boxplot_waiting_500_1000.png)
+![500 steps, 1000 cars](http://trinetti.co/dmas/boxplot_waiting_500_1000.png) 
 
 ![1000 steps, 500 cars](http://trinetti.co/dmas/boxplot_waiting_1000_500.png)
 
