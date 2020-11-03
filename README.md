@@ -23,7 +23,7 @@ In this study, an approach using Multi-Agent Systems was used in order to optimi
 Retrieve, model, analyze, and visualize OpenStreetMap street networks and other spatial data.
 Citation info: Boeing, G. 2017. "OSMnx: New Methods for Acquiring, Constructing, Analyzing, and Visualizing Complex Street Networks." Computers, Environment and Urban Systems 65, 126-139. doi:10.1016/j.compenvurbsys.2017.05.004'
 
-## [Citiflow](https://cityflow-project.github.io/) - Simulation base
+## [Cityflow](https://cityflow-project.github.io/) - Simulation base
 
 'CityFlow is a new designed open-source traffic simulator, which is much faster than SUMO (Simulation of Urban Mobility).
 
