@@ -100,8 +100,9 @@ python3 run_dynamic_routing_simulation.py --dir low_manhattan_sim --max_steps 50
 http://108.61.178.181:6970/traffic_sim
 
 # Results
-
-![500 steps, 500 cars](http://trinetti.co/dmas/boxplot_waiting_500_500.png) ![500 steps, 500 cars](http://trinetti.co/dmas/boxplot_waiting_500_500.png) ![500 steps, 500 cars](http://trinetti.co/dmas/boxplot_waiting_500_500.png) 
+Solarized dark             |  Solarized Ocean
+:-------------------------:|:-------------------------:
+![500 steps, 500 cars](http://trinetti.co/dmas/boxplot_waiting_500_500.png) | ![500 steps, 500 cars](http://trinetti.co/dmas/boxplot_waiting_500_500.png)
 
 ![500 steps, 750 cars](http://trinetti.co/dmas/boxplot_waiting_500_750.png) 
 
