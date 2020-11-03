@@ -39,6 +39,7 @@ CityFlow can support flexible definitions for road network and traffic flow base
 
 
 # Installation
+We recommend Docker for macOS because Cityflow use C based environment which is not working on Mac. Linux based OS could use both installations. 
 ## 1.  Docker
 
 ### Docker Installation
@@ -100,6 +101,25 @@ http://108.61.178.181:6970/traffic_sim
 
 # Results
 
+![500 steps, 500 cars](http://trinetti.co/dmas/boxplot_waiting_500_500.png)
+
+![500 steps, 750 cars](http://trinetti.co/dmas/boxplot_waiting_500_750.png)
+
+![500 steps, 1000 cars](http://trinetti.co/dmas/boxplot_waiting_500_1000.png)
+
+![1000 steps, 500 cars](http://trinetti.co/dmas/boxplot_waiting_1000_500.png)
+
+![1000 steps, 750 cars](http://trinetti.co/dmas/boxplot_waiting_1000_750.png)
+
+![1000 steps, 1000 cars](http://trinetti.co/dmas/boxplot_waiting_1000_1000.png)
+
+![1500 steps, 500 cars](http://trinetti.co/dmas/boxplot_waiting_1500_500.png)
+
+![1500 steps, 750 cars](http://trinetti.co/dmas/boxplot_waiting_1500_750.png)
+
+![1500 steps, 1000 cars](http://trinetti.co/dmas/boxplot_waiting_1500_1000.png)
+
+
 Generated Replay files and plot for visualsation:
 ```
 low_manhattan_sim/replay.txt 
@@ -107,7 +127,7 @@ low_manhattan_sim/replay_roadnet.json
 low_manhattan_sim/waiting_vehicles.png .
 ```
 **Upload replay files here:**
-http://108.61.178.181:6969/show
+http://108.61.178.181:69/show
 
 *Or open /fronted/index.html in your local machine.*
 
