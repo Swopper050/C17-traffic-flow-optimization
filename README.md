@@ -94,50 +94,36 @@ python3 run_static_routing_simulation.py --dir low_manhattan_sim --max_steps 500
 python3 run_dynamic_routing_simulation.py --dir low_manhattan_sim --max_steps 500 --cars_per_step 1 --init_cars 500
 
 ```
-
-# From VM (only default parameters)
-
-http://108.61.178.181:6970/traffic_sim
-
-# Results
-Solarized dark             |  Solarized Ocean
-:-------------------------:|:-------------------------:
-![500 steps, 500 cars](http://trinetti.co/dmas/boxplot_waiting_500_500.png) | ![500 steps, 500 cars](http://trinetti.co/dmas/boxplot_waiting_500_500.png)
-
-![500 steps, 750 cars](http://trinetti.co/dmas/boxplot_waiting_500_750.png) 
-
-![500 steps, 1000 cars](http://trinetti.co/dmas/boxplot_waiting_500_1000.png) 
-
-![1000 steps, 500 cars](http://trinetti.co/dmas/boxplot_waiting_1000_500.png)
-
-![1000 steps, 750 cars](http://trinetti.co/dmas/boxplot_waiting_1000_750.png)
-
-![1000 steps, 1000 cars](http://trinetti.co/dmas/boxplot_waiting_1000_1000.png)
-
-![1500 steps, 500 cars](http://trinetti.co/dmas/boxplot_waiting_1500_500.png)
-
-![1500 steps, 750 cars](http://trinetti.co/dmas/boxplot_waiting_1500_750.png)
-
-![1500 steps, 1000 cars](http://trinetti.co/dmas/boxplot_waiting_1500_1000.png)
-
-
-Generated Replay files and plot for visualsation:
+### Generated Replay files and plot for visualsation:
 ```
 low_manhattan_sim/replay.txt 
 low_manhattan_sim/replay_roadnet.json 
 low_manhattan_sim/waiting_vehicles.png .
 ```
 **Upload replay files here:**
-http://108.61.178.181:69/show
+http://108.61.178.181:6969/show
 
-*Or open /fronted/index.html in your local machine.*
+# From VM (only default parameters)
 
-Config files
-```
-low_manhattan_sim/config.json
-low_manhattan_sim/agents_flow.json
-low_manhattan_sim/low_manhattan.json
-low_manhattan_sim/low_manhattan_flow.json
-```
+http://108.61.178.181:6970/traffic_sim
 
-
+# Results
+Simulation parameters|Travel time         |  Travel Time index | Waiting percent
+:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+500 steps, 500 cars|![](http://trinetti.co/dmas/boxplot_travel_500_500.png) | ![](http://trinetti.co/dmas/boxplot_tti_500_500.png) | ![](http://trinetti.co/dmas/boxplot_waiting_500_500.png)
+:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+500 steps, 750 cars|![](http://trinetti.co/dmas/boxplot_travel_500_750.png) |![](http://trinetti.co/dmas/boxplot_tti_500_750.png) |![](http://trinetti.co/dmas/boxplot_waiting_500_750.png) 
+:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+500 steps, 1000 cars|![](http://trinetti.co/dmas/boxplot_travel_500_1000.png) |![](http://trinetti.co/dmas/boxplot_tti_500_750.png) |![](http://trinetti.co/dmas/boxplot_waiting_500_750.png) 
+:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+1000 steps, 500 cars|![](http://trinetti.co/dmas/boxplot_travel_1000_500.png)|![](http://trinetti.co/dmas/boxplot_tti_500_750.png) |![](http://trinetti.co/dmas/boxplot_waiting_500_750.png) 
+:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+1000 steps, 750 cars|![](http://trinetti.co/dmas/boxplot_travelg_1000_750.png)|![](http://trinetti.co/dmas/boxplot_tti_500_750.png) |![](http://trinetti.co/dmas/boxplot_waiting_500_750.png) 
+:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+1000 steps, 1000 cars|![](http://trinetti.co/dmas/boxplot_travel_1000_1000.png)|![](http://trinetti.co/dmas/boxplot_tti_500_750.png) |![](http://trinetti.co/dmas/boxplot_waiting_500_750.png) 
+:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+1500 steps, 500 cars|![](http://trinetti.co/dmas/boxplot_travel_1500_500.png)|![](http://trinetti.co/dmas/boxplot_tti_500_750.png) |![](http://trinetti.co/dmas/boxplot_waiting_500_750.png) 
+:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+1500 steps, 750 cars|![](http://trinetti.co/dmas/boxplot_travel_1500_750.png)|![](http://trinetti.co/dmas/boxplot_tti_500_750.png) |![](http://trinetti.co/dmas/boxplot_waiting_500_750.png) 
+:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+1500 steps, 1000 cars|![](http://trinetti.co/dmas/boxplot_waiting_1500_1000.png)|![](http://trinetti.co/dmas/boxplot_tti_500_750.png) |![](http://trinetti.co/dmas/boxplot_waiting_500_750.png) 
