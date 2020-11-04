@@ -16,7 +16,7 @@ The documentation is build using sphinx and can be found [here](http://108.61.17
 
 # Installation
 There are two ways of running the simulation on your machine. One approach uses docker and one approach requires you to install the project locally.
-We recommend Docker because it works on all operating systems. CityFlow uses C++ dependencies which is difficult to get working on Mac. If your operating system is Linux based it is possible to install all dependencies and run the simulation locally. 
+We recommend Docker because it works on all operating systems. CityFlow uses C++ dependencies which is difficult to get working on Mac. If your operating system is Linux based it is possible to install all dependencies and run the simulation locally. If you want to run the simulation on a Mac you are required to install cmake on your machine first.
 
 ## 1.  Docker
 First install docker, [Docker Installation](https//docs.docker.com/engine/install/).
