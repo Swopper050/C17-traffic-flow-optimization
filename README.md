@@ -103,6 +103,9 @@ low_manhattan_sim/waiting_vehicles.png .
 **Upload replay files here:**
 http://108.61.178.181:6969/show
 
+
+![alt text](http://trinetti.co/dmas/simulation.png)
+
 # From VM (only default parameters)
 
 http://108.61.178.181:6970/traffic_sim
