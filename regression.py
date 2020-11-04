@@ -3,7 +3,6 @@ This file contains the code for performing polynomial and multiple linear regres
 on the density versus timesteps data collected from simulation. The coefficients of
 the final model are extracted and the equation is used to predict time delays.
 """
-import pdb
 
 import matplotlib.pyplot as plt
 import numpy as np
