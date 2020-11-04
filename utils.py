@@ -32,7 +32,15 @@ def create_roadnet_graph(config):
     Given a configuration namespace as needed for a simulation, builds the roadnet in graph form,
     considering intersections as nodes and roads as edges. The graph will be represented as a
     dictionary constructed as follows:
-        graph = {
+
+    :param config: namespace, consisting of the configuration for the simulation
+    :returns: graph representing the roadnet
+
+    :Example:
+
+        >>> graph = create_roadnet_graph(config)
+        >>> graph
+        {
             'intersection_id1': {
                 'coordinates': {'x': 123, 'y': 456},
                 'connected_intersections': {
@@ -50,9 +58,6 @@ def create_roadnet_graph(config):
             }
             ....
         }
-
-    :param config: namespace, consisting of the configuration for the simulation
-    :returns: graph representing the roadnet
     """
 
     with open(f"{config.dir}/{config.dir}.json") as f:

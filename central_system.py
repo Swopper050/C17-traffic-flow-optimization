@@ -24,12 +24,17 @@ class CentralSystem:
         at which time the car expects to be at which road.
 
         :param car_id: str, car id
-        :param route_dict: a dictionary as follows:
-            {
-                "road_id1": [t12, t13, t14],
-                "road_id2": [t15, t16],
-                "road_id5": [t17, t18, t19, t20],
-            }
+        :param route_dict: a dictionary with road ids as keys and list of timesteps to be there
+
+        :Example:
+
+            >>> road_dict = {
+            >>>     "road_id1": [t12, t13, t14],
+            >>>     "road_id2": [t15, t16],
+            >>>     "road_id5": [t17, t18, t19, t20]
+            >>> }
+            >>> car_id = "car1"
+            >>> central_system.add_route(car_id, road_dict)
         """
 
         for road_id, timesteps in route_dict.items():
@@ -42,12 +47,17 @@ class CentralSystem:
         This can happen when a car changes route for example.
 
         :param car_id: str, car id
-        :param route_dict: a dictionary as follows:
-            {
-                "road_id1": [t12, t13, t14],
-                "road_id2": [t15, t16],
-                "road_id5": [t17, t18, t19, t20],
-            }
+        :param route_dict: a dictionary with road ids as keys and list of timesteps to be there
+
+        :Example:
+
+            >>> road_dict = {
+            >>>     "road_id1": [t12, t13, t14],
+            >>>     "road_id2": [t15, t16],
+            >>>     "road_id5": [t17, t18, t19, t20]
+            >>> }
+            >>> car_id = "car2"
+            >>> central_system.remove_route(car_id, road_dict)
         """
 
         try:

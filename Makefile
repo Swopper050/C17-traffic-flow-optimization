@@ -26,6 +26,9 @@ deps:
 	pip install -U pip
 	pip install -Ur requirements.txt
 
+doc:
+	cd docs; make clean; make html
+
 format:
 	isort --filter-files $(LINT_FILES)
 	black $(LINT_FILES)
