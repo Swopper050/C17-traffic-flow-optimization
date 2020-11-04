@@ -22,7 +22,7 @@ We recommend Docker because it works on all operating systems. CityFlow uses C++
 First install docker, [Docker Installation](https//docs.docker.com/engine/install/).
 
 ### Docker Build
-Clone repository and build Docker: It takes around 10 minutes to build (the first time it make longer as it needs to download some files).
+Clone repository and build Docker: It takes around 10 minutes to build (the first time it may take longer as it needs to download some files).
 ```
 git clone https://github.com/Swopper050/C17-traffic-flow-optimization.git
 cd C17-traffic-flow-optimization
@@ -34,7 +34,7 @@ sudo docker run -dit --name traffic traffic_opt
 sudo docker exec -i -t traffic bin/bash
 cd /home/C17-traffic-flow-optimization/
 ```
-## 2. Setup the project locally
+## 2. Setup the project locally (Linux only)
 
 Clone repository. Install virtualenv, make virtual environment and install dependencies:
 ```
@@ -51,13 +51,14 @@ pip3 install .
 cd ..
 ```
 
-# Makefile
+# Makefile and tests
 There is a Makefile in the repository which can be used to run for example automated tests, linters, or build documentation locally:
 ```
 make test
 make formatlint
 make doc
 ```
+The tests cover the core components: the central system, the agents and the dynamic routing.
 Simply run `make` to see what options there are.
 
 # Running the simulation
@@ -73,6 +74,7 @@ Simply run `make` to see what options there are.
 * Free flow avg travel time 
 * Average % waiting vehicles 
 * Travel Time Index 
+
 ## Static
 Simulation time: ~10 seconds
 ```
