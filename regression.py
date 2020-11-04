@@ -1,6 +1,8 @@
-# Multiple Linear Regression
-
-# Importing the libraries
+"""
+This file contains the code for performing polynomial and multiple linear regression
+on the density versus timesteps data collected from simulation. The coefficients of
+the final model are extracted and the equation is used to predict time delays. 
+"""
 import pdb
 
 import matplotlib.pyplot as plt
@@ -12,30 +14,26 @@ from sklearn.preprocessing import PolynomialFeatures
 
 
 def perform_poly_regression(config):
-    # Polynomial Regression
-    # Importing the dataset
+    """
+    Performs polynomial regression on Density versus timesteps on road data collect through simulations.
+    :param config: namespace with the configuration for the run
+    """
     dataset = pd.read_csv(f"{config.dir}/reg_data.csv")
     dataset = dataset[dataset.columns[-2:]]
     X = dataset.iloc[:, -2].values
     y = dataset.iloc[:, -1].values
     X = X.reshape(-1, 1)
-    """
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
-    X_train = X_train.reshape(-1,1)
-    X_test = X_test.reshape(-1,1)
-    # Training the Linear Regression model on the whole dataset
-    pdb.set_trace()
-    lin_reg = LinearRegression()
-    lin_reg.fit(X_train, y_train)
-    # Training the Polynomial Regression model on the whole dataset
-    """
 
+    #Initialise a Polynomial Regressor of Degree 4
+    #Fit the entire dataset to polynomial features
+    #Use a linear egressor on this to estimate result
+    
     poly_reg = PolynomialFeatures(degree=4)
     X_poly = poly_reg.fit_transform(X)
     lin_reg = LinearRegression()
     lin_reg.fit(X_poly, y)
 
-    # print("R Squared Score of SimpleLinear regressor:" + str(lin_reg.score(X_test,y_test)))
+    #R Squared score gives the accuracy of the predictor on the dataset
     print("R Squared Score of Polynomial regressor:" + str(lin_reg.score(X_poly, y)))
 
     # Visualising the Polynomial Regression results (for higher resolution and smoother curve)
@@ -49,15 +47,11 @@ def perform_poly_regression(config):
     plt.savefig("Poly2.png")
     plt.show()
 
-    # Predicting a new result with Linear Regression
-    # lin_reg.predict([[6.5]])
-
-    # Predicting a new result with Polynomial Regression
-    # lin_reg_2.predict(poly_reg.fit_transform([[6.5]]))
-
-
 def perform_multiple_lin_regression(config):
-    pdb.set_trace()
+    """
+    Performs multiple regression on Speed, Road Length, Density versus timesteps on road data collect through simulations.
+    :param config: namespace with the configuration for the run
+    """
     dataset = pd.read_csv(f"{config.dir}/reg_data.csv")
     X = dataset.iloc[:, :-1].values
     y = dataset.iloc[:, -1].values
