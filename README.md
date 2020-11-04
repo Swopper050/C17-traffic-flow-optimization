@@ -136,6 +136,3 @@ Simulation parameters|Travel time         |  Travel Time index | Waiting percent
 
 ## Differences between static and Dynamic Routing
 ![alt text](http://trinetti.co/dmas/Simulation.PNG)
-<p align="center">
-<img src="https://github.com/Swopper050/C17-traffic-flow-optimization/blob/master/Poly2.png">
-</p>
