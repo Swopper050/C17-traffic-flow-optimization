@@ -23,4 +23,4 @@ RUN cd CityFlow && \
     pip install .
 COPY . /home/C17-traffic-flow-optimization
 RUN cd /home/C17-traffic-flow-optimization && \
-    pip install -r requirements.txt
+    pip install -I==9.0.3 -r requirements.txt
