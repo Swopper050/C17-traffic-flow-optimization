@@ -24,16 +24,16 @@ def perform_poly_regression(config):
     y = dataset.iloc[:, -1].values
     X = X.reshape(-1, 1)
 
-    #Initialise a Polynomial Regressor of Degree 4
-    #Fit the entire dataset to polynomial features
-    #Use a linear egressor on this to estimate result
-    
+    # Initialise a Polynomial Regressor of Degree 4
+    # Fit the entire dataset to polynomial features
+    # Use a linear egressor on this to estimate result
+
     poly_reg = PolynomialFeatures(degree=4)
     X_poly = poly_reg.fit_transform(X)
     lin_reg = LinearRegression()
     lin_reg.fit(X_poly, y)
 
-    #R Squared score gives the accuracy of the predictor on the dataset
+    # R Squared score gives the accuracy of the predictor on the dataset
     print("R Squared Score of Polynomial regressor:" + str(lin_reg.score(X_poly, y)))
 
     # Visualising the Polynomial Regression results (for higher resolution and smoother curve)
@@ -46,6 +46,7 @@ def perform_poly_regression(config):
     plt.ylabel("Timesteps on Road")
     plt.savefig("Poly2.png")
     plt.show()
+
 
 def perform_multiple_lin_regression(config):
     """
