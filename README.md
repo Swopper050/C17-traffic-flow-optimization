@@ -100,17 +100,20 @@ low_manhattan_sim/replay.txt
 low_manhattan_sim/replay_roadnet.json 
 low_manhattan_sim/waiting_vehicles.png .
 ```
-**Upload replay files here:**
-http://108.61.178.181:6969/show
+**Upload replay.txt and replay_roadnet.json here:**
+[Show Simulation](http://108.61.178.181:6970/show) 
 
 
-![alt text](http://trinetti.co/dmas/Simulation.PNG)
-
-# From VM (only default parameters)
-
-http://108.61.178.181:6970/traffic_sim
+# From Virtual machine (only default parameters)
+We made a webpage where you can run the simulation and get the results.
+[Traffic flow optimization](http://108.61.178.181:6970/traffic_sim)
 
 # Results
+* Steps (seconds): 500(~8 min), 1000(~17 min) and 1500(25 min)
+* Numbers of initial cars: 500, 750 and 1000
+* pawning rate: 1 car/step
+* Numbers of simulations: 50  in each scenario
+
 Simulation parameters|Travel time         |  Travel Time index | Waiting percent
 :-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
 500 steps, 500 cars|![](http://trinetti.co/dmas/boxplot_travel_500_500.png) | ![](http://trinetti.co/dmas/boxplot_tti_500_500.png) | ![](http://trinetti.co/dmas/boxplot_waiting_500_500.png)
@@ -123,5 +126,8 @@ Simulation parameters|Travel time         |  Travel Time index | Waiting percent
 1500 steps, 750 cars|![](http://trinetti.co/dmas/boxplot_travel_1500_750.png)|![](http://trinetti.co/dmas/boxplot_tti_1500_750.png) |![](http://trinetti.co/dmas/boxplot_waiting_1500_750.png) 
 1500 steps, 1000 cars|![](http://trinetti.co/dmas/boxplot_waiting_1500_1000.png)|![](http://trinetti.co/dmas/boxplot_tti_1500_1000.png) |![](http://trinetti.co/dmas/boxplot_waiting_1500_1000.png) 
 
-
+**Differences between static and Dynamic Routing**
+![alt text](http://trinetti.co/dmas/Simulation.PNG)
+<p align="center">
 ![Screenshot](Poly2.png)
+</p>
