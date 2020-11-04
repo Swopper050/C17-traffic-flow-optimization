@@ -4,7 +4,8 @@ osmnx==0.15.1
 seaborn==0.11.0
 astar==0.92
 folium==0.11.0
-
+joblib==0.17.0
+scikit-learn==0.23.2
 pytest==6.1.1
 pytest-cov==2.10.1
 
