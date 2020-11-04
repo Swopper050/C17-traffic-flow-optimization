@@ -16,7 +16,7 @@ RUN wget -P /tmp/ https://repo.continuum.io/miniconda/Miniconda3-4.5.4-Linux-x86
 
 # install packages
 RUN apt -y install libspatialindex-c4v5 python3-pip
-RUN pip install --upgrade pip==10.0.1
+RUN pip install --upgrade pip==9.0.1
 RUN cd /home/
 RUN git clone https://github.com/cityflow-project/CityFlow.git
 RUN cd CityFlow && \
