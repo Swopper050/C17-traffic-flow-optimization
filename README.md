@@ -9,28 +9,28 @@
 
 # About our Project
 
-In this study, an approach using Multi-Agent Systems was used in order to optimize traffic flow and travel time. A new perspective is used in which agents implicitly communicate with each other by publishing their planned routes to a central agent. Agents can communicate with this central agent to foresee traffic jams and hence they will dynamically plan their route in order to minimize their own travel time. It is expected that this will also have a positive impact on the travel time, waiting time and the traffic congestion of all systems. OSMnx was used to simulate a part of the map of Manhattan, to make the simulation as realistic as possible. The results were compared to a baseline where all route planning was static. \textit{Small summary of results need to be included here when available.
+In this study, an approach using Multi-Agent Systems was used in order to optimize traffic flow and travel time. A new perspective is used in which agents implicitly communicate with each other by publishing their planned routes to a central agent. Agents can communicate with this central agent to foresee traffic jams and hence they will dynamically plan their route in order to minimize their own travel time. It is expected that this will also have a positive impact on the travel time, waiting time and the traffic congestion of all systems. OSMnx was used to simulate a part of the map of Manhattan, to make the simulation as realistic as possible. The results were compared to a baseline where all route planning was static.
 
 # Packages
 
 ## [Folium](https://python-visualization.github.io/folium/index.html) - Map parser
 
-'Folium builds on the data wrangling strengths of the Python ecosystem and the mapping strengths of the leaflet.js library. Manipulate your data in Python, then visualize it in on a Leaflet map via folium.'
+"Folium builds on the data wrangling strengths of the Python ecosystem and the mapping strengths of the leaflet.js library. Manipulate your data in Python, then visualize it in on a Leaflet map via folium."
 
 ## [OSMNX](https://github.com/gboeing/osmnx) - Map libary
 
-'Python for street networks
+"Python for street networks
 Retrieve, model, analyze, and visualize OpenStreetMap street networks and other spatial data.
-Citation info: Boeing, G. 2017. "OSMnx: New Methods for Acquiring, Constructing, Analyzing, and Visualizing Complex Street Networks." Computers, Environment and Urban Systems 65, 126-139. doi:10.1016/j.compenvurbsys.2017.05.004'
+Citation info: Boeing, G. 2017. "OSMnx: New Methods for Acquiring, Constructing, Analyzing, and Visualizing Complex Street Networks." Computers, Environment and Urban Systems 65, 126-139. doi:10.1016/j.compenvurbsys.2017.05.004'"
 
 ## [Cityflow](https://cityflow-project.github.io/) - Simulation base
 
-'CityFlow is a new designed open-source traffic simulator, which is much faster than SUMO (Simulation of Urban Mobility).
+"CityFlow is a new designed open-source traffic simulator, which is much faster than SUMO (Simulation of Urban Mobility).
 
-CityFlow can support flexible definitions for road network and traffic flow based on synthetic and real-world data. It also provides user-friendly interface for reinforcement learning. Most importantly, CityFlow is more than twenty times faster than SUMO and is capable of supporting city-wide traffic simulation with an interactive render for monitoring. Besides traffic signal control, CityFlow could serve as the base for other transportation studies and can create new possibilities to test machine learning methods in the intelligent transportation domain.'
+CityFlow can support flexible definitions for road network and traffic flow based on synthetic and real-world data. It also provides user-friendly interface for reinforcement learning. Most importantly, CityFlow is more than twenty times faster than SUMO and is capable of supporting city-wide traffic simulation with an interactive render for monitoring. Besides traffic signal control, CityFlow could serve as the base for other transportation studies and can create new possibilities to test machine learning methods in the intelligent transportation domain."
 ## [Astar](https://github.com/jrialland/python-astar) - A-* algorithm implementation
 
-'This is a simple implementation of the a-star path finding algorithm in python.'
+"This is a simple implementation of the a-star path finding algorithm in python."
 ## Other packages
 
 * [Numpy](https://numpy.org/doc/stable/) - Multidimensional array
@@ -45,13 +45,13 @@ We recommend Docker for macOS because Cityflow use C based environment which is 
 ### Docker Installation
 https://docs.docker.com/engine/install/
 # Docker Build
-Clone repository, build Docker:
+Clone repository, build Docker: It takes around 10 minutes to build.
 ```
 git clone https://github.com/Swopper050/C17-traffic-flow-optimization.git
 cd C17-traffic-flow-optimization
 docker build -t traffic_opt .
 ```
-**Docker run:**
+**Run the docker and cd to the directory:**
 ```
 sudo docker run -dit --name traffic traffic_opt
 sudo docker exec -i -t traffic bin/bash
@@ -86,10 +86,12 @@ pip install .
 * Average % waiting vehicles 
 * Travel Time Index 
 ## Static
+Simulation time: ~10 seconds
 ```
 python3 run_static_routing_simulation.py --dir low_manhattan_sim --max_steps 500 --cars_per_step 1 --init_cars 500
 ```
 ## Dynamic
+Simulation time: ~50 seconds
 ```
 python3 run_dynamic_routing_simulation.py --dir low_manhattan_sim --max_steps 500 --cars_per_step 1 --init_cars 500
 
@@ -100,13 +102,19 @@ low_manhattan_sim/replay.txt
 low_manhattan_sim/replay_roadnet.json 
 low_manhattan_sim/waiting_vehicles.png .
 ```
+**Copy the replay files and plot from the docker :**
+```
+docker create --name traffic_on traffic_opt
+docker cp traffic_on:/home/C17-traffic-flow-optimization/low_manhattan_sim/replay.txt .
+docker cp traffic_on:/home/C17-traffic-flow-optimization/low_manhattan_sim/replay_roadnet.json .
+docker cp traffic_on:/home/C17-traffic-flow-optimization/low_manhattan_sim/waiting_vehicles.png .
+```
+
 **Upload replay.txt and replay_roadnet.json here:**
 [Show Simulation](http://108.61.178.181:6970/show) 
 
-
 # From Virtual machine (only default parameters)
-We made a webpage where you can run the simulation and get the results.
-[Traffic flow optimization](http://108.61.178.181:6970/traffic_sim)
+[Traffic flow optimization](http://108.61.178.181:6970/traffic_sim) - We made a webpage where the default dynamic and static simulation can be run.
 
 # Results
 * Steps (seconds): 500(~8 min), 1000(~17 min) and 1500(25 min)
