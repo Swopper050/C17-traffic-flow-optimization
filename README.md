@@ -41,11 +41,13 @@ Clone repository. Install virtualenv, make virtual environment and install depen
 git clone https://github.com/Swopper050/C17-traffic-flow-optimization.git
 cd C17-traffic-flow-optimization
 pip3 install virtualenv
+apt-get update
+apt-get install python3-venv
 python3 -m venv .env
 sudo apt -y install libspatialindex-c4v5 python3-pip
 sudo apt install -y build-essential cmake
 make deps
-git clone https://github.com/cityflow-project/CityFlow.git 
+git clone https://github.com/cityflow-project/CityFlow.git
 cd CityFlow
 pip3 install .
 cd ..
@@ -70,10 +72,10 @@ Simply run `make` to see what options there are.
 * New car / step : 1 (Integer)
 
 ### Printing the following statistics
-* Average travel time 
-* Free flow avg travel time 
-* Average % waiting vehicles 
-* Travel Time Index 
+* Average travel time
+* Free flow avg travel time
+* Average % waiting vehicles
+* Travel Time Index
 
 ## Static
 Simulation time: ~10 seconds
@@ -88,8 +90,8 @@ python3 run_dynamic_routing_simulation.py --dir low_manhattan --max_steps 500 --
 ```
 ### Generated Replay files and plot for visualsation:
 ```
-low_manhattan/replay.txt 
-low_manhattan/replay_roadnet.json 
+low_manhattan/replay.txt
+low_manhattan/replay_roadnet.json
 low_manhattan/waiting_vehicles.png .
 ```
 **Copy the replay files and plot from the docker :**
@@ -101,7 +103,7 @@ docker cp traffic_on:/home/C17-traffic-flow-optimization/low_manhattan/waiting_v
 ```
 
 **Upload replay.txt and replay_roadnet.json here:**
-[Show Simulation](http://108.61.178.181:6970/show) 
+[Show Simulation](http://108.61.178.181:6970/show)
 
 # From Virtual machine (only default parameters)
 [Traffic flow optimization](http://108.61.178.181:6970/traffic_sim) - We made a webpage where the default dynamic and static simulation can be run.
@@ -115,14 +117,14 @@ docker cp traffic_on:/home/C17-traffic-flow-optimization/low_manhattan/waiting_v
 Simulation parameters|Travel time         |  Travel Time index | Waiting percent
 :-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
 500 steps, 500 cars|![](http://trinetti.co/dmas/boxplot_travel_500_500.png) | ![](http://trinetti.co/dmas/boxplot_tti_500_500.png) | ![](http://trinetti.co/dmas/boxplot_waiting_500_500.png)
-500 steps, 750 cars|![](http://trinetti.co/dmas/boxplot_travel_500_750.png) |![](http://trinetti.co/dmas/boxplot_tti_500_750.png) |![](http://trinetti.co/dmas/boxplot_waiting_500_750.png) 
-500 steps, 1000 cars|![](http://trinetti.co/dmas/boxplot_travel_500_1000.png) |![](http://trinetti.co/dmas/boxplot_tti_500_1000.png) |![](http://trinetti.co/dmas/boxplot_waiting_500_1000.png) 
-1000 steps, 500 cars|![](http://trinetti.co/dmas/boxplot_travel_1000_500.png)|![](http://trinetti.co/dmas/boxplot_tti_1000_500.png) |![](http://trinetti.co/dmas/boxplot_waiting_1000_500.png) 
-1000 steps, 750 cars|![](http://trinetti.co/dmas/boxplot_travel_1000_750.png)|![](http://trinetti.co/dmas/boxplot_tti_1000_750.png) |![](http://trinetti.co/dmas/boxplot_waiting_1000_750.png) 
-1000 steps, 1000 cars|![](http://trinetti.co/dmas/boxplot_travel_1000_1000.png)|![](http://trinetti.co/dmas/boxplot_tti_1000_1000.png) |![](http://trinetti.co/dmas/boxplot_waiting_1000_1000.png) 
-1500 steps, 500 cars|![](http://trinetti.co/dmas/boxplot_travel_1500_500.png)|![](http://trinetti.co/dmas/boxplot_tti_1500_500.png) |![](http://trinetti.co/dmas/boxplot_waiting_1500_500.png) 
-1500 steps, 750 cars|![](http://trinetti.co/dmas/boxplot_travel_1500_750.png)|![](http://trinetti.co/dmas/boxplot_tti_1500_750.png) |![](http://trinetti.co/dmas/boxplot_waiting_1500_750.png) 
-1500 steps, 1000 cars|![](http://trinetti.co/dmas/boxplot_waiting_1500_1000.png)|![](http://trinetti.co/dmas/boxplot_tti_1500_1000.png) |![](http://trinetti.co/dmas/boxplot_waiting_1500_1000.png) 
+500 steps, 750 cars|![](http://trinetti.co/dmas/boxplot_travel_500_750.png) |![](http://trinetti.co/dmas/boxplot_tti_500_750.png) |![](http://trinetti.co/dmas/boxplot_waiting_500_750.png)
+500 steps, 1000 cars|![](http://trinetti.co/dmas/boxplot_travel_500_1000.png) |![](http://trinetti.co/dmas/boxplot_tti_500_1000.png) |![](http://trinetti.co/dmas/boxplot_waiting_500_1000.png)
+1000 steps, 500 cars|![](http://trinetti.co/dmas/boxplot_travel_1000_500.png)|![](http://trinetti.co/dmas/boxplot_tti_1000_500.png) |![](http://trinetti.co/dmas/boxplot_waiting_1000_500.png)
+1000 steps, 750 cars|![](http://trinetti.co/dmas/boxplot_travel_1000_750.png)|![](http://trinetti.co/dmas/boxplot_tti_1000_750.png) |![](http://trinetti.co/dmas/boxplot_waiting_1000_750.png)
+1000 steps, 1000 cars|![](http://trinetti.co/dmas/boxplot_travel_1000_1000.png)|![](http://trinetti.co/dmas/boxplot_tti_1000_1000.png) |![](http://trinetti.co/dmas/boxplot_waiting_1000_1000.png)
+1500 steps, 500 cars|![](http://trinetti.co/dmas/boxplot_travel_1500_500.png)|![](http://trinetti.co/dmas/boxplot_tti_1500_500.png) |![](http://trinetti.co/dmas/boxplot_waiting_1500_500.png)
+1500 steps, 750 cars|![](http://trinetti.co/dmas/boxplot_travel_1500_750.png)|![](http://trinetti.co/dmas/boxplot_tti_1500_750.png) |![](http://trinetti.co/dmas/boxplot_waiting_1500_750.png)
+1500 steps, 1000 cars|![](http://trinetti.co/dmas/boxplot_waiting_1500_1000.png)|![](http://trinetti.co/dmas/boxplot_tti_1500_1000.png) |![](http://trinetti.co/dmas/boxplot_waiting_1500_1000.png)
 
 ## Differences between static and Dynamic Routing
 ![alt text](http://trinetti.co/dmas/Simulation.PNG)
