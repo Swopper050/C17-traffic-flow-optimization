@@ -36,6 +36,7 @@ CityFlow can support flexible definitions for road network and traffic flow base
 * [Numpy](https://numpy.org/doc/stable/) - Multidimensional array
 * [Matplotlib](https://matplotlib.org/3.3.2/contents.html) - Plot
 * [Seaborn](https://seaborn.pydata.org/) - Statistical data visualization
+* [Joblib](https://pypi.org/project/joblib/) - Lightweight pipelining
 
 
 # Installation
