@@ -1,45 +1,20 @@
-LINT_FILES = *.py tests
-TEST_PATH = tests
-PYTEST = py.test $(TEST_PATH) --pythonwarnings=once
+# Minimal makefile for Sphinx documentation
+#
 
-define echotask
-	@tput setaf 6
-	@echo -n "  $1"
-	@tput setaf 8
-	@echo -n " - "
-	@tput sgr0
-	@echo $2
-endef
+# You can set these variables from the command line, and also
+# from the environment for the first two.
+SPHINXOPTS    ?=
+SPHINXBUILD   ?= sphinx-build
+SOURCEDIR     = .
+BUILDDIR      = _build
 
+# Put it first so that "make" without argument is like "make help".
 help:
-	@echo
-	$(call echotask,"deps","installs and updates all dependencies for developing")
-	$(call echotask,"format","formats code using isort and black")
-	$(call echotask,"formatcheck","checks format using isort and black")
-	$(call echotask,"flake8","lints code using flake8")
-	$(call echotask,"lint","lints all code using flake8 isort and black")
-	$(call echotask,"formatlint","formats and lnts code using flake8 isort and black")
-	$(call echotask,"test","runs all tests")
-	@echo
+	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
-deps:
-	pip install -U pip
-	pip install -Ur requirements.txt
+.PHONY: help Makefile
 
-format:
-	isort --filter-files $(LINT_FILES)
-	black $(LINT_FILES)
-
-formatcheck:
-	isort --check-only --filter-files $(LINT_FILES)
-	black --check $(LINT_FILES)
-
-flake8:
-	flake8 $(LINT_FILES)
-
-lint: flake8 formatcheck
-
-formatlint: format flake8
-
-test:
-	$(PYTEST)
+# Catch-all target: route all unknown targets to Sphinx using the new
+# "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
+%: Makefile
+	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)

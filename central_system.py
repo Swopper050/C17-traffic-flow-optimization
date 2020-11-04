@@ -22,14 +22,13 @@ class CentralSystem:
         """
         This function can be used to add the route of a car such that the central system knows
         at which time the car expects to be at which road.
-
         :param car_id: str, car id
         :param route_dict: a dictionary as follows:
-            {
-                "road_id1": [t12, t13, t14],
-                "road_id2": [t15, t16],
-                "road_id5": [t17, t18, t19, t20],
-            }
+        {
+        "road_id1": [t12, t13, t14],
+        "road_id2": [t15, t16],
+        "road_id5": [t17, t18, t19, t20]
+        }
         """
 
         for road_id, timesteps in route_dict.items():
@@ -40,14 +39,13 @@ class CentralSystem:
         """
         This function can be used to remove an added route of a car from the central system.
         This can happen when a car changes route for example.
-
         :param car_id: str, car id
         :param route_dict: a dictionary as follows:
-            {
-                "road_id1": [t12, t13, t14],
-                "road_id2": [t15, t16],
-                "road_id5": [t17, t18, t19, t20],
-            }
+        {
+        "road_id1": [t12, t13, t14],
+        "road_id2": [t15, t16],
+        "road_id5": [t17, t18, t19, t20]
+        }
         """
 
         try:

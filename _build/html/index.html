@@ -1,0 +1,523 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to Multi-Agent Systems’s documentation! &#8212; Multi-Agent Systems 4-10-2020 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-central_system">
+<span id="welcome-to-multi-agent-systems-s-documentation"></span><h1>Welcome to Multi-Agent Systems’s documentation!<a class="headerlink" href="#module-central_system" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="central_system.CentralSystem">
+<em class="property">class </em><code class="sig-prename descclassname">central_system.</code><code class="sig-name descname">CentralSystem</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span></em><span class="sig-paren">)</span><a class="headerlink" href="#central_system.CentralSystem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class which acts as the central system. Can be used by agents to communicate about the state
+of the environment, publish routes to with expected travel times and remove previously
+published routes.</p>
+<p>Can be thought of as a map over time which keeps track of traffic density for every road.</p>
+<dl class="py method">
+<dt id="central_system.CentralSystem.add_route">
+<code class="sig-name descname">add_route</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">car_id</span></em>, <em class="sig-param"><span class="n">route_dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#central_system.CentralSystem.add_route" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function can be used to add the route of a car such that the central system knows
+at which time the car expects to be at which road.
+:param car_id: str, car id
+:param route_dict: a dictionary as follows:
+{
+“road_id1”: [t12, t13, t14],
+“road_id2”: [t15, t16],
+“road_id5”: [t17, t18, t19, t20]
+}</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="central_system.CentralSystem.get_density_at_interval">
+<code class="sig-name descname">get_density_at_interval</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">road_id</span></em>, <em class="sig-param"><span class="n">min_t</span></em>, <em class="sig-param"><span class="n">max_t</span></em><span class="sig-paren">)</span><a class="headerlink" href="#central_system.CentralSystem.get_density_at_interval" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function can be used to request the density of a road at a given interval. The density
+is simply the number of cars on that road at a specific time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>road_id</strong> – str, id of the road</p></li>
+<li><p><strong>min_t</strong> – start of the time interval</p></li>
+<li><p><strong>max_t</strong> – end of the time interval</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a dictionary with for every timestep in the interval the density</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="central_system.CentralSystem.init_map_density">
+<code class="sig-name descname">init_map_density</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#central_system.CentralSystem.init_map_density" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes the map density over time.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="central_system.CentralSystem.remove_route">
+<code class="sig-name descname">remove_route</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">car_id</span></em>, <em class="sig-param"><span class="n">route_dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#central_system.CentralSystem.remove_route" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function can be used to remove an added route of a car from the central system.
+This can happen when a car changes route for example.
+:param car_id: str, car id
+:param route_dict: a dictionary as follows:
+{
+“road_id1”: [t12, t13, t14],
+“road_id2”: [t15, t16],
+“road_id5”: [t17, t18, t19, t20]
+}</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-vehicle_agent"></span><dl class="py data">
+<dt id="vehicle_agent.INTERSECTION_CHANGE_TIME_COST">
+<code class="sig-prename descclassname">vehicle_agent.</code><code class="sig-name descname">INTERSECTION_CHANGE_TIME_COST</code><em class="property"> = 8</em><a class="headerlink" href="#vehicle_agent.INTERSECTION_CHANGE_TIME_COST" title="Permalink to this definition">¶</a></dt>
+<dd><p>The average time/seconds/simulation steps it costs to traverse an intersection.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="vehicle_agent.VehicleAgent">
+<em class="property">class </em><code class="sig-prename descclassname">vehicle_agent.</code><code class="sig-name descname">VehicleAgent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">car_id</span></em>, <em class="sig-param"><span class="n">vehicle_info</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">t</span></em>, <em class="sig-param"><span class="n">max_steps</span></em>, <em class="sig-param"><span class="n">road_lengths</span></em><span class="sig-paren">)</span><a class="headerlink" href="#vehicle_agent.VehicleAgent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class used to manage agents/vehicles.</p>
+<dl class="py method">
+<dt id="vehicle_agent.VehicleAgent.estimate_route_timing">
+<code class="sig-name descname">estimate_route_timing</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">current_t</span></em>, <em class="sig-param"><span class="n">vehicle_info</span></em>, <em class="sig-param"><span class="n">road_lengths</span></em><span class="sig-paren">)</span><a class="headerlink" href="#vehicle_agent.VehicleAgent.estimate_route_timing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the current route of the car, estimate at which timestep the car will be at which
+roads. This can be used to publish a route to the central system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>current_t</strong> – current timestep (second) of the simulation</p></li>
+<li><p><strong>vehicle_info</strong> – information about the vehicle at the current timestep</p></li>
+<li><p><strong>road_lengths</strong> – dictionary with lengths of all roads in the map</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dictionary with for every road in the agents’ current route a list of timesteps it
+it expects to be on that road.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="vehicle_agent.VehicleAgent.get_average_speed">
+<code class="sig-name descname">get_average_speed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vehicle_agent.VehicleAgent.get_average_speed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the average travel speed of this vehicle.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="vehicle_agent.VehicleAgent.update_route">
+<code class="sig-name descname">update_route</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">engine</span></em>, <em class="sig-param"><span class="n">current_t</span></em>, <em class="sig-param"><span class="n">vehicle_info</span></em>, <em class="sig-param"><span class="n">dynamic_router</span></em><span class="sig-paren">)</span><a class="headerlink" href="#vehicle_agent.VehicleAgent.update_route" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the route at this timestep for the current agent. Also lets the engine know the
+vehicle route changed (and which new route is taken).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>engine</strong> – the CityFlow engine</p></li>
+<li><p><strong>current_t</strong> – current timestep of the simulation</p></li>
+<li><p><strong>vehicle_info</strong> – information about the vehicle at the current timestep</p></li>
+<li><p><strong>dynamic_router</strong> – DynamicRouter instance</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-dynamic_route_planner"></span><dl class="py class">
+<dt id="dynamic_route_planner.DynamicRoutePlanner">
+<em class="property">class </em><code class="sig-prename descclassname">dynamic_route_planner.</code><code class="sig-name descname">DynamicRoutePlanner</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">central_system</span></em>, <em class="sig-param"><span class="n">config</span></em><span class="sig-paren">)</span><a class="headerlink" href="#dynamic_route_planner.DynamicRoutePlanner" title="Permalink to this definition">¶</a></dt>
+<dd><p>A variant based on Astar which finds the optimal route taking into consideration the
+expected traffic delays.</p>
+<dl class="py method">
+<dt id="dynamic_route_planner.DynamicRoutePlanner.distance_between">
+<code class="sig-name descname">distance_between</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">intersection_id1</span></em>, <em class="sig-param"><span class="n">intersection_id2</span></em><span class="sig-paren">)</span><a class="headerlink" href="#dynamic_route_planner.DynamicRoutePlanner.distance_between" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements the distance between two nodes (intersections). The ‘cost’ of a road is the
+distance combined with the expect traffic density at the time the road will be traversed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>intersection_id1</strong> – id string of the first intersection</p></li>
+<li><p><strong>intersection_id2</strong> – id string of the second intersection</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the distance between the two nodes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="dynamic_route_planner.DynamicRoutePlanner.expected_road_travel_time">
+<code class="sig-name descname">expected_road_travel_time</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">road_id</span></em>, <em class="sig-param"><span class="n">t</span></em><span class="sig-paren">)</span><a class="headerlink" href="#dynamic_route_planner.DynamicRoutePlanner.expected_road_travel_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the expected time it takes currently to traverse the given road.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>road_id</strong> – id of the road</p></li>
+<li><p><strong>t</strong> – current timestep of the simulation</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="dynamic_route_planner.DynamicRoutePlanner.get_density_delay">
+<code class="sig-name descname">get_density_delay</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">density</span></em><span class="sig-paren">)</span><a class="headerlink" href="#dynamic_route_planner.DynamicRoutePlanner.get_density_delay" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the delay in density using the pretrained polynomial regressor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>density</strong> – the expected average density of the road</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the delay in seconds resulting from the given density</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="dynamic_route_planner.DynamicRoutePlanner.get_route_from_solution">
+<code class="sig-name descname">get_route_from_solution</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">intersections</span></em><span class="sig-paren">)</span><a class="headerlink" href="#dynamic_route_planner.DynamicRoutePlanner.get_route_from_solution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list of intersections, of which it is assumed it is the solution/fastest route
+for the vehicle, transforms the list of intersections into a list of road ids to follow
+for the vehicle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>intersections</strong> – list of intersection ids</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of road ids</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="dynamic_route_planner.DynamicRoutePlanner.get_start_end_intersection">
+<code class="sig-name descname">get_start_end_intersection</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">current_road</span></em>, <em class="sig-param"><span class="n">last_road</span></em><span class="sig-paren">)</span><a class="headerlink" href="#dynamic_route_planner.DynamicRoutePlanner.get_start_end_intersection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list with roads, the route, and an index specifying the current road in the list
+being traversed by the agent, returns the start and end intersection to use when running
+the astar routing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>current_road</strong> – road id of the road currently traversed</p></li>
+<li><p><strong>last_road</strong> – last road in the route of the vehicle</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>start and end intersection id to use for astar routing.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="dynamic_route_planner.DynamicRoutePlanner.heuristic_cost_estimate">
+<code class="sig-name descname">heuristic_cost_estimate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">current_intersection_id</span></em>, <em class="sig-param"><span class="n">goal_intersection_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#dynamic_route_planner.DynamicRoutePlanner.heuristic_cost_estimate" title="Permalink to this definition">¶</a></dt>
+<dd><p>The heuristic for the Astar algorithm. The heuristic uses simply the euclidean distance
+between the current intersection and the goal intersection. Converses it to travel time
+by dividing it by the average travel speed of the agents.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>current_intersection_id</strong> – id string of the current intersection</p></li>
+<li><p><strong>goal_intersection_id</strong> – id string of the goal intersection</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>float, heuristic cost estimate between the current and the goal</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="dynamic_route_planner.DynamicRoutePlanner.neighbors">
+<code class="sig-name descname">neighbors</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">intersection_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#dynamic_route_planner.DynamicRoutePlanner.neighbors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all neighbors (intersections) of the current node (intersection).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>intersection</strong> – id string of the intersection</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list with id strings of all neighbors (intersections)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="dynamic_route_planner.DynamicRoutePlanner.prepare_astar">
+<code class="sig-name descname">prepare_astar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">current_t</span></em><span class="sig-paren">)</span><a class="headerlink" href="#dynamic_route_planner.DynamicRoutePlanner.prepare_astar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets attributes for the astar algorithm to work properly. Needs to be called once every
+step of the simulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>current_t</strong> – the time/step of the simulation when doing the astar search</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="dynamic_route_planner.get_new_car_route">
+<code class="sig-prename descclassname">dynamic_route_planner.</code><code class="sig-name descname">get_new_car_route</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle_agent</span></em>, <em class="sig-param"><span class="n">vehicle_info</span></em>, <em class="sig-param"><span class="n">dynamic_router</span></em><span class="sig-paren">)</span><a class="headerlink" href="#dynamic_route_planner.get_new_car_route" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a specific car, updates the route of the car using the DynamicRoutePlanner, which takes
+into account both distance as well as expected traffic delay.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vehicle_agent</strong> – VehicleAgent instance</p></li>
+<li><p><strong>vehicle_info</strong> – dict with information about the car</p></li>
+<li><p><strong>dynamic_router</strong> – initialized instance of DynamicRoutePlanner</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list with road_ids, the updated route for the car</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-utils"></span><dl class="py function">
+<dt id="utils.create_road_length_dict">
+<code class="sig-prename descclassname">utils.</code><code class="sig-name descname">create_road_length_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.create_road_length_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a certain configuration, creates a dictionary with for every road in the
+roadnet the corresponding length in meters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>config</strong> – namespace with configuration for the simulation folder</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dictionary with road_ids as keys and lengths as values</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="utils.create_roadnet_graph">
+<code class="sig-prename descclassname">utils.</code><code class="sig-name descname">create_roadnet_graph</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.create_roadnet_graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a configuration namespace as needed for a simulation, builds the roadnet in graph form,
+considering intersections as nodes and roads as edges. The graph will be represented as a
+dictionary constructed as follows:
+graph = {
+‘intersection_id1’: {
+‘coordinates’: {‘x’: 123, ‘y’: 456},
+‘connected_intersections’: {
+‘connected_intersection_id2’: ‘connecting_road_id1’,
+‘connected_intersection_id3’: ‘connecting_road_id2’,
+….
+}
+}
+‘intersection_id2’: {
+‘coordinates’: {‘x’: 234, ‘y’: 567},
+‘connected_intersections’: {
+‘connected_intersection_id4’: ‘connecting_road_id3’,
+….
+}
+}
+….
+}</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>config</strong> – namespace, consisting of the configuration for the simulation</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>graph representing the roadnet</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="utils.get_intersection_locations">
+<code class="sig-prename descclassname">utils.</code><code class="sig-name descname">get_intersection_locations</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.get_intersection_locations" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>config</strong> – namespace, consisting of the configuration for the simulation</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dict with intersection ids as keys the roadnet</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="utils.get_road_intersections">
+<code class="sig-prename descclassname">utils.</code><code class="sig-name descname">get_road_intersections</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.get_road_intersections" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a configuration, returns a dictionary with for every road id its start and end
+intersection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>config</strong> – namespace, consisting of the configuration for the simulation</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dict with intersection ids as keys the roadnet</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-generate_random_cars_flow_file"></span><dl class="py function">
+<dt id="generate_random_cars_flow_file.generate_random_car_config">
+<code class="sig-prename descclassname">generate_random_cars_flow_file.</code><code class="sig-name descname">generate_random_car_config</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">roadnet_json</span></em>, <em class="sig-param"><span class="n">spawn_time</span></em><span class="sig-paren">)</span><a class="headerlink" href="#generate_random_cars_flow_file.generate_random_car_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a random configuration for spawning a single car.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>roadnet_json</strong> – json file describing the roadnet</p></li>
+<li><p><strong>spawn_time</strong> – step/time at which to spawn the car</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dictionary in json format with car characteristics</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="generate_random_cars_flow_file.generate_random_flow_file">
+<code class="sig-prename descclassname">generate_random_cars_flow_file.</code><code class="sig-name descname">generate_random_flow_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">n_steps</span></em>, <em class="sig-param"><span class="n">seed</span></em>, <em class="sig-param"><span class="n">cars_per_step</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">n_init_cars</span><span class="o">=</span><span class="default_value">100</span></em><span class="sig-paren">)</span><a class="headerlink" href="#generate_random_cars_flow_file.generate_random_flow_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function generates a flow file to be used by CityFlow. It generates a specified
+number of cars every step. Every individual car is considered an Agent, and all agents
+are eventually written to the flow file: {config.dir}.json</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> – namespace with the configuration for the run</p></li>
+<li><p><strong>n_steps</strong> – number of steps in the simulation</p></li>
+<li><p><strong>seed</strong> – the seed to use</p></li>
+<li><p><strong>cars_per_step</strong> – number of cars to spawn every simulation step</p></li>
+<li><p><strong>n_init_cars</strong> – number of initial cars to start with</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-run_dynamic_routing_simulation"></span><dl class="py function">
+<dt id="run_dynamic_routing_simulation.run_dynamic_routing_simulation">
+<code class="sig-prename descclassname">run_dynamic_routing_simulation.</code><code class="sig-name descname">run_dynamic_routing_simulation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">69</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#run_dynamic_routing_simulation.run_dynamic_routing_simulation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs a simulation using dynamic routing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> – namespace with the configuration for the run</p></li>
+<li><p><strong>seed</strong> – seed to use for the random cars</p></li>
+<li><p><strong>verbose</strong> – whether or not to show user output</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-run_experiment"></span><span class="target" id="module-run_static_routing_simulation"></span><dl class="py function">
+<dt id="run_static_routing_simulation.run_static_routing_simulation">
+<code class="sig-prename descclassname">run_static_routing_simulation.</code><code class="sig-name descname">run_static_routing_simulation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span></em>, <em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">69</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#run_static_routing_simulation.run_static_routing_simulation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs a simulation using simple static routing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> – namespace with the configuration for the run</p></li>
+<li><p><strong>seed</strong> – seed to use for the random cars</p></li>
+<li><p><strong>verbose</strong> – whether or not to show user output</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">Multi-Agent Systems</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Adithya Daniel Rik Bram.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

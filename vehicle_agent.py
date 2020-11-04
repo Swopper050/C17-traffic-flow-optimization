@@ -3,7 +3,7 @@ import numpy as np
 from dynamic_route_planner import AV_MPS_SPEED, get_new_car_route
 
 INTERSECTION_CHANGE_TIME_COST = 8
-""" The average time/seconds/simulation steps it costs to traverse an intersection. """
+#The average time/seconds/simulation steps it costs to traverse an intersection.
 
 
 class VehicleAgent:
