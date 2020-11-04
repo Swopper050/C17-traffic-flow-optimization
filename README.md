@@ -66,6 +66,7 @@ cd C17-traffic-flow-optimization
 pip install virtualenv
 python3 -m venv .env
 pip3 install -r requirements.txt
+apt -y install libspatialindex-c4v5 python3-pip
 apt install -y build-essential cmake
 git clone https://github.com/cityflow-project/CityFlow.git 
 cd CityFlow
