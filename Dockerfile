@@ -22,4 +22,5 @@ RUN git clone https://github.com/cityflow-project/CityFlow.git
 RUN cd CityFlow && \
     pip install .
 COPY . /home/C17-traffic-flow-optimization
-RUN cd /home/C17-traffic-flow-optimization && \ pip install -r requirements.txt
+RUN cd /home/C17-traffic-flow-optimization && \
+    pip install -r requirements.txt
