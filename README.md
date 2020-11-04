@@ -134,7 +134,7 @@ Simulation parameters|Travel time         |  Travel Time index | Waiting percent
 1500 steps, 750 cars|![](http://trinetti.co/dmas/boxplot_travel_1500_750.png)|![](http://trinetti.co/dmas/boxplot_tti_1500_750.png) |![](http://trinetti.co/dmas/boxplot_waiting_1500_750.png) 
 1500 steps, 1000 cars|![](http://trinetti.co/dmas/boxplot_waiting_1500_1000.png)|![](http://trinetti.co/dmas/boxplot_tti_1500_1000.png) |![](http://trinetti.co/dmas/boxplot_waiting_1500_1000.png) 
 
-**Differences between static and Dynamic Routing**
+## Differences between static and Dynamic Routing
 ![alt text](http://trinetti.co/dmas/Simulation.PNG)
 <p align="center">
 <img src="https://github.com/Swopper050/C17-traffic-flow-optimization/blob/master/Poly2.png">
