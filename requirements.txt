@@ -1,11 +1,14 @@
-matplotlib==3.3.1
-mesa==0.8.7
-osmnx==0.15.1
-seaborn==0.11.0
 astar==0.92
 folium==0.11.0
 joblib==0.17.0
+matplotlib==3.3.1
+mesa==0.8.7
+osmnx==0.15.1
 scikit-learn==0.23.2
+seaborn==0.11.0
+sphinx==3.3.0
+sphinx-rtd-theme==0.5.0
+
 pytest==6.1.1
 pytest-cov==2.10.1
 

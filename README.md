@@ -39,14 +39,14 @@ CityFlow can support flexible definitions for road network and traffic flow base
 * [Joblib](https://pypi.org/project/joblib/) - Lightweight pipelining
 * [Sklearn](https://scikit-learn.org/stable/index.html) - predictive data analysis
 
+# [Documentation](http://108.61.178.181:6970/document)
 
 # Installation
 We recommend Docker because It works with all operating system Cityflow use C++ dependencies which not worked on Mac. Linux based OS could use both installations. 
 ## 1.  Docker
 
-### Docker Installation
-https://docs.docker.com/engine/install/
-# Docker Build
+### [Docker Installation](https//docs.docker.com/engine/install/)
+### Docker Build
 Clone repository, build Docker: It takes around 10 minutes to build.
 ```
 git clone https://github.com/Swopper050/C17-traffic-flow-optimization.git
@@ -65,14 +65,14 @@ Clone repository. Install virtualenv, make virtual environment and install depen
 ```
 git clone https://github.com/Swopper050/C17-traffic-flow-optimization.git
 cd C17-traffic-flow-optimization
-pip install virtualenv
-python -m venv .env
+pip3 install virtualenv
+python3 -m venv .env
 sudo apt -y install libspatialindex-c4v5 python3-pip
 sudo apt install -y build-essential cmake
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 git clone https://github.com/cityflow-project/CityFlow.git 
 cd CityFlow
-pip install .
+pip3 install .
 cd ..
 ```
 
@@ -92,26 +92,26 @@ cd ..
 ## Static
 Simulation time: ~10 seconds
 ```
-python run_static_routing_simulation.py --dir low_manhattan --max_steps 500 --cars_per_step 1 --init_cars 500
+python3 run_static_routing_simulation.py --dir low_manhattan --max_steps 500 --cars_per_step 1 --init_cars 500
 ```
 ## Dynamic
 Simulation time: ~50 seconds
 ```
-python run_dynamic_routing_simulation.py --dir low_manhattan --max_steps 500 --cars_per_step 1 --init_cars 500
+python3 run_dynamic_routing_simulation.py --dir low_manhattan --max_steps 500 --cars_per_step 1 --init_cars 500
 
 ```
 ### Generated Replay files and plot for visualsation:
 ```
-low_manhattan_sim/replay.txt 
-low_manhattan_sim/replay_roadnet.json 
-low_manhattan_sim/waiting_vehicles.png .
+low_manhattan/replay.txt 
+low_manhattan/replay_roadnet.json 
+low_manhattan/waiting_vehicles.png .
 ```
 **Copy the replay files and plot from the docker :**
 ```
 docker create --name traffic_on traffic_opt
-docker cp traffic_on:/home/C17-traffic-flow-optimization/low_manhattan_sim/replay.txt .
-docker cp traffic_on:/home/C17-traffic-flow-optimization/low_manhattan_sim/replay_roadnet.json .
-docker cp traffic_on:/home/C17-traffic-flow-optimization/low_manhattan_sim/waiting_vehicles.png .
+docker cp traffic_on:/home/C17-traffic-flow-optimization/low_manhattan/replay.txt .
+docker cp traffic_on:/home/C17-traffic-flow-optimization/low_manhattan/replay_roadnet.json .
+docker cp traffic_on:/home/C17-traffic-flow-optimization/low_manhattan/waiting_vehicles.png .
 ```
 
 **Upload replay.txt and replay_roadnet.json here:**
