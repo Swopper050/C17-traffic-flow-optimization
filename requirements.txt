@@ -2,6 +2,8 @@ matplotlib==3.3.1
 mesa==0.8.7
 osmnx==0.15.1
 seaborn==0.11.0
+astar==0.92
+folium==0.11.0
 
 pytest==6.1.1
 pytest-cov==2.10.1
