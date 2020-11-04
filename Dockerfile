@@ -16,11 +16,11 @@ RUN wget -P /tmp/ https://repo.continuum.io/miniconda/Miniconda3-4.5.4-Linux-x86
 
 # install packages
 RUN apt -y install libspatialindex-c4v5 python3-pip
-RUN pip install --upgrade pip
+RUN pip install --upgrade pip==10.0.1
 RUN cd /home/
 RUN git clone https://github.com/cityflow-project/CityFlow.git
 RUN cd CityFlow && \
     pip install .
 COPY . /home/C17-traffic-flow-optimization
 RUN cd /home/C17-traffic-flow-optimization && \
-    pip install -I==9.0.3 -r requirements.txt
+    pip install -r requirements.txt
