@@ -14,22 +14,13 @@ RUN wget -P /tmp/ https://repo.continuum.io/miniconda/Miniconda3-4.5.4-Linux-x86
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc
 
-# install cityflow
+# install packages
 RUN apt -y install libspatialindex-c4v5 python3-pip
-RUN pip install --upgrade pip
-RUN pip install flask
+RUN pip install --upgrade pip==9.0.1
 RUN cd /home/
 RUN git clone https://github.com/cityflow-project/CityFlow.git
 RUN cd CityFlow && \
     pip install .
-RUN pip install -Iv matplotlib==3.3.1
-RUN pip install -Iv mesa==0.8.7
-RUN pip install rtree
-RUN pip install -Iv osmnx==0.15.1
-RUN pip install -Iv seaborn==0.11.0
-RUN pip install -Iv black==20.8b1
-RUN pip install -Iv flake8==3.8.3
-RUN pip install -Iv isort==5.5.0
 COPY . /home/C17-traffic-flow-optimization
-RUN cd /home/C17-traffic-flow-optimization/ && \
-    python3 run_static_routing_simulation.py
+RUN cd /home/C17-traffic-flow-optimization && \
+    pip install -r requirements.txt
