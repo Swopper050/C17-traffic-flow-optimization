@@ -66,10 +66,10 @@ Clone repository. Install virtualenv, make virtual environment and install depen
 git clone https://github.com/Swopper050/C17-traffic-flow-optimization.git
 cd C17-traffic-flow-optimization
 pip install virtualenv
-python3 -m venv .env
-pip3 install -r requirements.txt
-apt -y install libspatialindex-c4v5 python3-pip
-apt install -y build-essential cmake
+python -m venv .env
+pip install -r requirements.txt
+sudo apt -y install libspatialindex-c4v5 python3-pip
+sudo apt install -y build-essential cmake
 git clone https://github.com/cityflow-project/CityFlow.git 
 cd CityFlow
 pip install .
