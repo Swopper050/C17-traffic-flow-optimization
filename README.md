@@ -41,7 +41,7 @@ CityFlow can support flexible definitions for road network and traffic flow base
 
 
 # Installation
-We recommend Docker for macOS because Cityflow use C based environment which is not working on Mac. Linux based OS could use both installations. 
+We recommend Docker because It works with all operating system Cityflow use C++ dependencies which not worked on Mac. Linux based OS could use both installations. 
 ## 1.  Docker
 
 ### Docker Installation
@@ -67,9 +67,9 @@ git clone https://github.com/Swopper050/C17-traffic-flow-optimization.git
 cd C17-traffic-flow-optimization
 pip install virtualenv
 python -m venv .env
-pip install -r requirements.txt
 sudo apt -y install libspatialindex-c4v5 python3-pip
 sudo apt install -y build-essential cmake
+pip install -r requirements.txt
 git clone https://github.com/cityflow-project/CityFlow.git 
 cd CityFlow
 pip install .
