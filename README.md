@@ -45,7 +45,7 @@ We recommend Docker because It works with all operating system Cityflow use C++ 
 ## 1.  Docker
 
 ### [Docker Installation](https//docs.docker.com/engine/install/)
-# Docker Build
+### Docker Build
 Clone repository, build Docker: It takes around 10 minutes to build.
 ```
 git clone https://github.com/Swopper050/C17-traffic-flow-optimization.git
