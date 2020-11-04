@@ -1,7 +1,7 @@
 """
 This file contains the code for performing polynomial and multiple linear regression
 on the density versus timesteps data collected from simulation. The coefficients of
-the final model are extracted and the equation is used to predict time delays. 
+the final model are extracted and the equation is used to predict time delays.
 """
 import pdb
 
@@ -15,7 +15,9 @@ from sklearn.preprocessing import PolynomialFeatures
 
 def perform_poly_regression(config):
     """
-    Performs polynomial regression on Density versus timesteps on road data collect through simulations.
+    Performs polynomial regression on Density versus timesteps on road data collect through
+    simulations.
+
     :param config: namespace with the configuration for the run
     """
     dataset = pd.read_csv(f"{config.dir}/reg_data.csv")
@@ -50,7 +52,9 @@ def perform_poly_regression(config):
 
 def perform_multiple_lin_regression(config):
     """
-    Performs multiple regression on Speed, Road Length, Density versus timesteps on road data collect through simulations.
+    Performs multiple regression on Speed, Road Length, Density versus timesteps on road data
+    collect through simulations.
+
     :param config: namespace with the configuration for the run
     """
     dataset = pd.read_csv(f"{config.dir}/reg_data.csv")
