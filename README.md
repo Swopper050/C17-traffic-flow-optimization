@@ -92,12 +92,12 @@ cd ..
 ## Static
 Simulation time: ~10 seconds
 ```
-python3 run_static_routing_simulation.py --dir low_manhattan --max_steps 500 --cars_per_step 1 --init_cars 500
+python run_static_routing_simulation.py --dir low_manhattan --max_steps 500 --cars_per_step 1 --init_cars 500
 ```
 ## Dynamic
 Simulation time: ~50 seconds
 ```
-python3 run_dynamic_routing_simulation.py --dir low_manhattan --max_steps 500 --cars_per_step 1 --init_cars 500
+python run_dynamic_routing_simulation.py --dir low_manhattan --max_steps 500 --cars_per_step 1 --init_cars 500
 
 ```
 ### Generated Replay files and plot for visualsation:
