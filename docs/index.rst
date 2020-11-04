@@ -24,9 +24,6 @@ Welcome to Multi-Agent Systems's documentation!
 .. automodule:: run_dynamic_routing_simulation
   :members:
 
-.. automodule:: run_experiment
-  :members:
-
 .. automodule:: run_static_routing_simulation
   :members:
 
