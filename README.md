@@ -64,14 +64,14 @@ Clone repository. Install virtualenv, make virtual environment and install depen
 ```
 git clone https://github.com/Swopper050/C17-traffic-flow-optimization.git
 cd C17-traffic-flow-optimization
-pip install virtualenv
-python -m venv .env
+pip3 install virtualenv
+python3 -m venv .env
 sudo apt -y install libspatialindex-c4v5 python3-pip
 sudo apt install -y build-essential cmake
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 git clone https://github.com/cityflow-project/CityFlow.git 
 cd CityFlow
-pip install .
+pip3 install .
 cd ..
 ```
 
@@ -91,12 +91,12 @@ cd ..
 ## Static
 Simulation time: ~10 seconds
 ```
-python run_static_routing_simulation.py --dir low_manhattan --max_steps 500 --cars_per_step 1 --init_cars 500
+python3 run_static_routing_simulation.py --dir low_manhattan --max_steps 500 --cars_per_step 1 --init_cars 500
 ```
 ## Dynamic
 Simulation time: ~50 seconds
 ```
-python run_dynamic_routing_simulation.py --dir low_manhattan --max_steps 500 --cars_per_step 1 --init_cars 500
+python3 run_dynamic_routing_simulation.py --dir low_manhattan --max_steps 500 --cars_per_step 1 --init_cars 500
 
 ```
 ### Generated Replay files and plot for visualsation:
