@@ -96,19 +96,19 @@ class TestDynamicRoutePlanner:
         ]
 
     def test_expected_road_travel_time(self, dynamic_router):
-        dynamic_router.road_lengths = {"road1": 20}
+        dynamic_router.road_lengths = {"road1": 120}
         central_system_mock = Mock()
         central_system_mock.get_density_at_interval.return_value = {
-            2: 5,
-            3: 5,
-            4: 6,
-            5: 6,
-            6: 3,
+            2: 1,
+            3: 2,
+            4: 2,
+            5: 3,
+            6: 4,
         }
         dynamic_router.central_system = central_system_mock
 
         travel_time = dynamic_router.expected_road_travel_time("road1", 2)
-        assert round(travel_time, 3) == 18.696
+        assert round(travel_time, 3) == 75.699
 
     def test_get_start_end_intersection(self, dynamic_router):
         dynamic_router.road_intersections = {
