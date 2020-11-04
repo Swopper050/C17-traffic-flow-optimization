@@ -102,16 +102,16 @@ python run_dynamic_routing_simulation.py --dir low_manhattan --max_steps 500 --c
 ```
 ### Generated Replay files and plot for visualsation:
 ```
-low_manhattan_sim/replay.txt 
-low_manhattan_sim/replay_roadnet.json 
-low_manhattan_sim/waiting_vehicles.png .
+low_manhattan/replay.txt 
+low_manhattan/replay_roadnet.json 
+low_manhattan/waiting_vehicles.png .
 ```
 **Copy the replay files and plot from the docker :**
 ```
 docker create --name traffic_on traffic_opt
-docker cp traffic_on:/home/C17-traffic-flow-optimization/low_manhattan_sim/replay.txt .
-docker cp traffic_on:/home/C17-traffic-flow-optimization/low_manhattan_sim/replay_roadnet.json .
-docker cp traffic_on:/home/C17-traffic-flow-optimization/low_manhattan_sim/waiting_vehicles.png .
+docker cp traffic_on:/home/C17-traffic-flow-optimization/low_manhattan/replay.txt .
+docker cp traffic_on:/home/C17-traffic-flow-optimization/low_manhattan/replay_roadnet.json .
+docker cp traffic_on:/home/C17-traffic-flow-optimization/low_manhattan/waiting_vehicles.png .
 ```
 
 **Upload replay.txt and replay_roadnet.json here:**
