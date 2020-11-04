@@ -65,6 +65,12 @@ Simply run `make` to see what options there are.
 
 # Running the simulation
 
+Running the simulation can be done by following the following steps. Note that the simulation generates warnings such as:
+`
+[warning] Invalid route 'flow_355'. Omitted by default.
+`
+But those can be safely ignored!
+
 ### Default parameters:  
 * map: low_monhattan  (Map Directory)
 * Max Steps : 500 (Integer)
@@ -88,7 +94,7 @@ Simulation time: ~50 seconds
 python3 run_dynamic_routing_simulation.py --dir low_manhattan --max_steps 500 --cars_per_step 1 --init_cars 500
 
 ```
-### Generated Replay files and plot for visualsation:
+### Generated Replay files and plot for visualisation:
 ```
 low_manhattan/replay.txt
 low_manhattan/replay_roadnet.json
