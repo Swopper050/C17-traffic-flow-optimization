@@ -19,7 +19,7 @@ There are two ways of running the simulation on your machine. One approach uses 
 We recommend Docker because it works on all operating systems. CityFlow uses C++ dependencies which is difficult to get working on Mac. If your operating system is Linux based it is possible to install all dependencies and run the simulation locally. If you want to run the simulation on a Mac you are required to install cmake on your machine first.
 
 ## 1.  Docker
-First install docker, [Docker Installation](https//docs.docker.com/engine/install/).
+First install docker, [Docker Installation](https://docs.docker.com/engine/install/).
 
 ### Docker Build
 Clone repository and build Docker: It takes around 10 minutes to build (the first time it may take longer as it needs to download some files).
