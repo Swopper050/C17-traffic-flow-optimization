@@ -12,7 +12,7 @@
 In this study, an approach using Multi-Agent Systems was used in order to optimize traffic flow and travel time. A new perspective is used in which agents implicitly communicate with each other by publishing their planned routes to a central agent. Agents can communicate with this central agent to foresee traffic jams and hence they will dynamically plan their route in order to minimize their own travel time. It is expected that this will also have a positive impact on the travel time, waiting time and the traffic congestion of all systems. OSMnx was used to simulate a part of the map of Manhattan, to make the simulation as realistic as possible. The results were compared to a baseline where all route planning was static.
 
 # Documentation
-The documentation is build using sphinx and can be found [here](http://108.61.178.181:6970/document).
+The documentation is build using sphinx and can be found [here](http://trinetti.co/docs/_build/html/).
 
 # Installation
 There are two ways of running the simulation on your machine. One approach uses docker and one approach requires you to install the project locally.
